@@ -26,10 +26,10 @@ public class GameScreen implements Screen {
   private InfoBar infoBar;
   private BuildingMenu buildingMenu;
   private Timer timer;
-  private Bank bank;
-  private MessageHandler messageHandler;
-  private EventsHandler eventsHandler;
-  private AchievementsHandler achievementsHandler;
+  private final Bank bank;
+  private final MessageHandler messageHandler;
+  private final EventsHandler eventsHandler;
+  private final AchievementsHandler achievementsHandler;
   private InputProcessor uiInputProcessor = new UiInputProcessor(stage);
   private InputProcessor worldInputProcessor = new WorldInputProcessor(world);
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
