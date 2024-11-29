@@ -6,8 +6,12 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.github.unisim.Bank;
 import io.github.unisim.GameState;
 import io.github.unisim.Timer;
+import io.github.unisim.achievements.AchievementsHandler;
+import io.github.unisim.events.EventsHandler;
+import io.github.unisim.messages.MessageHandler;
 import io.github.unisim.world.UiInputProcessor;
 import io.github.unisim.world.World;
 import io.github.unisim.world.WorldInputProcessor;
@@ -22,6 +26,10 @@ public class GameScreen implements Screen {
   private InfoBar infoBar;
   private BuildingMenu buildingMenu;
   private Timer timer;
+  private Bank bank;
+  private MessageHandler messageHandler;
+  private EventsHandler eventsHandler;
+  private AchievementsHandler achievementsHandler;
   private InputProcessor uiInputProcessor = new UiInputProcessor(stage);
   private InputProcessor worldInputProcessor = new WorldInputProcessor(world);
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
@@ -34,6 +42,10 @@ public class GameScreen implements Screen {
     timer = new Timer(300_000);
     infoBar = new InfoBar(stage, timer, world);
     buildingMenu = new BuildingMenu(stage, world);
+    bank = new Bank();
+    messageHandler = new MessageHandler();
+    eventsHandler = new EventsHandler(messageHandler);
+    achievementsHandler = new AchievementsHandler(messageHandler);
 
     inputMultiplexer.addProcessor(GameState.fullscreenInputProcessor);
     inputMultiplexer.addProcessor(stage);
@@ -64,6 +76,8 @@ public class GameScreen implements Screen {
       world.pan((150 - world.getCameraPos().x) / 10, -world.getCameraPos().y / 10);
       gameOverMenu.render(delta);
     }
+
+    messageHandler.showMessage("Howdy", "hoop a loop");
   }
 
   @Override
