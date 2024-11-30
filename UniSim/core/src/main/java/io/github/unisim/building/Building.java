@@ -17,8 +17,8 @@ public class Building {
   public float textureScale;
   public Vector2 textureOffset;
   public boolean flipped;
-  public BuildingType type;
   public String name;
+  public BuildingType type;
 
   /**
    * Create a new building to display in the building menu and place in the world.
@@ -29,18 +29,16 @@ public class Building {
    * @param location - The (x, y) co-ordinates of the building on the map
    * @param size - The size (width, height) of the building in map tiles
    * @param flipped - Whether to render a flipped variant of the building
-   * @param type - The category of building, must be a BuildingType
    * @param name - The name of the building to display when selected
    */
   public Building(Texture texture, float textureScale, Vector2 textureOffset, Point location,
-      Point size, Boolean flipped, BuildingType type, String name) {
+      Point size, Boolean flipped, String name) {
     this.texture = texture;
     this.location = location;
     this.size = size;
     this.textureScale = textureScale;
     this.textureOffset = textureOffset;
     this.flipped = flipped;
-    this.type = type;
     this.name = name;
   }
 }
