@@ -35,8 +35,12 @@ public class Timer {
     }
   }
 
+  public float getRemainingTime(){
+    return remainingTime;
+  }
+
   /**
-   * Reset the timer to its' initial time value. 
+   * Reset the timer to its' initial time value.
    */
   public void reset() {
     remainingTime = initialTime;
@@ -48,7 +52,7 @@ public class Timer {
 
    * @return - remaining time in the form MM:SS
    */
-  public String getRemainingTime() {
+  public String displayRemainingTime() {
     // get the number of minutes and seconds from the remaining time in milliseconds.
     int remainingMinutes = (int) ((remainingTime + 1000) / 60_000);
     int remainingSeconds = (int) Math.ceil(remainingTime / 1000 - 60 * remainingMinutes);
