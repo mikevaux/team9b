@@ -15,8 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import io.github.unisim.GameState;
 import io.github.unisim.Point;
-import io.github.unisim.building.Building;
-import io.github.unisim.building.BuildingType;
+import io.github.unisim.building.*;
 import io.github.unisim.world.World;
 
 import java.util.ArrayList;
@@ -46,55 +45,50 @@ public class BuildingMenu {
   public BuildingMenu(Stage stage, World world) {
     this.world = world;
     // Set building images and sizes
-    buildings.add(new Building(
+    buildings.add(new EatingBuilding(
       new Texture(Gdx.files.internal("buildings/restaurant.png")),
       0.01f,
       new Vector2(0.35f, -0.9f),
       new Point(),
       new Point(3, 3),
       false,
-      BuildingType.EATING,
       "Canteen"
     ));
-    buildings.add(new Building(
+    buildings.add(new LearningBuilding(
       new Texture(Gdx.files.internal("buildings/library.png")),
       0.0075f,
       new Vector2(1.8f, -4.6f),
       new Point(),
       new Point(20, 12),
       false,
-      BuildingType.LEARNING,
       "Library"
     ));
-    buildings.add(new Building(
+    buildings.add(new RecreationBuilding(
       new Texture(Gdx.files.internal("buildings/basketballCourt.png")),
       0.0025f,
       new Vector2(1f, -2.4f),
       new Point(),
       new Point(6, 9),
       false,
-      BuildingType.RECREATION,
       "Basketball Court"
     ));
-    buildings.add(new Building(
+    buildings.add(new RecreationBuilding(
       new Texture(Gdx.files.internal("buildings/stadium.png")),
       0.0025f,
       new Vector2(1f, 1f),
       new Point(),
       new Point(12, 16),
       false,
-      BuildingType.RECREATION,
       "Stadium"
     ));
-    buildings.add(new Building(
+    buildings.add(new SleepingBuilding(
       new Texture(Gdx.files.internal("buildings/studentHousing.png")),
       0.108f,
       new Vector2(1.4f, -2.8f),
       new Point(),
       new Point(11, 11),
       false,
-      BuildingType.SLEEPING,
-      "Student Accomodation"
+      "Student Accommodation"
     ));
 
     table = new Table();

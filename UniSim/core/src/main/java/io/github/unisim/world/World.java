@@ -329,13 +329,7 @@ public class World {
     if (!canBuild) {
       return false;
     }
-    buildingManager.placeBuilding(
-      new Building(
-        selectedBuilding.texture, selectedBuilding.textureScale, selectedBuilding.textureOffset,
-        selectedBuilding.location.getNewPoint(), selectedBuilding.size.getNewPoint(),
-        selectedBuilding.flipped, selectedBuilding.type, selectedBuilding.name
-      )
-    );
+    buildingManager.placeBuilding(selectedBuilding);
     selectedBuilding = null;
     return true;
   }

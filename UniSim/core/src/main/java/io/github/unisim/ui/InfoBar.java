@@ -60,7 +60,7 @@ public class InfoBar {
     buildingCounterCells[3] = buildingCountersTable.add(buildingCounterLabels[3]);
 
     // Info Table
-    timerLabel = new Label(timer.getRemainingTime(), skin);
+    timerLabel = new Label(timer.displayRemainingTime(), skin);
     infoTable.center().center();
     pauseButtonCell = infoTable.add(playImage).align(Align.center);
     timerLabelCell = infoTable.add(timerLabel).align(Align.center);
@@ -97,7 +97,7 @@ public class InfoBar {
    * Called when the UI needs to be updated, usually on every frame.
    */
   public void update() {
-    timerLabel.setText(timer.getRemainingTime());
+    timerLabel.setText(timer.displayRemainingTime());
     buildingCounterLabels[0].setText("Recreation: "
         + Integer.toString(world.getBuildingCount(BuildingType.RECREATION)));
     buildingCounterLabels[1].setText("Learning: "
