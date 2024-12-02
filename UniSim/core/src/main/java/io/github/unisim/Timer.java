@@ -10,7 +10,7 @@ public class Timer {
 
   public static float MIN_TIME = 0f;
 
-  public float getTime(){
+  public float getRemainingTime(){
     return this.remainingTime;
   }
 
@@ -58,7 +58,7 @@ public class Timer {
 
    * @return - remaining time in the form MM:SS
    */
-  public String getRemainingTime() {
+  public String displayRemainingTime() {
     // get the number of minutes and seconds from the remaining time in milliseconds.
     int remainingMinutes = (int) ((remainingTime + 1000) / 60_000);
     int remainingSeconds = (int) Math.ceil(remainingTime / 1000 - 60 * remainingMinutes);

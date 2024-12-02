@@ -11,7 +11,7 @@ public abstract class AbstractHeadlessGdxTest {
 
     @BeforeEach
     public void setup() {
-        Gdx.gl = Gdx.gl20 = mock(GL20.class);
-        HeadlessLauncher.main(new String[0]);
+      Gdx.gl = Gdx.gl20 = mock(GL20.class);
+      HeadlessLauncher.main(new String[0]);
     }
 }

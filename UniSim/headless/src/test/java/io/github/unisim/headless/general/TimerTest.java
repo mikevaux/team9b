@@ -18,7 +18,7 @@ public class TimerTest extends GeneralTest{
 
   @Test
   public void testInitialTime(){
-    assertEquals(initialTime, timer.getTime(), STANDARD_DELTA, "time is not set as expected");
+    assertEquals(initialTime, timer.getRemainingTime(), STANDARD_DELTA, "time is not set as expected");
   }
 
 
@@ -28,7 +28,7 @@ public class TimerTest extends GeneralTest{
     float tickSize2 = 10_000;
     float newTime1 = initialTime - tickSize1;
     timer.tick(tickSize1);
-    assertEquals(newTime1, timer.getTime(), STANDARD_DELTA, "timer does not decrement as expected");
+    assertEquals(newTime1, timer.getRemainingTime(), STANDARD_DELTA, "timer does not decrement as expected");
     assertFalse(timer.tick(tickSize2), "timer does not return false when below zero");
   }
 
@@ -38,18 +38,18 @@ public class TimerTest extends GeneralTest{
     float tickSize = 1_000;
     timer.tick(tickSize);
     timer.reset();
-    assertEquals(initialTime, timer.getTime(), STANDARD_DELTA, "timer does not reset correctly");
+    assertEquals(initialTime, timer.getRemainingTime(), STANDARD_DELTA, "timer does not reset correctly");
   }
 
 
   @Test
-  public void testGetRemainingTime(){
+  public void testDisplayRemainingTime(){
     float tick1 = 4000;
     float tick2 = 10_000;
     timer.tick(tick1);
-    assertEquals("00:06", timer.getRemainingTime(), "remaining time is not properly output");
+    assertEquals("00:06", timer.displayRemainingTime(), "remaining time is not properly output");
     timer.tick(tick2);
-    assertEquals("00:00", timer.getRemainingTime(), "remaining time is not output properly when time = 0");
+    assertEquals("00:00", timer.displayRemainingTime(), "remaining time is not output properly when time = 0");
   }
 
 

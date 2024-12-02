@@ -15,5 +15,5 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class BuildingTest extends GeneralTest{
 
 
-  @BeforeEach
+
 }
