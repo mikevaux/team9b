@@ -43,7 +43,7 @@ public class GameScreen implements Screen {
     infoBar = new InfoBar(stage, timer, world);
     buildingMenu = new BuildingMenu(stage, world);
     bank = new Bank();
-    messageHandler = new MessageHandler();
+    messageHandler = new MessageHandler(stage);
     eventsHandler = new EventsHandler(messageHandler);
     achievementsHandler = new AchievementsHandler(messageHandler);
 
@@ -70,14 +70,13 @@ public class GameScreen implements Screen {
     stage.act(dt);
     infoBar.update();
     buildingMenu.update();
+    messageHandler.render(delta);
     stage.draw();
     if (GameState.gameOver) {
       world.zoom((world.getMaxZoom() - world.getZoom()) * 2f);
       world.pan((150 - world.getCameraPos().x) / 10, -world.getCameraPos().y / 10);
       gameOverMenu.render(delta);
     }
-
-    messageHandler.showMessage("Howdy", "hoop a loop");
   }
 
   @Override
@@ -87,6 +86,7 @@ public class GameScreen implements Screen {
     infoBar.resize(width, height);
     buildingMenu.resize(width, height);
     gameOverMenu.resize(width, height);
+    messageHandler.resize();
   }
 
   @Override
