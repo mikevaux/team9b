@@ -43,4 +43,12 @@ public class Building {
     this.type = type;
     this.name = name;
   }
+
+  public void setTexture(Texture texture) {
+    this.texture = texture;
+  }
+
+  public String getName() {
+    return name;
+  }
 }

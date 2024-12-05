@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import io.github.unisim.GameState;
 import io.github.unisim.Point;
+import io.github.unisim.events.LongboiDay;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +20,8 @@ import java.util.Map;
 public class BuildingManager {
   // create a list of buildings which will be sorted by a height metric derived from
   // the locations of the corners of the buildings.
-  private ArrayList<Building> buildings = new ArrayList<>();
-  private Map<BuildingType, Integer> buildingCounts = new HashMap<>();
+  private static ArrayList<Building> buildings = new ArrayList<>();
+  private static Map<BuildingType, Integer> buildingCounts = new HashMap<>();
   private Matrix4 isoTransform;
   private Building previewBuilding;
 
@@ -29,7 +31,7 @@ public class BuildingManager {
 
   /**
    * Determines if a region on the map is composed solely of buildable tiles.
-
+   *
    * @param btmLeft - The co-ordinates of the bottom left corner of the search region
    * @param topRight - The co-ordinates of the top right corner of the search region
    * @param tileLayer - A reference to the map layer containing all terrain tiles
@@ -77,8 +79,22 @@ public class BuildingManager {
   }
 
   /**
-   * Helper method that determines if the provided tile may be built on.
+   * getter that picks a random building from the list of buildings.
+   *
+   * @return - random Building from buildings, null if empty
+   */
+  public static Building getRandomBuilding(){
+    int len = buildings.size();
+    if (len != 0){
+      int randomPosition = (int)(Math.random() * len);
+      return buildings.get(randomPosition);
+    }
+    return null;
+  }
 
+  /**
+   * Helper method that determines if the provided tile may be built on.
+   *
    * @param tile - A reference to a tile on the terrain layer of the map.
    * @return - true if the tile is buildable, false otherwise
    */
@@ -88,7 +104,7 @@ public class BuildingManager {
 
   /**
    * Draws each building from the building list onto the map.
-
+   *
    * @param batch - the SpriteBatch in which to draw
    */
   public void render(SpriteBatch batch) {
@@ -100,7 +116,7 @@ public class BuildingManager {
   /**
    * Handle placement of a building into the world by determining
    * the correct draw order and updating the building counters.
-
+   *
    * @param building - A reference to a building object to be placed
    * @return - The location in the buildings array that the building was placed at
    */
@@ -144,13 +160,17 @@ public class BuildingManager {
     }
     buildings.add(i, building);
     updateCounters(building);
+    // remove the statue from the building menu once placed
+    if (building.type == BuildingType.EVENT && !(building == previewBuilding)){
+      LongboiDay.setInvisible();
+    }
     return i;
   }
 
   /**
    * Creates a counter for the building's type if it is the first to be placed,
    * otherwise increments the counter for that type by one.
-
+   *
    * @param building - A reference to the building object that was placed
    */
   private void updateCounters(Building building) {
@@ -162,6 +182,15 @@ public class BuildingManager {
       return;
     }
     buildingCounts.put(building.type, buildingCounts.get(building.type) + 1);
+  }
+
+  /**
+   * decrements the counter of the buildings type by one.
+   *
+   * @param building - A reference to the building object that was placed
+   */
+  public static void decrementCounter(Building building){
+    buildingCounts.put(building.type, buildingCounts.get(building.type) - 1);
   }
 
   /**
