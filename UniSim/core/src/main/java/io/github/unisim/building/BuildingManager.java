@@ -118,9 +118,10 @@ public class BuildingManager {
    * the correct draw order and updating the building counters.
    *
    * @param building - A reference to a building object to be placed
+   * @param previewing - Whether this building is being previewed only
    * @return - The location in the buildings array that the building was placed at
    */
-  public int placeBuilding(Building building) {
+  public int placeBuilding(Building building, boolean previewing) {
     // Insert the building into the correct place in the arrayList to ensure it
     // gets rendered in top-down order
     // Start by calculating the 'height' values for the left and right corners of the new building
@@ -159,10 +160,13 @@ public class BuildingManager {
       }
     }
     buildings.add(i, building);
-    updateCounters(building);
-    // remove the statue from the building menu once placed
-    if (building.type == BuildingType.EVENT && !(building == previewBuilding)){
-      LongboiDay.setInvisible();
+    if (!previewing) {
+      updateCounters(building);
+
+      // remove the statue from the building menu once placed
+      if (building instanceof LongBoiStatue) {
+        LongboiDay.setInvisible();
+      }
     }
     return i;
   }
@@ -174,9 +178,6 @@ public class BuildingManager {
    * @param building - A reference to the building object that was placed
    */
   private void updateCounters(Building building) {
-    if (building == previewBuilding) {
-      return;
-    }
     if (!buildingCounts.containsKey(building.type)) {
       buildingCounts.put(building.type, 1);
       return;
@@ -218,7 +219,7 @@ public class BuildingManager {
     }
     this.previewBuilding = previewBuilding;
     if (previewBuilding != null) {
-      placeBuilding(previewBuilding);
+      placeBuilding(previewBuilding, true);
     }
   }
 

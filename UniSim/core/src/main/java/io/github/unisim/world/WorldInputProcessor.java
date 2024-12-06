@@ -22,21 +22,25 @@ public class WorldInputProcessor implements InputProcessor {
   @Override
   public boolean keyDown(int keycode) {
     switch (keycode) {
+      // Handle Pausing
       case Keys.SPACE:
         GameState.paused = !GameState.paused;
         break;
+
+      // Handle Flipping
       case Keys.R:
-        // Flip the selected building
-        if (world.selectedBuilding != null) {
-          world.selectedBuilding.flipped = !world.selectedBuilding.flipped;
-          int temp = world.selectedBuilding.size.x;
-          world.selectedBuilding.size.x = world.selectedBuilding.size.y;
-          world.selectedBuilding.size.y = temp;
-          world.selectedBuildingUpdated = true;
+        // Bail if no selected building
+        if (world.selectedBuilding == null) {
+          break;
         }
+
+        world.selectedBuilding.flip();
+        world.selectedBuildingUpdated = true;
         break;
-      default:
-        break;
+
+      // Handle cancelling
+      case Keys.ESCAPE:
+        world.selectedBuilding = null;
     }
     return false;
   }

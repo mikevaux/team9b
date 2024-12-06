@@ -8,45 +8,86 @@ import io.github.unisim.Point;
 /**
  * Represents a building that can be placed on the map.
  */
-public class Building {
-  public Texture texture;
-  // we can save memory by storing only the top-left corner and the size of the building.
-  // This works as all buildings are rectangular.
-  public Point location;
-  public Point size;
-  public float textureScale;
-  public Vector2 textureOffset;
-  public boolean flipped;
-  public String name;
-  public BuildingType type;
+public abstract class Building {
+  /**
+   * The type of this building.
+   */
+  BuildingType type;
+  /**
+   * The name of the building to display when selected.
+   */
+  String name;
+  /**
+   * The image to draw over the space the building occupies
+   */
+  Texture texture;
+  /**
+   * The (x, y) co-ordinates of the building on the map.
+   * Note: We can save memory by storing only the top-left corner and the size of the building. This works as all
+   * buildings are rectangular.
+   */
+  Point location;
+  /**
+   * The size (width, height) of the building in map tiles.
+   * Note: {@link Point} has been used here, but ideally this would be a separate class for clarity.
+   */
+  Point size;
+  /**
+   * The scale of the image compared to the source file.
+   */
+  float textureScale;
+  /**
+   * The offset of the texture in grid tiles.
+   */
+  Vector2 textureOffset;
+  /**
+   * Whether to render a flipped variant of the building.
+   */
+  boolean flipped;
 
   /**
-   * Create a new building to display in the building menu and place in the world.
-
-   * @param texture - The image to draw over the space the building occupies
-   * @param textureScale - The scale of the image compared to the source file
-   * @param textureOffset - The offset of the texture in grid tiles
-   * @param location - The (x, y) co-ordinates of the building on the map
-   * @param size - The size (width, height) of the building in map tiles
-   * @param flipped - Whether to render a flipped variant of the building
-   * @param name - The name of the building to display when selected
+   * Sets attribute values common to all buildings when initialised.
    */
-  public Building(Texture texture, float textureScale, Vector2 textureOffset, Point location,
-      Point size, Boolean flipped, String name) {
-    this.texture = texture;
-    this.location = location;
-    this.size = size;
-    this.textureScale = textureScale;
-    this.textureOffset = textureOffset;
-    this.flipped = flipped;
-    this.name = name;
+  public Building() {
+    location = new Point();
+    flipped = false;
+  }
+
+  /**
+   * Abstracted mechanism of flipping a building. Flips and updates the size metrics accordingly.
+   */
+  public void flip() {
+    this.setFlipped(!flipped);
+    // Set x := y and y:= x here to invert
+    this.setSize(size.y, size.x);
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public Texture getTexture() {
+    return texture;
+  }
+
+  public Point getSize() {
+    return size;
   }
 
   public void setTexture(Texture texture) {
     this.texture = texture;
   }
 
-  public String getName() {
-    return name;
+  public void setLocation(Point location) {
+    this.location = location;
+  }
+
+  public void setSize(int x, int y) {
+    this.size.x = x;
+    this.size.y = y;
+  }
+
+  public void setFlipped(boolean flipped) {
+    this.flipped = flipped;
   }
 }
