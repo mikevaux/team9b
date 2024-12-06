@@ -1,24 +1,23 @@
 package io.github.unisim.building;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import io.github.unisim.Point;
 
-public class EatingBuilding extends Building{
+public class EatingBuilding extends Building {
+  public EatingBuilding() {
+    super();
+    type = BuildingType.EATING;
+    name = "Canteen";
+    texture = new Texture(Gdx.files.internal("buildings/restaurant.png"));
+    textureScale = 0.01f;
+    textureOffset = new Vector2(0.35f, -0.9f);
+    size = new Point(3, 3);
+  }
 
-  /**
-   * Create a new building to display in the building menu and place in the world.
-   *
-   * @param texture       - The image to draw over the space the building occupies
-   * @param textureScale  - The scale of the image compared to the source file
-   * @param textureOffset - The offset of the texture in grid tiles
-   * @param location      - The (x, y) co-ordinates of the building on the map
-   * @param size          - The size (width, height) of the building in map tiles
-   * @param flipped       - Whether to render a flipped variant of the building
-   * @param name          - The name of the building to display when selected
-   */
-  public EatingBuilding(Texture texture, float textureScale, Vector2 textureOffset, Point location, Point size, Boolean flipped, String name) {
-    super(texture, textureScale, textureOffset, location, size, flipped, name);
-    this.type = BuildingType.EATING;
+  public EatingBuilding(String s) {
+    this();
+    s = "123";
   }
 }
