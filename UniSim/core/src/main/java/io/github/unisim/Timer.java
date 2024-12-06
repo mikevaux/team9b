@@ -45,6 +45,10 @@ public class Timer {
     }
   }
 
+  public float getRemainingTime(){
+    return remainingTime;
+  }
+
   /**
    * Reset the timer to its' initial time value.
    */

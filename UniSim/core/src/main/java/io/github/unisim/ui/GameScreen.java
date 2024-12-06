@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.unisim.Bank;
 import io.github.unisim.GameState;
@@ -15,6 +16,7 @@ import io.github.unisim.messages.MessageHandler;
 import io.github.unisim.world.UiInputProcessor;
 import io.github.unisim.world.World;
 import io.github.unisim.world.WorldInputProcessor;
+
 
 /**
  * Game screen where the main game is rendered and controlled.
@@ -34,6 +36,8 @@ public class GameScreen implements Screen {
   private InputProcessor worldInputProcessor = new WorldInputProcessor(world);
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
   private GameOverMenu gameOverMenu = new GameOverMenu();
+  private static FitViewport viewport;
+  private static boolean updateMenu = false;
 
   /**
    * Constructor for the GameScreen.
@@ -44,18 +48,20 @@ public class GameScreen implements Screen {
     buildingMenu = new BuildingMenu(stage, world);
     bank = new Bank();
     messageHandler = new MessageHandler(stage);
-    eventsHandler = new EventsHandler(messageHandler);
+    eventsHandler = new EventsHandler(messageHandler, buildingMenu);
     achievementsHandler = new AchievementsHandler(messageHandler);
 
     inputMultiplexer.addProcessor(GameState.fullscreenInputProcessor);
     inputMultiplexer.addProcessor(stage);
     inputMultiplexer.addProcessor(uiInputProcessor);
     inputMultiplexer.addProcessor(worldInputProcessor);
+    viewport = new FitViewport(8, 5);
   }
 
   @Override
   public void show() {
   }
+
 
   @Override
   public void render(float delta) {
@@ -77,6 +83,10 @@ public class GameScreen implements Screen {
       world.pan((150 - world.getCameraPos().x) / 10, -world.getCameraPos().y / 10);
       gameOverMenu.render(delta);
     }
+
+    eventsHandler.checkEvents(delta, timer);
+    eventsHandler.runCurrentEvent(delta);
+    check();
   }
 
   @Override
@@ -86,11 +96,18 @@ public class GameScreen implements Screen {
     infoBar.resize(width, height);
     buildingMenu.resize(width, height);
     gameOverMenu.resize(width, height);
+    viewport.update(width, height, true);
     messageHandler.resize();
   }
 
   @Override
   public void pause() {
+  }
+
+  /**
+   * contains event related checks to be made during render.
+   */
+  private void check(){
   }
 
   @Override
@@ -105,6 +122,10 @@ public class GameScreen implements Screen {
       infoBar.reset();
       buildingMenu.reset();
     }
+  }
+
+  public static FitViewport getViewport(){
+    return viewport;
   }
 
   @Override

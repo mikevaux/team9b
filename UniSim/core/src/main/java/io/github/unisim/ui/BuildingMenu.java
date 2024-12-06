@@ -16,9 +16,11 @@ import com.badlogic.gdx.utils.Align;
 import io.github.unisim.GameState;
 import io.github.unisim.Point;
 import io.github.unisim.building.*;
+import io.github.unisim.events.LongboiDay;
 import io.github.unisim.world.World;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Menu used to place buildings in the world by clicking and dragging them
@@ -30,11 +32,12 @@ public class BuildingMenu {
   private ShapeActor bar = new ShapeActor(GameState.UISecondaryColour);
   private Table table;
   private ArrayList<Building> buildings = new ArrayList<>();
-  private ArrayList<Image> buildingImages = new ArrayList<>();
+  private static ArrayList<Image> buildingImages = new ArrayList<>();
   private Label buildingInfoLabel = new Label(
     "", new Skin(Gdx.files.internal("ui/uiskin.json"))
   );
   private Table buildingInfoTable = new Table();
+  private Image longboiImage;
 
   /**
    * Create a Building Menu and attach its actors and components to the provided stage.
@@ -90,11 +93,25 @@ public class BuildingMenu {
       false,
       "Student Accommodation"
     ));
-
+    buildings.add(new Building(
+      new Texture(Gdx.files.internal("events/longboi.png")),
+      0.005f,
+      new Vector2(0.5f, 0.15f),
+      new Point(),
+      new Point(2, 2),
+      false,
+      "Longboi Statue"
+    ));
     table = new Table();
     // Add buldings to the table
     for (int i = 0; i < buildings.size(); i++) {
-      buildingImages.add(new Image(buildings.get(i).texture));
+      if (!Objects.equals(buildings.get(i).name, "Longboi Statue")){
+        buildingImages.add(new Image(buildings.get(i).texture));
+      }else{
+        longboiImage = new Image(buildings.get(i).texture);
+        buildingImages.add(longboiImage);
+        longboiImage.setVisible(false);
+      }
       final int buildingIndex = i;
       buildingImages.get(i).addListener(new ClickListener() {
         @Override
@@ -160,6 +177,14 @@ public class BuildingMenu {
     } else if (world.selectedBuilding == null) {
       buildingInfoLabel.setText("");
     }
+  }
+
+  public static ArrayList<Image> getBuildingImages() {
+    return buildingImages;
+  }
+
+  public Image getLongboiImage(){
+    return longboiImage;
   }
 
   public void reset() {

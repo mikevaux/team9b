@@ -41,4 +41,12 @@ public class Building {
     this.flipped = flipped;
     this.name = name;
   }
+
+  public void setTexture(Texture texture) {
+    this.texture = texture;
+  }
+
+  public String getName() {
+    return name;
+  }
 }
