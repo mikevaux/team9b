@@ -47,7 +47,7 @@ public class GameScreen implements Screen {
     buildingMenu = new BuildingMenu(stage, world);
     bank = new Bank();
     messageHandler = new MessageHandler(stage);
-    eventsHandler = new EventsHandler(messageHandler, buildingMenu);
+    eventsHandler = new EventsHandler(messageHandler, world.getBuildingManager(), buildingMenu);
     achievementsHandler = new AchievementsHandler(messageHandler);
 
     inputMultiplexer.addProcessor(GameState.fullscreenInputProcessor);

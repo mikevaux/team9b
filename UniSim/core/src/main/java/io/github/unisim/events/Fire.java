@@ -9,16 +9,18 @@ import io.github.unisim.building.BuildingManager;
  * Negative event that removes all bonuses of the 'on fire' building.
  */
 public class Fire extends Event {
+  private final BuildingManager buildingManager;
   private Texture fireTexture;
 
-  public Fire() {
+  public Fire(BuildingManager buildingManager) {
     super("Event: Fire", "Oh no! a building caught fire! replace it to save satisfaction", "events/eventWarning.png");
+    this.buildingManager = buildingManager;
     this.fireTexture = null;
   }
 
   @Override
   public void doBefore(){
-    Building fireBuilding = BuildingManager.getRandomBuilding(); //gets a random building
+    Building fireBuilding = buildingManager.getRandomBuilding(); //gets a random building
     //runs only if a building has been placed (and therefore got)
     if (fireBuilding != null){
       String type = fireBuilding.getName();
@@ -46,7 +48,7 @@ public class Fire extends Event {
           break;
       }
       fireBuilding.setTexture(fireTexture);
-      BuildingManager.decrementCounter(fireBuilding); //decrease the counter of the building type by one
+      buildingManager.decrementCounter(fireBuilding); //decrease the counter of the building type by one
     }
   }
 

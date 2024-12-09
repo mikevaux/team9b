@@ -9,7 +9,7 @@ public class Overachiever extends Achievement {
    * Creates an instance of Overachiever, which requires you to complete all other achievements.
    */
   public Overachiever() {
-    super("Overachiever!", "Complete all other achievements", "achievements/overachiever");
+    super("Overachiever!", "Complete all other achievements", "achievements/overachiever.png");
   }
 
   public static boolean isDisplay() {

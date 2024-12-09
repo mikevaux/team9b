@@ -21,8 +21,8 @@ import java.util.Map;
 public class BuildingManager {
   // create a list of buildings which will be sorted by a height metric derived from
   // the locations of the corners of the buildings.
-  private static ArrayList<Building> buildings = new ArrayList<>();
-  private static Map<BuildingType, Integer> buildingCounts = new HashMap<>();
+  private ArrayList<Building> buildings = new ArrayList<>();
+  private Map<BuildingType, Integer> buildingCounts = new HashMap<>();
   private Matrix4 isoTransform;
   private Building previewBuilding;
 
@@ -80,15 +80,23 @@ public class BuildingManager {
   }
 
   /**
-   * getter that picks a random building from the list of buildings.
+   * Getter that picks a random building (not including {@link EventBuilding}s) from the list of buildings.
    *
    * @return - random Building from buildings, null if empty
    */
-  public static Building getRandomBuilding(){
-    int len = buildings.size();
+  public Building getRandomBuilding(){
+    // "Copy" the buildings array filtering out EventBuildings, as these are not applicable
+    ArrayList<Building> sample = new ArrayList<>();
+    for (Building building : buildings) {
+      if (!(building instanceof EventBuilding)) {
+        sample.add(building);
+      }
+    }
+
+    int len = sample.size();
     if (len != 0){
       int randomPosition = (int)(Math.random() * len);
-      return buildings.get(randomPosition);
+      return sample.get(randomPosition);
     }
     return null;
   }
@@ -191,9 +199,9 @@ public class BuildingManager {
     }
 
     if (!buildingCounts.containsKey(building.type)) {
-      buildingCounts.put(building.type, 1);
-      return;
+      buildingCounts.put(building.type, 0);
     }
+    buildingCounts.put(building.type, buildingCounts.get(building.type) + 1);
   }
 
   /**
@@ -201,7 +209,7 @@ public class BuildingManager {
    *
    * @param building - A reference to the building object that was placed
    */
-  public static void decrementCounter(Building building){
+  public void decrementCounter(Building building){
     buildingCounts.put(building.type, buildingCounts.get(building.type) - 1);
   }
 
