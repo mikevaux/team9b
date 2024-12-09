@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import io.github.unisim.achievements.OnFire;
 import io.github.unisim.building.Building;
 import io.github.unisim.building.BuildingManager;
-import io.github.unisim.ui.BuildingMenu;
 
 /**
  * Negative event that removes all bonuses of the 'on fire' building.
