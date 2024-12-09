@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import io.github.unisim.GameState;
 import io.github.unisim.Point;
+import io.github.unisim.achievements.*;
 import io.github.unisim.events.LongboiDay;
 
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ import java.util.Map;
 public class BuildingManager {
   // create a list of buildings which will be sorted by a height metric derived from
   // the locations of the corners of the buildings.
-  private static ArrayList<Building> buildings = new ArrayList<>();
-  private static Map<BuildingType, Integer> buildingCounts = new HashMap<>();
+  private ArrayList<Building> buildings = new ArrayList<>();
+  private Map<BuildingType, Integer> buildingCounts = new HashMap<>();
   private Matrix4 isoTransform;
   private Building previewBuilding;
 
@@ -79,15 +80,23 @@ public class BuildingManager {
   }
 
   /**
-   * getter that picks a random building from the list of buildings.
+   * Getter that picks a random building (not including {@link EventBuilding}s) from the list of buildings.
    *
    * @return - random Building from buildings, null if empty
    */
-  public static Building getRandomBuilding(){
-    int len = buildings.size();
+  public Building getRandomBuilding(){
+    // "Copy" the buildings array filtering out EventBuildings, as these are not applicable
+    ArrayList<Building> sample = new ArrayList<>();
+    for (Building building : buildings) {
+      if (!(building instanceof EventBuilding)) {
+        sample.add(building);
+      }
+    }
+
+    int len = sample.size();
     if (len != 0){
       int randomPosition = (int)(Math.random() * len);
-      return buildings.get(randomPosition);
+      return sample.get(randomPosition);
     }
     return null;
   }
@@ -162,10 +171,16 @@ public class BuildingManager {
     buildings.add(i, building);
     if (!previewing) {
       updateCounters(building);
+      AreYouStillWatching.resetCounter();
+      FitnessFreak.checkBuildings(buildingCounts);
+      HowDidWeGetHere.checkBuildings(buildingCounts);
+      OnFire.checkBuilding(building.name);
 
       // remove the statue from the building menu once placed
       if (building instanceof LongBoiStatue) {
         LongboiDay.setInvisible();
+        DuckDuckDuck.setDisplay(true); //display the achievement for placing the longboi statue
+
       }
     }
     return i;
@@ -178,9 +193,13 @@ public class BuildingManager {
    * @param building - A reference to the building object that was placed
    */
   private void updateCounters(Building building) {
-    if (!buildingCounts.containsKey(building.type)) {
-      buildingCounts.put(building.type, 1);
+    // Building Counts does not include EventBuildings
+    if (building instanceof EventBuilding) {
       return;
+    }
+
+    if (!buildingCounts.containsKey(building.type)) {
+      buildingCounts.put(building.type, 0);
     }
     buildingCounts.put(building.type, buildingCounts.get(building.type) + 1);
   }
@@ -190,7 +209,7 @@ public class BuildingManager {
    *
    * @param building - A reference to the building object that was placed
    */
-  public static void decrementCounter(Building building){
+  public void decrementCounter(Building building){
     buildingCounts.put(building.type, buildingCounts.get(building.type) - 1);
   }
 

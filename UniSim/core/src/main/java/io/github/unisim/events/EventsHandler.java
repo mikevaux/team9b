@@ -1,6 +1,7 @@
 package io.github.unisim.events;
 
 import io.github.unisim.Timer;
+import io.github.unisim.building.BuildingManager;
 import io.github.unisim.messages.MessageHandler;
 import io.github.unisim.ui.BuildingMenu;
 
@@ -29,11 +30,11 @@ public class EventsHandler {
    *
    * @param messageHandler the shared {@link MessageHandler} instance
    */
-  public EventsHandler(MessageHandler messageHandler, BuildingMenu menu) {
+  public EventsHandler(MessageHandler messageHandler, BuildingManager buildingManager, BuildingMenu menu) {
     this.messageHandler = messageHandler;
     this.menu = menu;
     events = new HashMap<String, Event>();
-    events.put("fire",new Fire());
+    events.put("fire", new Fire(buildingManager));
     events.put("duck", new LongboiDay(menu));
     events.put("winter", new WinterHolidays());
     order = randomiseEventOrder();

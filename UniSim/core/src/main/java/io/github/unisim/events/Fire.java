@@ -1,24 +1,26 @@
 package io.github.unisim.events;
 
 import com.badlogic.gdx.graphics.Texture;
+import io.github.unisim.achievements.OnFire;
 import io.github.unisim.building.Building;
 import io.github.unisim.building.BuildingManager;
-import io.github.unisim.ui.BuildingMenu;
 
 /**
  * Negative event that removes all bonuses of the 'on fire' building.
  */
 public class Fire extends Event {
+  private final BuildingManager buildingManager;
   private Texture fireTexture;
 
-  public Fire() {
+  public Fire(BuildingManager buildingManager) {
     super("Event: Fire", "Oh no! a building caught fire! replace it to save satisfaction", "events/eventWarning.png");
+    this.buildingManager = buildingManager;
     this.fireTexture = null;
   }
 
   @Override
   public void doBefore(){
-    Building fireBuilding = BuildingManager.getRandomBuilding(); //gets a random building
+    Building fireBuilding = buildingManager.getRandomBuilding(); //gets a random building
     //runs only if a building has been placed (and therefore got)
     if (fireBuilding != null){
       String type = fireBuilding.getName();
@@ -26,22 +28,27 @@ public class Fire extends Event {
       switch (type){
         case "Basketball Court":
           fireTexture = new Texture("fireBuildings/basketballCourt.png");
+          OnFire.setBuildingToBuild("Basketball Court");
           break;
         case "Library":
           fireTexture = new Texture("fireBuildings/library.png");
+          OnFire.setBuildingToBuild("Library");
           break;
         case "Canteen":
           fireTexture = new Texture("fireBuildings/restaurant.png");
+          OnFire.setBuildingToBuild("Canteen");
           break;
         case "Stadium":
           fireTexture = new Texture("fireBuildings/stadium.png");
+          OnFire.setBuildingToBuild("Stadium");
           break;
         case "Student Accommodation":
           fireTexture = new Texture("fireBuildings/studentHousing.png");
+          OnFire.setBuildingToBuild("Student Accommodation");
           break;
       }
       fireBuilding.setTexture(fireTexture);
-      BuildingManager.decrementCounter(fireBuilding); //decrease the counter of the building type by one
+      buildingManager.decrementCounter(fireBuilding); //decrease the counter of the building type by one
     }
   }
 

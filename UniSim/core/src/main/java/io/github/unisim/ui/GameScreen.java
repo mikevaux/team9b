@@ -37,7 +37,6 @@ public class GameScreen implements Screen {
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
   private GameOverMenu gameOverMenu = new GameOverMenu();
   private static FitViewport viewport;
-  private static boolean updateMenu = false;
 
   /**
    * Constructor for the GameScreen.
@@ -48,7 +47,7 @@ public class GameScreen implements Screen {
     buildingMenu = new BuildingMenu(stage, world);
     bank = new Bank();
     messageHandler = new MessageHandler(stage);
-    eventsHandler = new EventsHandler(messageHandler, buildingMenu);
+    eventsHandler = new EventsHandler(messageHandler, world.getBuildingManager(), buildingMenu);
     achievementsHandler = new AchievementsHandler(messageHandler);
 
     inputMultiplexer.addProcessor(GameState.fullscreenInputProcessor);
@@ -86,7 +85,7 @@ public class GameScreen implements Screen {
 
     eventsHandler.checkEvents(delta, timer);
     eventsHandler.runCurrentEvent(delta);
-    check();
+    achievementsHandler.displayAchievements(delta);
   }
 
   @Override
@@ -102,12 +101,6 @@ public class GameScreen implements Screen {
 
   @Override
   public void pause() {
-  }
-
-  /**
-   * contains event related checks to be made during render.
-   */
-  private void check(){
   }
 
   @Override

@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.unisim.GameState;
+import io.github.unisim.achievements.PressStartToPlay;
 
 /**
  * The start menu screen which presents the player with the option to start the
@@ -33,12 +34,13 @@ public class StartMenuScreen implements Screen {
     skin = GameState.defaultSkin;
 
     // Play button
-    playButton = new TextButton("Play", skin);
+    playButton = new TextButton("Start", skin);
     playButton.addListener(new ClickListener() {
       @Override
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
         // Switch to the game screen
         GameState.currentScreen = GameState.gameScreen;
+        PressStartToPlay.setDisplay(true); //display the PressPlayToStart achievement
       }
     });
 
