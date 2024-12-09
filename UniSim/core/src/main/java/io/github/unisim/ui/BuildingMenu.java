@@ -15,8 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import io.github.unisim.GameState;
 import io.github.unisim.Point;
-import io.github.unisim.building.Building;
-import io.github.unisim.building.BuildingType;
+import io.github.unisim.building.*;
 import io.github.unisim.events.LongboiDay;
 import io.github.unisim.world.World;
 
@@ -32,8 +31,6 @@ public class BuildingMenu {
   private World world;
   private ShapeActor bar = new ShapeActor(GameState.UISecondaryColour);
   private Table table;
-  private ArrayList<Building> buildings = new ArrayList<>();
-  private static ArrayList<Image> buildingImages = new ArrayList<>();
   private Label buildingInfoLabel = new Label(
     "", new Skin(Gdx.files.internal("ui/uiskin.json"))
   );
@@ -48,97 +45,46 @@ public class BuildingMenu {
    */
   public BuildingMenu(Stage stage, World world) {
     this.world = world;
-    // Set building images and sizes
-    buildings.add(new Building(
-      new Texture(Gdx.files.internal("buildings/restaurant.png")),
-      0.01f,
-      new Vector2(0.35f, -0.9f),
-      new Point(),
-      new Point(3, 3),
-      false,
-      BuildingType.EATING,
-      "Canteen"
-    ));
-    buildings.add(new Building(
-      new Texture(Gdx.files.internal("buildings/library.png")),
-      0.0075f,
-      new Vector2(1.8f, -4.6f),
-      new Point(),
-      new Point(20, 12),
-      false,
-      BuildingType.LEARNING,
-      "Library"
-    ));
-    buildings.add(new Building(
-      new Texture(Gdx.files.internal("buildings/basketballCourt.png")),
-      0.0025f,
-      new Vector2(1f, -2.4f),
-      new Point(),
-      new Point(6, 9),
-      false,
-      BuildingType.RECREATION,
-      "Basketball Court"
-    ));
-    buildings.add(new Building(
-      new Texture(Gdx.files.internal("buildings/stadium.png")),
-      0.0025f,
-      new Vector2(1f, 1f),
-      new Point(),
-      new Point(12, 16),
-      false,
-      BuildingType.RECREATION,
-      "Stadium"
-    ));
-    buildings.add(new Building(
-      new Texture(Gdx.files.internal("buildings/studentHousing.png")),
-      0.108f,
-      new Vector2(1.4f, -2.8f),
-      new Point(),
-      new Point(11, 11),
-      false,
-      BuildingType.SLEEPING,
-      "Student Accommodation"
-    ));
-    buildings.add(new Building(
-      new Texture(Gdx.files.internal("events/longboi.png")),
-      0.005f,
-      new Vector2(0.5f, 0.15f),
-      new Point(),
-      new Point(2, 2),
-      false,
-      BuildingType.EVENT,
-      "Longboi Statue"
-    ));
     table = new Table();
-    // Add buldings to the table
-    for (int i = 0; i < buildings.size(); i++) {
-      if (!Objects.equals(buildings.get(i).name, "Longboi Statue")){
-        buildingImages.add(new Image(buildings.get(i).texture));
-      }else{
-        longboiImage = new Image(buildings.get(i).texture);
-        buildingImages.add(longboiImage);
-        longboiImage.setVisible(false);
+    ArrayList<Building> buildings = new ArrayList<>();
+
+    buildings.add(new EatingBuilding());
+    buildings.add(new LearningBuilding());
+    buildings.add(new BasketballCourt());
+    buildings.add(new Stadium());
+    buildings.add(new SleepingBuilding());
+    buildings.add(new LongBoiStatue());
+
+    // Add buildings to the table
+    for (Building building : buildings) {
+      Image image = new Image(building.getTexture());
+
+      // Event buildings are only available during the relevant event
+      if (building instanceof EventBuilding) {
+        image.setVisible(false);
+
+        // Cache the LongBoi image for retrieval
+        if (building instanceof LongBoiStatue) {
+          longboiImage = image;
+        }
       }
-      final int buildingIndex = i;
-      buildingImages.get(i).addListener(new ClickListener() {
+      table.add(image);
+
+      image.addListener(new ClickListener() {
         @Override
-        public void clicked(InputEvent e, float x, float y) {
-          if (world.selectedBuilding == buildings.get(buildingIndex)) {
-            world.selectedBuilding = null;
-          } else {
-            world.selectedBuilding = buildings.get(buildingIndex);
-            buildingInfoLabel.setText(world.selectedBuilding.name + " - Press 'R' to rotate");
-            if (world.selectedBuilding.flipped) {
-              world.selectedBuilding.flipped = false;
-              int temp = world.selectedBuilding.size.x;
-              world.selectedBuilding.size.x = world.selectedBuilding.size.y;
-              world.selectedBuilding.size.y = temp;
-              world.selectedBuildingUpdated = true;
-            }
+        public void clicked(InputEvent event, float x, float y) {
+          try {
+            // Use reflection to create a new instance of the respective class
+            world.selectedBuilding = building.getClass().getConstructor().newInstance();
+            // Update the label to provide some helpful pointers to the player
+            buildingInfoLabel.setText(world.selectedBuilding.getName() + " - Press 'R' to rotate, 'Esc' to cancel");
+          } catch (NoSuchMethodException e) {
+            System.out.println("Error: could not find public nullary constructor for " + building.getClass().getName());
+          } catch (Exception e) {
+            System.out.println("Something went wrong when creating a new building");
           }
         }
       });
-      table.add(buildingImages.get(i));
     }
 
     buildingInfoTable.add(buildingInfoLabel).expandX().align(Align.center);
@@ -184,10 +130,6 @@ public class BuildingMenu {
     } else if (world.selectedBuilding == null) {
       buildingInfoLabel.setText("");
     }
-  }
-
-  public static ArrayList<Image> getBuildingImages() {
-    return buildingImages;
   }
 
   public Image getLongboiImage(){

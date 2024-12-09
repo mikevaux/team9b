@@ -46,7 +46,7 @@ public class GameScreen implements Screen {
     infoBar = new InfoBar(stage, timer, world);
     buildingMenu = new BuildingMenu(stage, world);
     bank = new Bank();
-    messageHandler = new MessageHandler();
+    messageHandler = new MessageHandler(stage);
     eventsHandler = new EventsHandler(messageHandler, buildingMenu);
     achievementsHandler = new AchievementsHandler(messageHandler);
 
@@ -75,6 +75,7 @@ public class GameScreen implements Screen {
     stage.act(dt);
     infoBar.update();
     buildingMenu.update();
+    messageHandler.render(delta);
     stage.draw();
     if (GameState.gameOver) {
       world.zoom((world.getMaxZoom() - world.getZoom()) * 2f);
@@ -95,6 +96,7 @@ public class GameScreen implements Screen {
     buildingMenu.resize(width, height);
     gameOverMenu.resize(width, height);
     viewport.update(width, height, true);
+    messageHandler.resize();
   }
 
   @Override

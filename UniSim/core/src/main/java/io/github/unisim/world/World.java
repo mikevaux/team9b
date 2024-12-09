@@ -109,13 +109,13 @@ public class World {
     if (!mouseGridPos.equals(mousePosInWorld) || selectedBuildingUpdated) {
       mousePosInWorld = mouseGridPos;
       btmLeft = mousePosInWorld;
-      Point buildingSize = selectedBuilding == null ? new Point(1, 1) : selectedBuilding.size;
+      Point buildingSize = selectedBuilding == null ? new Point(1, 1) : selectedBuilding.getSize();
       btmLeft.x -= buildingSize.x / 2;
       btmLeft.y -= buildingSize.y / 2;
       topRight = new Point(btmLeft.x + buildingSize.x - 1, btmLeft.y + buildingSize.y - 1);
       canBuild = buildingManager.isBuildable(btmLeft, topRight, getMapTiles());
       if (selectedBuilding != null) {
-        selectedBuilding.location = btmLeft;
+        selectedBuilding.setLocation(btmLeft);
       }
       buildingManager.setPreviewBuilding(selectedBuilding);
     }
@@ -333,13 +333,7 @@ public class World {
     if (!canBuild) {
       return false;
     }
-    buildingManager.placeBuilding(
-      new Building(
-        selectedBuilding.texture, selectedBuilding.textureScale, selectedBuilding.textureOffset,
-        selectedBuilding.location.getNewPoint(), selectedBuilding.size.getNewPoint(),
-        selectedBuilding.flipped, selectedBuilding.type, selectedBuilding.name
-      )
-    );
+    buildingManager.placeBuilding(selectedBuilding, false);
     selectedBuilding = null;
     return true;
   }
