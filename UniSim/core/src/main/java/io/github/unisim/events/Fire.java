@@ -1,6 +1,7 @@
 package io.github.unisim.events;
 
 import com.badlogic.gdx.graphics.Texture;
+import io.github.unisim.achievements.OnFire;
 import io.github.unisim.building.Building;
 import io.github.unisim.building.BuildingManager;
 import io.github.unisim.ui.BuildingMenu;
@@ -26,18 +27,23 @@ public class Fire extends Event {
       switch (type){
         case "Basketball Court":
           fireTexture = new Texture("fireBuildings/basketballCourt.png");
+          OnFire.setBuildingToBuild("Basketball Court");
           break;
         case "Library":
           fireTexture = new Texture("fireBuildings/library.png");
+          OnFire.setBuildingToBuild("Library");
           break;
         case "Canteen":
           fireTexture = new Texture("fireBuildings/restaurant.png");
+          OnFire.setBuildingToBuild("Canteen");
           break;
         case "Stadium":
           fireTexture = new Texture("fireBuildings/stadium.png");
+          OnFire.setBuildingToBuild("Stadium");
           break;
         case "Student Accommodation":
           fireTexture = new Texture("fireBuildings/studentHousing.png");
+          OnFire.setBuildingToBuild("Student Accommodation");
           break;
       }
       fireBuilding.setTexture(fireTexture);

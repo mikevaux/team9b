@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import io.github.unisim.GameState;
 import io.github.unisim.Point;
+import io.github.unisim.achievements.*;
 import io.github.unisim.events.LongboiDay;
 
 import java.util.ArrayList;
@@ -160,9 +161,17 @@ public class BuildingManager {
     }
     buildings.add(i, building);
     updateCounters(building);
+    // Contains checks for different achievements to be run every time a building is placed
+    if (!(building == previewBuilding)){
+      AreYouStillWatching.resetCounter();
+      FitnessFreak.checkBuildings(buildingCounts);
+      HowDidWeGetHere.checkBuildings(buildingCounts);
+      OnFire.checkBuilding(building.name);
+    }
     // remove the statue from the building menu once placed
     if (building.type == BuildingType.EVENT && !(building == previewBuilding)){
       LongboiDay.setInvisible();
+      DuckDuckDuck.setDisplay(true); //display the achievement for placing the longboi statue
     }
     return i;
   }
@@ -177,11 +186,13 @@ public class BuildingManager {
     if (building == previewBuilding) {
       return;
     }
-    if (!buildingCounts.containsKey(building.type)) {
-      buildingCounts.put(building.type, 1);
-      return;
+    if (!(building.type == BuildingType.EVENT)){ //add all non-event buildings
+      if (!buildingCounts.containsKey(building.type)) {
+        buildingCounts.put(building.type, 1);
+        return;
+      }
+      buildingCounts.put(building.type, buildingCounts.get(building.type) + 1);
     }
-    buildingCounts.put(building.type, buildingCounts.get(building.type) + 1);
   }
 
   /**

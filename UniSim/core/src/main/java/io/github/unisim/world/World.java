@@ -62,6 +62,10 @@ public class World {
     selectedBuilding = null;
   }
 
+  public BuildingManager getBuildingManager() {
+    return buildingManager;
+  }
+
   /**
    * Releases all resources of this object.
    * Should be called when the World object is no longer needed

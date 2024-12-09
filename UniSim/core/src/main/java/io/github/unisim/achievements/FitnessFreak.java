@@ -1,18 +1,25 @@
 package io.github.unisim.achievements;
 
 import io.github.unisim.building.BuildingType;
-
 import java.util.Map;
 
 /**
- * Creates an instance of HowDidWeGetHere, which requires one of each building type to be placed.
+ * Creates an instance of FitnessFreak, which requires a recreational building to be the first building placed.
  */
-public class HowDidWeGetHere extends Achievement{
+public class FitnessFreak extends Achievement {
   private static boolean display = false;
   private static boolean alreadyDisplayed = false;
 
-  public HowDidWeGetHere() {
-    super("How Did We Get Here?", "Have 1 of each building type placed at the same time.", "achievements/bucket.png");
+  public FitnessFreak() {
+    super("Fitness Freak!", "Place a recreation building as your first building", "achievements/flexArm.png");
+  }
+
+  public static boolean isAlreadyDisplayed() {
+    return alreadyDisplayed;
+  }
+
+  public static void setAlreadyDisplayed(boolean alreadyDisplayed) {
+    FitnessFreak.alreadyDisplayed = alreadyDisplayed;
   }
 
   public static boolean isDisplay() {
@@ -25,24 +32,16 @@ public class HowDidWeGetHere extends Achievement{
    * @param display the value the boolean is being attempted to be set to
    */
   public static void setDisplay(boolean display) {
-    HowDidWeGetHere.display = !isAlreadyDisplayed() && display;
-  }
-
-  public static boolean isAlreadyDisplayed() {
-    return alreadyDisplayed;
-  }
-
-  public static void setAlreadyDisplayed(boolean alreadyDisplayed) {
-    HowDidWeGetHere.alreadyDisplayed = alreadyDisplayed;
+    FitnessFreak.display = !isAlreadyDisplayed() && display;
   }
 
   /**
-   * Checks if all 4 non-event building types have been placed.
+   * Checks if the only building type placed is recreational.
    *
    * @param buildingCounts a hashmap of the placed building types, and the number of each
    */
   public static void checkBuildings(Map<BuildingType, Integer> buildingCounts){
-    if (buildingCounts.size() == 4){
+    if (buildingCounts.size() == 1 && buildingCounts.containsKey(BuildingType.RECREATION)){
       setDisplay(true);
     }
   }
