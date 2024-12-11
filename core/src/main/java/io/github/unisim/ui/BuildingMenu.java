@@ -123,7 +123,6 @@ public class BuildingMenu {
           world.selectedBuilding = building.getClass().getConstructor().newInstance();
           // Update the label to provide some helpful pointers to the player
           buildingInfoLabel.setText(world.selectedBuilding.getName() + " - Press 'R' to rotate, 'Esc' to cancel");
-          System.out.println(buildingInfoLabel.getText());
         } catch (NoSuchMethodException e) {
           System.out.println("Error: could not find public nullary constructor for " + building.getClass().getName());
         } catch (Exception e) {
