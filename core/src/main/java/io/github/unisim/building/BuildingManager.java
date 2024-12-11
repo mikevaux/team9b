@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
+import io.github.unisim.Bank;
 import io.github.unisim.GameState;
 import io.github.unisim.Point;
 import io.github.unisim.achievements.*;
@@ -170,6 +171,8 @@ public class BuildingManager {
     }
     buildings.add(i, building);
     if (!previewing) {
+      Bank.getInstance().debit(building.getCost());
+      GameState.getInstance().increaseQuarterlyIncome(building.getIncomeGeneration());
       updateCounters(building);
       AreYouStillWatching.resetCounter();
       FitnessFreak.checkBuildings(buildingCounts);

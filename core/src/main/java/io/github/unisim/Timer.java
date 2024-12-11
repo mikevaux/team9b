@@ -52,6 +52,8 @@ public class Timer {
         acadmemicYear.increment();
       }
       season = season.next();
+      // Add the quarterly income to the bank
+      Bank.getInstance().credit(GameState.getInstance().getQuarterlyIncome());
     }
 
     if (remainingTime > 0) {
