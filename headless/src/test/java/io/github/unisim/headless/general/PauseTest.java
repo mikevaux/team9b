@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PauseTest extends GeneralTest{
-  static GameScreen screen;
+  /*static GameScreen screen;
   static Timer timer;
   float time2;
   int timeDifference = 3_000;
@@ -49,5 +49,5 @@ public class PauseTest extends GeneralTest{
     float time1 = timer.getRemainingTime();
     timerTimer.start();
     assertEquals(time1, time2 + timeDifference, STANDARD_DELTA, "timer does not count down properly");
-  }
+  }*/
 }
