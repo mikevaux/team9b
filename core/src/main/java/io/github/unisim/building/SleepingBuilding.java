@@ -10,6 +10,8 @@ public class SleepingBuilding extends Building{
     super();
     type = BuildingType.SLEEPING;
     name = "Student Accommodation";
+    cost = 100_000;
+    incomeGeneration = 50_000;
     texture = new Texture(Gdx.files.internal("buildings/studentHousing.png"));
     textureScale = 0.108f;
     textureOffset = new Vector2(1.4f, -2.8f);

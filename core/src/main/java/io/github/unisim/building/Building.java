@@ -2,7 +2,10 @@ package io.github.unisim.building;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import io.github.unisim.GameState;
 import io.github.unisim.Point;
+
+import java.text.NumberFormat;
 
 
 /**
@@ -17,6 +20,14 @@ public abstract class Building {
    * The name of the building to display when selected.
    */
   String name;
+  /**
+   * The cost of the building.
+   */
+  int cost;
+  /**
+   * The amount this building adds to quarterly income.
+   */
+  int incomeGeneration = 0;
   /**
    * The image to draw over the space the building occupies
    */
@@ -64,6 +75,20 @@ public abstract class Building {
 
   public String getName() {
     return name;
+  }
+
+  public int getCost() {
+    return cost;
+  }
+
+  public String displayCost() {
+    NumberFormat f = NumberFormat.getInstance();
+    f.setGroupingUsed(true);
+    return GameState.getInstance().getCurrency() + f.format(cost);
+  }
+
+  public int getIncomeGeneration() {
+    return incomeGeneration;
   }
 
   public Texture getTexture() {

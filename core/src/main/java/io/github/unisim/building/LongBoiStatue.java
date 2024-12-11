@@ -10,6 +10,7 @@ public class LongBoiStatue extends EventBuilding {
     super();
     texture = new Texture(Gdx.files.internal("events/longboi.png"));
     name = "Longboi Statue";
+    cost = 50_000;
     textureScale = 0.005f;
     textureOffset = new Vector2(0.5f, 0.15f);
     size = new Point(2, 2);

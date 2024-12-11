@@ -32,4 +32,32 @@ public class GameState {
   );
   public static boolean paused = true;
   public static boolean gameOver = false;
+
+  ////////////////////////
+  // Below is the beginning of a move toward a Singleton pattern for GameState. The current setup is causing problems.
+  // One example of this was a race condition, whereby a static member of GameState was unavailable at game boot time.
+  ////////////////////////
+
+  private static GameState INSTANCE;
+  private static final String currency = "£";
+  private int quarterlyIncome = 20_000;
+
+  public static GameState getInstance() {
+    if (INSTANCE == null) {
+      INSTANCE = new GameState();
+    }
+    return INSTANCE;
+  }
+
+  public String getCurrency() {
+    return currency;
+  }
+
+  public int getQuarterlyIncome() {
+    return quarterlyIncome;
+  }
+
+  public void increaseQuarterlyIncome(int increase) {
+    quarterlyIncome += increase;
+  }
 }
