@@ -25,8 +25,8 @@ public class InfoBar {
   private Table buildingCountersTable = new Table();
   private Label[] buildingCounterLabels = new Label[4];
   private Skin skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
-  private Label scoreLabel = new Label("86%", skin);
-  private Label titleLabel = new Label("UniSim", skin);
+  private Label scoreLabel = new Label("86%", skin, "window");
+  private Label titleLabel = new Label("UniSim", skin, "window");
   private Label timerLabel;
   private Texture pauseTexture = new Texture("ui/pause.png");
   private Texture playTexture = new Texture("ui/play.png");
@@ -53,19 +53,19 @@ public class InfoBar {
     for (int i = 0; i < 4; i++) {
       buildingCounterLabels[i] = new Label("", skin);
     }
-    buildingCounterCells[0] = buildingCountersTable.add(buildingCounterLabels[0]);
-    buildingCounterCells[1] = buildingCountersTable.add(buildingCounterLabels[1]);
-    buildingCountersTable.row();
-    buildingCounterCells[2] = buildingCountersTable.add(buildingCounterLabels[2]);
-    buildingCounterCells[3] = buildingCountersTable.add(buildingCounterLabels[3]);
+    buildingCounterCells[0] = buildingCountersTable.add(buildingCounterLabels[0]).left().padRight(16);
+    buildingCounterCells[1] = buildingCountersTable.add(buildingCounterLabels[1]).left();
+    buildingCountersTable.row().padTop(4);
+    buildingCounterCells[2] = buildingCountersTable.add(buildingCounterLabels[2]).left().padRight(16);
+    buildingCounterCells[3] = buildingCountersTable.add(buildingCounterLabels[3]).left();
 
     // Info Table
-    timerLabel = new Label(timer.displayProgression(), skin);
-    infoTable.center().center();
-    pauseButtonCell = infoTable.add(playImage).align(Align.center);
-    timerLabelCell = infoTable.add(timerLabel).align(Align.center);
-    scoreLabelCell = infoTable.add(scoreLabel).align(Align.center);
-    buildingCountersTableCell = infoTable.add(buildingCountersTable).expandX().align(Align.right);
+    timerLabel = new Label(timer.displayProgression(), skin, "window");
+    infoTable.pad(24);
+    pauseButtonCell = infoTable.add(playImage).left().size(24).padRight(24);
+    timerLabelCell = infoTable.add(timerLabel).left().padRight(24);
+    scoreLabelCell = infoTable.add(scoreLabel).left();
+    buildingCountersTableCell = infoTable.add(buildingCountersTable).expandX().right();
 
     // Pause button
     pauseImage.addListener(new ClickListener() {
@@ -119,24 +119,6 @@ public class InfoBar {
     bar.setBounds(0, height * 0.95f, width, height * 0.05f);
     infoTable.setBounds(0, height * 0.95f, width, height * 0.05f);
     titleTable.setBounds(0, height * 0.95f, width, height * 0.05f);
-
-    float counterTableWidth = height * 0.27f;
-    buildingCountersTableCell.width(counterTableWidth).height(height * 0.05f);
-    for (int i = 0; i < 4; i++) {
-      buildingCounterLabels[i].setFontScale(height * 0.0015f);
-      buildingCounterCells[i].width(counterTableWidth * 0.5f).height(height * 0.025f);
-    }
-
-    timerLabel.setFontScale(height * 0.002f);
-    timerLabelCell.width(height * 0.08f).height(height * 0.05f);
-    timerLabelCell.padLeft(height * 0.005f);
-    scoreLabel.setFontScale(height * 0.002f);
-    scoreLabelCell.width(height * 0.04f).height(height * 0.05f);
-    scoreLabelCell.padLeft(Math.min(width, height * 2) * 0.14f);
-    pauseButtonCell.width(height * 0.03f).height(height * 0.03f)
-    .padLeft(height * 0.01f).padRight(height * 0.01f);
-
-    titleLabel.setFontScale(height * 0.003f);
   }
 
   public void reset() {
