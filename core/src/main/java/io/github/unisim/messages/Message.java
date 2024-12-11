@@ -89,7 +89,7 @@ class Message {
    */
   private TextureRegionDrawable makeBackground() {
     Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);
-    bgPixmap.setColor(GameState.UISecondaryColour);
+    bgPixmap.setColor(GameState.getInstance().getColourSecondary());
     bgPixmap.fill();
     return new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
   }

@@ -87,7 +87,7 @@ public class InfoBar {
 
     titleTable.add(titleLabel).expandX().align(Align.center);
 
-    bar = new ShapeActor(GameState.UIPrimaryColour);
+    bar = new ShapeActor(GameState.getInstance().getColourPrimary());
     stage.addActor(bar);
     stage.addActor(infoTable);
     stage.addActor(titleTable);

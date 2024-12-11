@@ -1,25 +1,19 @@
 package io.github.unisim.ui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import io.github.unisim.Bank;
 import io.github.unisim.GameState;
-import io.github.unisim.Point;
 import io.github.unisim.building.*;
-import io.github.unisim.events.LongboiDay;
 import io.github.unisim.messages.MessageHandler;
 import io.github.unisim.world.World;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Menu used to place buildings in the world by clicking and dragging them
@@ -29,8 +23,8 @@ import java.util.Objects;
 public class BuildingMenu {
   private Stage stage;
   private World world;
-  private MessageHandler messageHandler;
-  private ShapeActor bar = new ShapeActor(GameState.UISecondaryColour);
+  private final MessageHandler messageHandler;
+  private final ShapeActor bar = new ShapeActor(GameState.getInstance().getColourSecondary());
   private Table table;
   private Skin skin;
   private Table balanceTable;

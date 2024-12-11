@@ -81,7 +81,7 @@ public class SettingsScreen implements Screen {
   @Override
   public void render(float delta) {
     // Clear the screen
-    ScreenUtils.clear(GameState.UISecondaryColour);
+    ScreenUtils.clear(GameState.getInstance().getColourSecondary());
 
     // Draw the stage containing the volume slider and buttons
     stage.act(delta);
