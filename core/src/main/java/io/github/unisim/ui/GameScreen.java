@@ -29,7 +29,6 @@ public class GameScreen implements Screen {
   private InfoBar infoBar;
   private BuildingMenu buildingMenu;
   private Timer timer;
-  private final Bank bank;
   private final MessageHandler messageHandler;
   private final EventsHandler eventsHandler;
   private final AchievementsHandler achievementsHandler;
@@ -45,11 +44,10 @@ public class GameScreen implements Screen {
    * Constructor for the GameScreen.
    */
   public GameScreen() {
+    messageHandler = new MessageHandler(stage);
     timer = new Timer(gameDuration);
     infoBar = new InfoBar(stage, timer, world);
-    buildingMenu = new BuildingMenu(stage, world);
-    bank = new Bank();
-    messageHandler = new MessageHandler(stage);
+    buildingMenu = new BuildingMenu(stage, world, messageHandler);
     eventsHandler = new EventsHandler(messageHandler, world.getBuildingManager(), buildingMenu);
     achievementsHandler = new AchievementsHandler(messageHandler);
     satisfactionHandler = new SatisfactionHandler(infoBar, world.getBuildingManager());

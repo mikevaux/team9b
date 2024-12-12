@@ -10,6 +10,7 @@ public class EatingBuilding extends Building {
     super();
     type = BuildingType.EATING;
     name = "Canteen";
+    cost = 30_000;
     texture = new Texture(Gdx.files.internal("buildings/restaurant.png"));
     textureScale = 0.01f;
     textureOffset = new Vector2(0.35f, -0.9f);

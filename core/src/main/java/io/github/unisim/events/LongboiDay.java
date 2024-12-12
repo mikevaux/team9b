@@ -9,24 +9,24 @@ public class LongboiDay extends Event {
 
   private static boolean longboiDay = false;
   public LongboiDay(BuildingMenu menu) {
-    super("Event: Longboi Day", "Place the Longboi statue for a satisfaction bonus", "events/eventWarning.png");
+    super("Event: Longboi Day", "Place the Longboi statue for a\nsatisfaction bonus", "events/eventWarning.png");
     LongboiDay.menu = menu;
   }
 
   @Override
   public void doBefore(){
     //add the statue to the menu bar
-    menu.getLongboiImage().setVisible(true);
+    menu.setLongBoiVisibility(true);
   }
 
   public static void setInvisible(){
     //remove the statue from the menu bar once placed
-    menu.getLongboiImage().setVisible(false);
+    menu.setLongBoiVisibility(false);
   }
 
   @Override
   public void doAfter(){
     //remove the statue from the menu bar once the event is over
-    menu.getLongboiImage().setVisible(false);
+    setInvisible();
   }
 }

@@ -15,7 +15,7 @@ import io.github.unisim.GameState;
  */
 class Message {
   static final int WIDTH = 320;
-  static final int HEIGHT = 64;
+  static final int HEIGHT = 84;
   private final String title;
   private final String body;
   private String iconFilename;
@@ -59,14 +59,14 @@ class Message {
 
     // Scene2d.ui.Table doesn't support rowspan, so we need to use a nested table instead
     Table text = new Table();
-    text.row().padBottom(4);
+    text.row().padBottom(8);
     text.add(new Label(title, GameState.defaultSkin, "window")).left();
     text.row();
     text.add(new Label(body, GameState.defaultSkin)).left();
 
     Table toast = new Table().left();
     toast.setBackground(makeBackground());
-    toast.row().pad(12);
+    toast.row().pad(20);
     if (hasIcon) {
       Image image = new Image(new Texture(iconFilename));
       image.setScaling(Scaling.fit);
@@ -89,7 +89,7 @@ class Message {
    */
   private TextureRegionDrawable makeBackground() {
     Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);
-    bgPixmap.setColor(GameState.UISecondaryColour);
+    bgPixmap.setColor(GameState.getInstance().getColourSecondary());
     bgPixmap.fill();
     return new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
   }

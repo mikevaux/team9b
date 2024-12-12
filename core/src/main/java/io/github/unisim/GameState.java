@@ -16,8 +16,6 @@ import java.util.stream.Stream;
  * Contains a collection of settings and references that should be available globally.
  */
 public class GameState {
-  public static Color UIPrimaryColour = new Color(0.250f, 0.326f, 0.865f, 1.0f);
-  public static Color UISecondaryColour = new Color(0.722f, 0.646f, 0.953f, 1.0f);
   public static Skin defaultSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
   public static Settings settings = new Settings();
   public static InputProcessor fullscreenInputProcessor = new FullscreenInputProcessor();
@@ -32,4 +30,42 @@ public class GameState {
   );
   public static boolean paused = true;
   public static boolean gameOver = false;
+
+  ////////////////////////
+  // Below is the beginning of a move toward a Singleton pattern for GameState. The current setup is causing problems.
+  // One example of this was a race condition, whereby a static member of GameState was unavailable at game boot time.
+  ////////////////////////
+
+  private static GameState INSTANCE;
+  private static final String currency = "£";
+  private static final String colourPrimaryHex = "A84D9D";
+  private static final String colourSecondaryHex = "414C4E";
+  private int quarterlyIncome = 20_000;
+
+  public static GameState getInstance() {
+    if (INSTANCE == null) {
+      INSTANCE = new GameState();
+    }
+    return INSTANCE;
+  }
+
+  public String getCurrency() {
+    return currency;
+  }
+
+  public Color getColourPrimary() {
+    return Color.valueOf(colourPrimaryHex);
+  }
+
+  public Color getColourSecondary() {
+    return Color.valueOf(colourSecondaryHex);
+  }
+
+  public int getQuarterlyIncome() {
+    return quarterlyIncome;
+  }
+
+  public void increaseQuarterlyIncome(int increase) {
+    quarterlyIncome += increase;
+  }
 }

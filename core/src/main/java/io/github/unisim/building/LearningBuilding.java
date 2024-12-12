@@ -10,6 +10,7 @@ public class LearningBuilding extends Building {
     super();
     type = BuildingType.LEARNING;
     name = "Library";
+    cost = 500_000;
     texture = new Texture(Gdx.files.internal("buildings/library.png"));
     textureScale = 0.0075f;
     textureOffset = new Vector2(1.8f, -4.6f);

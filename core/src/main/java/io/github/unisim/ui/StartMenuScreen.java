@@ -74,7 +74,7 @@ public class StartMenuScreen implements Screen {
   @Override
   public void render(float delta) {
     // Clear the screen
-    ScreenUtils.clear(GameState.UISecondaryColour);
+    ScreenUtils.clear(GameState.getInstance().getColourSecondary());
 
     // Draw the stage containing buttons
     stage.act(delta);

@@ -11,7 +11,7 @@ public class FitnessFreak extends Achievement {
   private static boolean alreadyDisplayed = false;
 
   public FitnessFreak() {
-    super("Fitness Freak!", "Place a recreation building as your first building", "achievements/flexArm.png");
+    super("Fitness Freak!", "Place a recreation building as\nyour first building", "achievements/flexArm.png");
   }
 
   public static boolean isAlreadyDisplayed() {
