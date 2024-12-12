@@ -25,7 +25,7 @@ public class InfoBar {
   private Table buildingCountersTable = new Table();
   private Label[] buildingCounterLabels = new Label[4];
   private Skin skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
-  private Label scoreLabel = new Label("86%", skin);
+  private Label satisfactionLabel = new Label("0", skin);
   private Label titleLabel = new Label("UniSim", skin);
   private Label timerLabel;
   private Texture pauseTexture = new Texture("ui/pause.png");
@@ -64,7 +64,7 @@ public class InfoBar {
     infoTable.center().center();
     pauseButtonCell = infoTable.add(playImage).align(Align.center);
     timerLabelCell = infoTable.add(timerLabel).align(Align.center);
-    scoreLabelCell = infoTable.add(scoreLabel).align(Align.center);
+    scoreLabelCell = infoTable.add(satisfactionLabel).align(Align.center);
     buildingCountersTableCell = infoTable.add(buildingCountersTable).expandX().align(Align.right);
 
     // Pause button
@@ -130,7 +130,7 @@ public class InfoBar {
     timerLabel.setFontScale(height * 0.002f);
     timerLabelCell.width(height * 0.08f).height(height * 0.05f);
     timerLabelCell.padLeft(height * 0.005f);
-    scoreLabel.setFontScale(height * 0.002f);
+    satisfactionLabel.setFontScale(height * 0.002f);
     scoreLabelCell.width(height * 0.04f).height(height * 0.05f);
     scoreLabelCell.padLeft(Math.min(width, height * 2) * 0.14f);
     pauseButtonCell.width(height * 0.03f).height(height * 0.03f)
@@ -142,4 +142,9 @@ public class InfoBar {
   public void reset() {
     pauseButtonCell.setActor(playImage);
   }
+
+  public void updateSatisfactionLabel(String satisfaction){
+    satisfactionLabel.setText(satisfaction);
+  }
+
 }

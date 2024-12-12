@@ -13,6 +13,7 @@ import io.github.unisim.Timer;
 import io.github.unisim.achievements.AchievementsHandler;
 import io.github.unisim.events.EventsHandler;
 import io.github.unisim.messages.MessageHandler;
+import io.github.unisim.satisfaction.SatisfactionHandler;
 import io.github.unisim.world.UiInputProcessor;
 import io.github.unisim.world.World;
 import io.github.unisim.world.WorldInputProcessor;
@@ -32,29 +33,35 @@ public class GameScreen implements Screen {
   private final MessageHandler messageHandler;
   private final EventsHandler eventsHandler;
   private final AchievementsHandler achievementsHandler;
+  private final SatisfactionHandler satisfactionHandler;
   private InputProcessor uiInputProcessor = new UiInputProcessor(stage);
   private InputProcessor worldInputProcessor = new WorldInputProcessor(world);
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
   private GameOverMenu gameOverMenu = new GameOverMenu();
   private static FitViewport viewport;
+  private static final float gameDuration = 300_000f;
 
   /**
    * Constructor for the GameScreen.
    */
   public GameScreen() {
-    timer = new Timer(300_000);
+    timer = new Timer(gameDuration);
     infoBar = new InfoBar(stage, timer, world);
     buildingMenu = new BuildingMenu(stage, world);
     bank = new Bank();
     messageHandler = new MessageHandler(stage);
     eventsHandler = new EventsHandler(messageHandler, world.getBuildingManager(), buildingMenu);
     achievementsHandler = new AchievementsHandler(messageHandler);
-
+    satisfactionHandler = new SatisfactionHandler(infoBar, world.getBuildingManager());
     inputMultiplexer.addProcessor(GameState.fullscreenInputProcessor);
     inputMultiplexer.addProcessor(stage);
     inputMultiplexer.addProcessor(uiInputProcessor);
     inputMultiplexer.addProcessor(worldInputProcessor);
     viewport = new FitViewport(8, 5);
+  }
+
+  public static float getGameDuration() {
+    return gameDuration;
   }
 
   @Override
@@ -81,11 +88,14 @@ public class GameScreen implements Screen {
       world.zoom((world.getMaxZoom() - world.getZoom()) * 2f);
       world.pan((150 - world.getCameraPos().x) / 10, -world.getCameraPos().y / 10);
       gameOverMenu.render(delta);
+      satisfactionHandler.updatePostGameSatisfaction();
+      System.out.println(satisfactionHandler.getSatisfaction());
     }
 
     eventsHandler.checkEvents(delta, timer);
     eventsHandler.runCurrentEvent(delta);
     achievementsHandler.displayAchievements(delta);
+    satisfactionHandler.updateSatisfaction();
   }
 
   @Override
