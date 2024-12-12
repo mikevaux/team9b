@@ -29,6 +29,10 @@ public abstract class Building {
    */
   int incomeGeneration = 0;
   /**
+   * The filename of the building's asset.
+   */
+  String filename;
+  /**
    * The image to draw over the space the building occupies
    */
   Texture texture;
@@ -73,6 +77,10 @@ public abstract class Building {
     this.setSize(size.y, size.x);
   }
 
+  public BuildingType getType() {
+    return type;
+  }
+
   public String getName() {
     return name;
   }
@@ -92,11 +100,27 @@ public abstract class Building {
   }
 
   public Texture getTexture() {
+    // Cache this to avoid generating it multiple times
+    if (texture == null) {
+      texture = new Texture(filename);
+    }
     return texture;
   }
 
   public Point getSize() {
     return size;
+  }
+
+  public float getTextureScale() {
+    return textureScale;
+  }
+
+  public Vector2 getTextureOffset() {
+    return textureOffset;
+  }
+
+  public boolean isFlipped() {
+    return flipped;
   }
 
   public void setTexture(Texture texture) {

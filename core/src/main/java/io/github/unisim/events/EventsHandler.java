@@ -1,7 +1,7 @@
 package io.github.unisim.events;
 
 import io.github.unisim.Timer;
-import io.github.unisim.building.BuildingManager;
+import io.github.unisim.BuildingManager;
 import io.github.unisim.messages.MessageHandler;
 import io.github.unisim.ui.BuildingMenu;
 import io.github.unisim.ui.GameScreen;

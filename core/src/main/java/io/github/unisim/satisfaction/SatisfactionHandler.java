@@ -1,7 +1,7 @@
 package io.github.unisim.satisfaction;
 
 import io.github.unisim.building.Building;
-import io.github.unisim.building.BuildingManager;
+import io.github.unisim.BuildingManager;
 import io.github.unisim.building.BuildingType;
 import io.github.unisim.ui.InfoBar;
 
