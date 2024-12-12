@@ -9,7 +9,7 @@ public class LongboiDay extends Event {
 
   private static boolean longboiDay = false;
   public LongboiDay(BuildingMenu menu) {
-    super("Event: Longboi Day", "Place the Longboi statue for a satisfaction bonus", "events/eventWarning.png");
+    super("Event: Longboi Day", "Place the Longboi statue for a\nsatisfaction bonus", "events/eventWarning.png");
     LongboiDay.menu = menu;
   }
 

@@ -113,7 +113,7 @@ public class BuildingMenu {
         if (Bank.getInstance().getBalance() < building.getCost()) {
           messageHandler.showMessage(
             "Insufficient Funds",
-            "Your bank balance is too low to build a " + building.getName() + " at the moment."
+            "Your bank balance is too low to build a\n" + building.getName() + " at the moment."
           );
           return;
         }
