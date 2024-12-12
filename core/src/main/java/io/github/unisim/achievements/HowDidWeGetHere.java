@@ -12,7 +12,7 @@ public class HowDidWeGetHere extends Achievement{
   private static boolean alreadyDisplayed = false;
 
   public HowDidWeGetHere() {
-    super("How Did We Get Here?", "Have 1 of each building type placed at the same time.", "achievements/bucket.png");
+    super("How Did We Get Here?", "Have 1 of each building type\nplaced at the same time.", "achievements/bucket.png");
   }
 
   public static boolean isDisplay() {
