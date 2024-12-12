@@ -80,24 +80,18 @@ public class BuildingManager {
     return buildable;
   }
 
+
+
   /**
-   * Getter that picks a random building (not including {@link EventBuilding}s) from the list of buildings.
+   * Getter that picks a random building (not including {@link EventBuilding}s or preview buildings) from the list of buildings.
    *
    * @return - random Building from buildings, null if empty
    */
   public Building getRandomBuilding(){
-    // "Copy" the buildings array filtering out EventBuildings, as these are not applicable
-    ArrayList<Building> sample = new ArrayList<>();
-    for (Building building : buildings) {
-      if (!(building instanceof EventBuilding)) {
-        sample.add(building);
-      }
-    }
-
-    int len = sample.size();
+    int len = filterBuildings().size();
     if (len != 0){
       int randomPosition = (int)(Math.random() * len);
-      return sample.get(randomPosition);
+      return filterBuildings().get(randomPosition);
     }
     return null;
   }
@@ -228,6 +222,51 @@ public class BuildingManager {
       return 0;
     }
     return buildingCounts.get(type);
+  }
+
+  /**
+   * Filters the array buildings, removing any event or preview buildings.
+   *
+   * @return an arraylist of all placed buildings minus event and preview buildings.
+   */
+  public ArrayList<Building> filterBuildings() {
+    ArrayList<Building> builtBuildings = new ArrayList<>();
+    for (Building building: buildings){
+      if (!(building == previewBuilding) && !(building.type == BuildingType.EVENT)){
+        builtBuildings.add(building);
+      }
+    }
+    return builtBuildings;
+  }
+
+  public int getNumberOf(BuildingType type){
+    int counter = 0;
+    for (Building building : buildings){
+      if (building.type == type){
+        counter += 1;
+      }
+    }
+    return counter;
+  }
+
+  public boolean longboiStatuePlaced(){
+    boolean statuePlaced = false;
+    for (Building building : buildings){
+      if (building.type == BuildingType.EVENT){
+        statuePlaced = true;
+      }
+    }
+    return statuePlaced;
+  }
+
+  public ArrayList<Building> getTypeBuildings(BuildingType type) {
+    ArrayList<Building> typeBuildings = new ArrayList<>();
+    for (Building building: buildings){
+      if (building.type == type && building != previewBuilding){
+        typeBuildings.add(building);
+      }
+    }
+    return typeBuildings;
   }
 
   /**

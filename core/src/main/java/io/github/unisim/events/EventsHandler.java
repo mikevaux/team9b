@@ -4,6 +4,7 @@ import io.github.unisim.Timer;
 import io.github.unisim.building.BuildingManager;
 import io.github.unisim.messages.MessageHandler;
 import io.github.unisim.ui.BuildingMenu;
+import io.github.unisim.ui.GameScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,17 +72,17 @@ public class EventsHandler {
   }
 
   public void checkEvents(float delta, Timer timer){
-    if (timer.getRemainingTime() < 295_000 && event1){
+    if (timer.getRemainingTime() < (3*(GameScreen.getGameDuration()/4)) && event1){
       event1 = false;
       currentEvent = this.events.get(this.order.get(0));
       showEvent(currentEvent);
       setPreAndPost();
-    }else if (timer.getRemainingTime() < 285_000 && event2){
+    }else if (timer.getRemainingTime() < (GameScreen.getGameDuration()/2) && event2){
       event2 = false;
       currentEvent = this.events.get(this.order.get(1));
       showEvent(currentEvent);
       setPreAndPost();
-    }else if (timer.getRemainingTime() < 275_000 && event3){
+    }else if (timer.getRemainingTime() < (GameScreen.getGameDuration()/4) && event3){
       event3 = false;
       currentEvent = this.events.get(this.order.get(2));
       showEvent(currentEvent);

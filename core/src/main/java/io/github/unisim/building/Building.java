@@ -112,6 +112,10 @@ public abstract class Building {
     this.size.y = y;
   }
 
+  public Point getLocation() {
+    return location;
+  }
+
   public void setFlipped(boolean flipped) {
     this.flipped = flipped;
   }
