@@ -9,7 +9,7 @@ public class AreYouStillWatching extends Achievement {
    * Creates an instance of AreYouStillWatching, which requires you not to place a building for more than a minute.
    */
   public AreYouStillWatching() {
-    super("Are You Still Watching?", "1 minute without any buildings placed", "achievements/notflix.png");
+    super("Are You Still Watching?", "1 minute without any\nbuildings placed", "achievements/notflix.png");
   }
 
   public static boolean isDisplay() {

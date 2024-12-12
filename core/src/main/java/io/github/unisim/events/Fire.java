@@ -13,7 +13,7 @@ public class Fire extends Event {
   private Texture fireTexture;
 
   public Fire(BuildingManager buildingManager) {
-    super("Event: Fire", "Oh no! a building caught fire! replace it to save satisfaction", "events/eventWarning.png");
+    super("Event: Fire", "Oh no! a building caught fire!\nreplace it to save satisfaction", "events/eventWarning.png");
     this.buildingManager = buildingManager;
     this.fireTexture = null;
   }
