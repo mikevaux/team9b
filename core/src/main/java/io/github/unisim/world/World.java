@@ -99,7 +99,7 @@ public class World {
     camera.update();
 
     // Deselect the selected building if the game is over
-    if (GameState.gameOver) {
+    if (GameState.getInstance().isGameOver()) {
       selectedBuilding = null;
       selectedBuildingUpdated = true;
     }

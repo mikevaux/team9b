@@ -26,8 +26,6 @@ public class GameState {
   public static Set<Integer> buildableTiles = Stream.of(
       14, 15).collect(Collectors.toUnmodifiableSet()
   );
-  public static boolean paused = true;
-  public static boolean gameOver = false;
 
   ////////////////////////
   // Below is the beginning of a move toward a Singleton pattern for GameState. The current setup is causing problems.
@@ -41,6 +39,8 @@ public class GameState {
   private int quarterlyIncome = 20_000;
   private final Skin defaultSkin;
   private final Settings settings;
+  private boolean paused = true;
+  private boolean gameOver = false;
 
   public static GameState getInstance() {
     if (INSTANCE == null) {
@@ -78,7 +78,27 @@ public class GameState {
     return settings;
   }
 
+  public boolean isPaused() {
+    return paused;
+  }
+
+  public boolean isGameOver() {
+    return gameOver;
+  }
+
   public void increaseQuarterlyIncome(int increase) {
     quarterlyIncome += increase;
+  }
+
+  public void setPaused(boolean paused) {
+    this.paused = paused;
+  }
+
+  public void togglePaused() {
+    paused = !paused;
+  }
+
+  public void setGameOver(boolean gameOver) {
+    this.gameOver = gameOver;
   }
 }

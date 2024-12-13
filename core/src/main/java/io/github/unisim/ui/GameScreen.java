@@ -71,9 +71,9 @@ public class GameScreen implements Screen {
   public void render(float delta) {
     world.render();
     float dt = Gdx.graphics.getDeltaTime();
-    if (!GameState.paused && !GameState.gameOver) {
+    if (!GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver()) {
       if (!timer.tick(dt * 1000)) {
-        GameState.gameOver = true;
+        GameState.getInstance().setGameOver(true);
         Gdx.input.setInputProcessor(gameOverMenu.getInputProcessor());
       }
     }
@@ -82,7 +82,7 @@ public class GameScreen implements Screen {
     buildingMenu.update();
     messageHandler.render(delta);
     stage.draw();
-    if (GameState.gameOver) {
+    if (GameState.getInstance().isGameOver()) {
       world.zoom((world.getMaxZoom() - world.getZoom()) * 2f);
       world.pan((150 - world.getCameraPos().x) / 10, -world.getCameraPos().y / 10);
       gameOverMenu.render(delta);
@@ -115,9 +115,9 @@ public class GameScreen implements Screen {
   public void resume() {
     Gdx.input.setInputProcessor(inputMultiplexer);
 
-    if (GameState.gameOver) {
-      GameState.gameOver = false;
-      GameState.paused = true;
+    if (GameState.getInstance().isGameOver()) {
+      GameState.getInstance().setGameOver(false);
+      GameState.getInstance().setPaused(true);
       timer.reset();
       world.reset();
       infoBar.reset();

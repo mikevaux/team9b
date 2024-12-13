@@ -175,7 +175,7 @@ public class BuildingMenu {
    * Called when the building menu needs to be redrawn with new values in the labels.
    */
   public void update() {
-    if (GameState.gameOver) {
+    if (GameState.getInstance().isGameOver()) {
       buildingInfoLabel.setText("Game Over!");
       return;
     }
