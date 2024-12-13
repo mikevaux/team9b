@@ -33,7 +33,7 @@ public class Main extends Game {
     if (width + height == 0) {
       return;
     }
-    ((FullscreenInputProcessor) GameState.fullscreenInputProcessor).resize(width, height);
+    GameState.getInstance().getFullscreenInputProcessor().resize(width, height);
     GameState.gameScreen.resize(width, height);
     GameState.settingScreen.resize(width, height);
     GameState.startScreen.resize(width, height);

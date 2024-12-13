@@ -1,7 +1,6 @@
 package io.github.unisim;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -13,7 +12,6 @@ import io.github.unisim.ui.StartMenuScreen;
  * Contains a collection of settings and references that should be available globally.
  */
 public class GameState {
-  public static InputProcessor fullscreenInputProcessor = new FullscreenInputProcessor();
   public static Screen gameScreen = new GameScreen();
   public static Screen startScreen = new StartMenuScreen();
   public static Screen settingScreen = new SettingsScreen();
@@ -29,6 +27,7 @@ public class GameState {
   private static final String colourPrimaryHex = "A84D9D";
   private static final String colourSecondaryHex = "414C4E";
   private int quarterlyIncome = 20_000;
+  private final FullscreenInputProcessor fullscreenInputProcessor;
   private final Skin defaultSkin;
   private final Settings settings;
   private boolean paused = true;
@@ -42,8 +41,9 @@ public class GameState {
   }
 
   private GameState() {
-    settings = new Settings();
+    fullscreenInputProcessor = new FullscreenInputProcessor();
     defaultSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+    settings = new Settings();
   }
 
   public String getCurrency() {
@@ -60,6 +60,10 @@ public class GameState {
 
   public int getQuarterlyIncome() {
     return quarterlyIncome;
+  }
+
+  public FullscreenInputProcessor getFullscreenInputProcessor() {
+    return fullscreenInputProcessor;
   }
 
   public Skin getDefaultSkin() {

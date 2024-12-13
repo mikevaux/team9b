@@ -46,7 +46,7 @@ public class GameOverMenu {
     stage.addActor(bar);
     stage.addActor(table);
 
-    inputMultiplexer.addProcessor(GameState.fullscreenInputProcessor);
+    inputMultiplexer.addProcessor(GameState.getInstance().getFullscreenInputProcessor());
     inputMultiplexer.addProcessor(stage);
   }
 
