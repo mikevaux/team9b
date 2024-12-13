@@ -79,7 +79,7 @@ jobs:
       with:
         name: UniSim-latest.jar
     - name: Release
-      uses: softprops/action-gh-release@9d7c94cfd0a1f3ed45544c887983e9fa900f0564
+      uses: softprops/action-gh-release@7b4da11513bf3f43f9999e90eabced41ab8bb048 # v2.2.0
       with:
         files: UniSim-latest.jar
     
