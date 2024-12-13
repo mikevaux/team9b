@@ -13,14 +13,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.unisim.GameState;
+import io.github.unisim.Main;
+import io.github.unisim.Settings;
 
 /**
  * The settings screen that allows the player to adjust the volume.
  */
 public class SettingsScreen implements Screen {
   private Stage stage;
+  private final Settings settings;
   private Table table;
-  private Skin skin = GameState.defaultSkin;
   private Slider volumeSlider;
   private Label volumeLabel;
   private TextButton backButton;
@@ -29,9 +31,12 @@ public class SettingsScreen implements Screen {
   /**
    * Create a new Settings screen and draw the initial UI layout.
    */
-  public SettingsScreen() {
+  public SettingsScreen(StartMenuScreen startScreen) {
     stage = new Stage();
+    // Store a reference to the global settings here for easy retrieval
+    settings = GameState.getInstance().getSettings();
     table = new Table();
+    Skin skin = GameState.getInstance().getDefaultSkin();
 
     // Volume label
     volumeLabel = new Label("Volume: ", skin);
@@ -39,12 +44,12 @@ public class SettingsScreen implements Screen {
 
     // Volume slider
     volumeSlider = new Slider(0.0f, 1.0f, 0.1f, false, skin);
-    volumeSlider.setValue(GameState.settings.getVolume()); // Set current volume
+    volumeSlider.setValue(settings.getVolume()); // Set current volume
     volumeSlider.setPosition(150, 150);
     volumeSlider.setSize(200, 50);
     volumeSlider.addListener(event -> {
       // Adjust the game volume based on slider value
-      GameState.settings.setVolume(volumeSlider.getValue());
+      settings.setVolume(volumeSlider.getValue());
       return false;
     });
 
@@ -56,7 +61,7 @@ public class SettingsScreen implements Screen {
       @Override
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
         // Go back to the start menu
-        GameState.currentScreen = GameState.startScreen;
+        Main.getInstance().setScreen(startScreen);
       }
     });
 
@@ -71,12 +76,14 @@ public class SettingsScreen implements Screen {
     table.add(volumeSlider).center().width(250).height(67);
     stage.addActor(table);
 
-    inputMultiplexer.addProcessor(GameState.fullscreenInputProcessor);
+    inputMultiplexer.addProcessor(GameState.getInstance().getFullscreenInputProcessor());
     inputMultiplexer.addProcessor(stage);
   }
 
   @Override
-  public void show() {}
+  public void show() {
+    Gdx.input.setInputProcessor(inputMultiplexer);
+  }
 
   @Override
   public void render(float delta) {
@@ -97,9 +104,7 @@ public class SettingsScreen implements Screen {
   public void pause() {}
 
   @Override
-  public void resume() {
-    Gdx.input.setInputProcessor(inputMultiplexer);
-  }
+  public void resume() {}
 
   @Override
   public void hide() {}
@@ -107,6 +112,5 @@ public class SettingsScreen implements Screen {
   @Override
   public void dispose() {
     stage.dispose();
-    skin.dispose();
   }
 }

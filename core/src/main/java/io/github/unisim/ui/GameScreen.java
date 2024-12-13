@@ -51,7 +51,7 @@ public class GameScreen implements Screen {
     eventsHandler = new EventsHandler(messageHandler, world.getBuildingManager(), buildingMenu);
     achievementsHandler = new AchievementsHandler(messageHandler);
     satisfactionHandler = new SatisfactionHandler(infoBar, world.getBuildingManager());
-    inputMultiplexer.addProcessor(GameState.fullscreenInputProcessor);
+    inputMultiplexer.addProcessor(GameState.getInstance().getFullscreenInputProcessor());
     inputMultiplexer.addProcessor(stage);
     inputMultiplexer.addProcessor(uiInputProcessor);
     inputMultiplexer.addProcessor(worldInputProcessor);
@@ -64,6 +64,7 @@ public class GameScreen implements Screen {
 
   @Override
   public void show() {
+    Gdx.input.setInputProcessor(inputMultiplexer);
   }
 
 
@@ -71,9 +72,9 @@ public class GameScreen implements Screen {
   public void render(float delta) {
     world.render();
     float dt = Gdx.graphics.getDeltaTime();
-    if (!GameState.paused && !GameState.gameOver) {
+    if (!GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver()) {
       if (!timer.tick(dt * 1000)) {
-        GameState.gameOver = true;
+        GameState.getInstance().setGameOver(true);
         Gdx.input.setInputProcessor(gameOverMenu.getInputProcessor());
       }
     }
@@ -82,7 +83,7 @@ public class GameScreen implements Screen {
     buildingMenu.update();
     messageHandler.render(delta);
     stage.draw();
-    if (GameState.gameOver) {
+    if (GameState.getInstance().isGameOver()) {
       world.zoom((world.getMaxZoom() - world.getZoom()) * 2f);
       world.pan((150 - world.getCameraPos().x) / 10, -world.getCameraPos().y / 10);
       gameOverMenu.render(delta);
@@ -112,18 +113,7 @@ public class GameScreen implements Screen {
   }
 
   @Override
-  public void resume() {
-    Gdx.input.setInputProcessor(inputMultiplexer);
-
-    if (GameState.gameOver) {
-      GameState.gameOver = false;
-      GameState.paused = true;
-      timer.reset();
-      world.reset();
-      infoBar.reset();
-      buildingMenu.reset();
-    }
-  }
+  public void resume() {}
 
   public static FitViewport getViewport(){
     return viewport;

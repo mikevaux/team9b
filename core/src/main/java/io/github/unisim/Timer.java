@@ -69,14 +69,6 @@ public class Timer {
     return remainingTime;
   }
 
-  /**
-   * Reset the timer to its' initial time value.
-   */
-  public void reset() {
-    remainingTime = initialTime;
-    hasFinished = false;
-  }
-
   public String displayProgression() {
     return String.format("%s (%s)", displaySeason(), displayRemainingTime());
   }

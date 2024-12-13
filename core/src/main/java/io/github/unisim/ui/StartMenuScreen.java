@@ -1,5 +1,6 @@
 package io.github.unisim.ui;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.unisim.GameState;
+import io.github.unisim.Main;
 import io.github.unisim.achievements.PressStartToPlay;
 
 /**
@@ -20,7 +22,6 @@ import io.github.unisim.achievements.PressStartToPlay;
 public class StartMenuScreen implements Screen {
   private Stage stage;
   private Table table;
-  private Skin skin;
   private TextButton playButton;
   private TextButton settingsButton;
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
@@ -31,7 +32,9 @@ public class StartMenuScreen implements Screen {
   public StartMenuScreen() {
     stage = new Stage();
     table = new Table();
-    skin = GameState.defaultSkin;
+    Skin skin = GameState.getInstance().getDefaultSkin();
+    // Reference to this screen for use inside a different context
+    StartMenuScreen _this = this;
 
     // Play button
     playButton = new TextButton("Start", skin);
@@ -39,7 +42,7 @@ public class StartMenuScreen implements Screen {
       @Override
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
         // Switch to the game screen
-        GameState.currentScreen = GameState.gameScreen;
+        Main.getInstance().setScreen(new GameScreen());
         PressStartToPlay.setDisplay(true); //display the PressPlayToStart achievement
       }
     });
@@ -50,7 +53,7 @@ public class StartMenuScreen implements Screen {
       @Override
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
         // Switch to the settings screen
-        GameState.currentScreen = GameState.settingScreen;
+        Main.getInstance().setScreen(new SettingsScreen(_this));
       }
     });
 
@@ -63,12 +66,13 @@ public class StartMenuScreen implements Screen {
     table.add(settingsButton).center().width(250).height(67);
     stage.addActor(table);
 
-    inputMultiplexer.addProcessor(GameState.fullscreenInputProcessor);
+    inputMultiplexer.addProcessor(GameState.getInstance().getFullscreenInputProcessor());
     inputMultiplexer.addProcessor(stage);
   }
 
   @Override
   public void show() {
+    Gdx.input.setInputProcessor(inputMultiplexer);
   }
 
   @Override
@@ -91,9 +95,7 @@ public class StartMenuScreen implements Screen {
   }
 
   @Override
-  public void resume() {
-    Gdx.input.setInputProcessor(inputMultiplexer);
-  }
+  public void resume() {}
 
   @Override
   public void hide() {
@@ -102,6 +104,5 @@ public class StartMenuScreen implements Screen {
   @Override
   public void dispose() {
     stage.dispose();
-    skin.dispose();
   }
 }

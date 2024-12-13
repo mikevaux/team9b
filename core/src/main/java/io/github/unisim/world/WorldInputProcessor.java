@@ -24,7 +24,7 @@ public class WorldInputProcessor implements InputProcessor {
     switch (keycode) {
       // Handle Pausing
       case Keys.SPACE:
-        GameState.paused = !GameState.paused;
+        GameState.getInstance().togglePaused();
         break;
 
       // Handle Flipping

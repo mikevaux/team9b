@@ -16,6 +16,9 @@ import io.github.unisim.events.LongboiDay;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Manage the buildings placed in the world and methods common to all buildings.
@@ -27,9 +30,15 @@ public class BuildingManager {
   private Map<BuildingType, Integer> buildingCounts = new HashMap<>();
   private Matrix4 isoTransform;
   private Building previewBuilding;
+  /**
+   * Contains the IDs of all buildable tiles.
+   */
+  private final Set<Integer> buildableTiles;
 
   public BuildingManager(Matrix4 isoTransform) {
     this.isoTransform = isoTransform;
+    // Set was used to make searching more efficient.
+    buildableTiles = Stream.of(14, 15).collect(Collectors.toUnmodifiableSet());
   }
 
   /**
@@ -103,8 +112,8 @@ public class BuildingManager {
    * @param tile - A reference to a tile on the terrain layer of the map.
    * @return - true if the tile is buildable, false otherwise
    */
-  private static boolean tileBuildable(TiledMapTile tile) {
-    return GameState.buildableTiles.contains(tile.getId());
+  private boolean tileBuildable(TiledMapTile tile) {
+    return buildableTiles.contains(tile.getId());
   }
 
   /**

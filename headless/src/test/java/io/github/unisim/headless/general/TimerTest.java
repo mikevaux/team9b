@@ -37,7 +37,7 @@ public class TimerTest extends GeneralTest{
   public void testResetTimer(){
     float tickSize = 1_000;
     timer.tick(tickSize);
-    timer.reset();
+    timer = new Timer(initialTime);
     assertEquals(initialTime, timer.getRemainingTime(), STANDARD_DELTA, "timer does not reset correctly");
   }
 
@@ -62,7 +62,7 @@ public class TimerTest extends GeneralTest{
     assertTrue(timer.isRunning(), "timer is not running when more than 0 seconds remain");
     timer.tick(tick2);
     assertFalse(timer.isRunning(),"timer is running after reaching 0 seconds");
-    timer.reset();
+    timer = new Timer(initialTime);
     assertTrue(timer.isRunning(),"timer is not running after being reset");
   }
 

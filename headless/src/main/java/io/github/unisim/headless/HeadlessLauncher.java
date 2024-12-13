@@ -13,7 +13,7 @@ public class HeadlessLauncher {
 
     private static Application createApplication() {
         // Note: you can use a custom ApplicationListener implementation for the headless project instead of Gemo.
-        return new HeadlessApplication(new Main(), getDefaultConfiguration());
+        return new HeadlessApplication(Main.getInstance(), getDefaultConfiguration());
     }
 
     private static HeadlessApplicationConfiguration getDefaultConfiguration() {

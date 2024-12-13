@@ -71,7 +71,7 @@ public class InfoBar {
     pauseImage.addListener(new ClickListener() {
       @Override
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-        GameState.paused = true;
+        GameState.getInstance().setPaused(true);
         pauseButtonCell.setActor(playImage);
       }
     });
@@ -80,7 +80,7 @@ public class InfoBar {
     playImage.addListener(new ClickListener() {
       @Override
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-        GameState.paused = false;
+        GameState.getInstance().setPaused(false);
         pauseButtonCell.setActor(pauseImage);
       }
     });
@@ -106,7 +106,7 @@ public class InfoBar {
         + Integer.toString(world.getBuildingCount(BuildingType.EATING)));
     buildingCounterLabels[3].setText("Sleeping: "
         + Integer.toString(world.getBuildingCount(BuildingType.SLEEPING)));
-    pauseButtonCell.setActor(GameState.paused ? playImage : pauseImage);
+    pauseButtonCell.setActor(GameState.getInstance().isPaused() ? playImage : pauseImage);
   }
 
   /**
@@ -121,12 +121,7 @@ public class InfoBar {
     titleTable.setBounds(0, height * 0.95f, width, height * 0.05f);
   }
 
-  public void reset() {
-    pauseButtonCell.setActor(playImage);
-  }
-
   public void updateSatisfactionLabel(String satisfaction){
     satisfactionLabel.setText(satisfaction);
   }
-
 }
