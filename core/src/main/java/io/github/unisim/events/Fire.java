@@ -27,27 +27,22 @@ public class Fire extends Event {
       //replace the texture of the building with an 'on fire' version
       switch (type){
         case "Basketball Court":
-          fireTexture = new Texture("fireBuildings/basketballCourt.png");
           OnFire.setBuildingToBuild("Basketball Court");
           break;
         case "Library":
-          fireTexture = new Texture("fireBuildings/library.png");
           OnFire.setBuildingToBuild("Library");
           break;
         case "Canteen":
-          fireTexture = new Texture("fireBuildings/restaurant.png");
           OnFire.setBuildingToBuild("Canteen");
           break;
         case "Stadium":
-          fireTexture = new Texture("fireBuildings/stadium.png");
           OnFire.setBuildingToBuild("Stadium");
           break;
         case "Student Accommodation":
-          fireTexture = new Texture("fireBuildings/studentHousing.png");
           OnFire.setBuildingToBuild("Student Accommodation");
           break;
       }
-      fireBuilding.setTexture(fireTexture);
+      fireBuilding.setOnFire(true);
       buildingManager.decrementCounter(fireBuilding); //decrease the counter of the building type by one
     }
   }

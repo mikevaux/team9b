@@ -8,7 +8,7 @@ public class BasketballCourt extends RecreationBuilding {
     super();
     name = "Basketball Court";
     cost = 20_000;
-    filename = "buildings/basketballCourt.png";
+    filename = "basketballCourt.png";
     textureScale = 0.0025f;
     textureOffset = new Vector2(1f, -2.4f);
     size = new Point(6, 9);

@@ -10,7 +10,7 @@ public class SleepingBuilding extends Building{
     name = "Student Accommodation";
     cost = 100_000;
     incomeGeneration = 50_000;
-    filename = "buildings/studentHousing.png";
+    filename = "studentHousing.png";
     textureScale = 0.108f;
     textureOffset = new Vector2(1.4f, -2.8f);
     size = new Point(11, 11);

@@ -9,7 +9,7 @@ public class LearningBuilding extends Building {
     type = BuildingType.LEARNING;
     name = "Library";
     cost = 500_000;
-    filename = "buildings/library.png";
+    filename = "library.png";
     textureScale = 0.0075f;
     textureOffset = new Vector2(1.8f, -4.6f);
     size = new Point(20, 12);

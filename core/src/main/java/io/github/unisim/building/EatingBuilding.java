@@ -9,7 +9,7 @@ public class EatingBuilding extends Building {
     type = BuildingType.EATING;
     name = "Canteen";
     cost = 30_000;
-    filename = "buildings/restaurant.png";
+    filename = "restaurant.png";
     textureScale = 0.01f;
     textureOffset = new Vector2(0.35f, -0.9f);
     size = new Point(3, 3);
