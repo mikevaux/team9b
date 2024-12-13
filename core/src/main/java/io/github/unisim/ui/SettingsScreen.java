@@ -22,7 +22,6 @@ public class SettingsScreen implements Screen {
   private Stage stage;
   private final Settings settings;
   private Table table;
-  private Skin skin = GameState.defaultSkin;
   private Slider volumeSlider;
   private Label volumeLabel;
   private TextButton backButton;
@@ -36,6 +35,7 @@ public class SettingsScreen implements Screen {
     // Store a reference to the global settings here for easy retrieval
     settings = GameState.getInstance().getSettings();
     table = new Table();
+    Skin skin = GameState.getInstance().getDefaultSkin();
 
     // Volume label
     volumeLabel = new Label("Volume: ", skin);
@@ -111,6 +111,5 @@ public class SettingsScreen implements Screen {
   @Override
   public void dispose() {
     stage.dispose();
-    skin.dispose();
   }
 }

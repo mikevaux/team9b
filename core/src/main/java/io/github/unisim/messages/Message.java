@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Scaling;
@@ -55,14 +56,15 @@ class Message {
    * @return the constructed table
    */
   Table layout() {
+    Skin skin = GameState.getInstance().getDefaultSkin();
     boolean hasIcon = iconFilename != null;
 
     // Scene2d.ui.Table doesn't support rowspan, so we need to use a nested table instead
     Table text = new Table();
     text.row().padBottom(8);
-    text.add(new Label(title, GameState.defaultSkin, "window")).left();
+    text.add(new Label(title, skin, "window")).left();
     text.row();
-    text.add(new Label(body, GameState.defaultSkin)).left();
+    text.add(new Label(body, skin)).left();
 
     Table toast = new Table().left();
     toast.setBackground(makeBackground());

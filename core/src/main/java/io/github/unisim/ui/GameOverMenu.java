@@ -17,7 +17,6 @@ import io.github.unisim.GameState;
  */
 public class GameOverMenu {
   private Stage stage;
-  private Skin skin;
   private final ShapeActor bar = new ShapeActor(GameState.getInstance().getColourSecondary());
   private Table table;
   private TextButton mainMenuButton;
@@ -30,7 +29,7 @@ public class GameOverMenu {
   public GameOverMenu() {
     stage = new Stage(new ScreenViewport());
     table = new Table();
-    skin = GameState.defaultSkin;
+    Skin skin = GameState.getInstance().getDefaultSkin();
 
     // Play button
     mainMenuButton = new TextButton("Return to Main Menu", skin);

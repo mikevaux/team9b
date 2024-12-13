@@ -16,7 +16,6 @@ import java.util.stream.Stream;
  * Contains a collection of settings and references that should be available globally.
  */
 public class GameState {
-  public static Skin defaultSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
   public static InputProcessor fullscreenInputProcessor = new FullscreenInputProcessor();
   public static Screen gameScreen = new GameScreen();
   public static Screen startScreen = new StartMenuScreen();
@@ -40,6 +39,7 @@ public class GameState {
   private static final String colourPrimaryHex = "A84D9D";
   private static final String colourSecondaryHex = "414C4E";
   private int quarterlyIncome = 20_000;
+  private final Skin defaultSkin;
   private final Settings settings;
 
   public static GameState getInstance() {
@@ -51,6 +51,7 @@ public class GameState {
 
   private GameState() {
     settings = new Settings();
+    defaultSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
   }
 
   public String getCurrency() {
@@ -67,6 +68,10 @@ public class GameState {
 
   public int getQuarterlyIncome() {
     return quarterlyIncome;
+  }
+
+  public Skin getDefaultSkin() {
+    return defaultSkin;
   }
 
   public Settings getSettings() {

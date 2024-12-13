@@ -20,7 +20,6 @@ import io.github.unisim.achievements.PressStartToPlay;
 public class StartMenuScreen implements Screen {
   private Stage stage;
   private Table table;
-  private Skin skin;
   private TextButton playButton;
   private TextButton settingsButton;
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
@@ -31,7 +30,7 @@ public class StartMenuScreen implements Screen {
   public StartMenuScreen() {
     stage = new Stage();
     table = new Table();
-    skin = GameState.defaultSkin;
+    Skin skin = GameState.getInstance().getDefaultSkin();
 
     // Play button
     playButton = new TextButton("Start", skin);
@@ -102,6 +101,5 @@ public class StartMenuScreen implements Screen {
   @Override
   public void dispose() {
     stage.dispose();
-    skin.dispose();
   }
 }
