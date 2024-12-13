@@ -64,6 +64,7 @@ public class GameScreen implements Screen {
 
   @Override
   public void show() {
+    Gdx.input.setInputProcessor(inputMultiplexer);
   }
 
 
@@ -112,18 +113,7 @@ public class GameScreen implements Screen {
   }
 
   @Override
-  public void resume() {
-    Gdx.input.setInputProcessor(inputMultiplexer);
-
-    if (GameState.getInstance().isGameOver()) {
-      GameState.getInstance().setGameOver(false);
-      GameState.getInstance().setPaused(true);
-      timer.reset();
-      world.reset();
-      infoBar.reset();
-      buildingMenu.reset();
-    }
-  }
+  public void resume() {}
 
   public static FitViewport getViewport(){
     return viewport;

@@ -2,26 +2,32 @@ package io.github.unisim;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import io.github.unisim.ui.StartMenuScreen;
 
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all
  * platforms.
  */
 public class Main extends Game {
-  private Screen currentScreen;
+  private static Main INSTANCE;
+
+  private Main() {
+  }
+
+  public static Main getInstance() {
+    if (INSTANCE == null) {
+      INSTANCE = new Main();
+    }
+    return INSTANCE;
+  }
 
   @Override
   public void create() {
-    GameState.currentScreen = GameState.startScreen;
+    setScreen(new StartMenuScreen());
   }
 
   @Override
   public void render() {
-    if (currentScreen != GameState.currentScreen) {
-      currentScreen = GameState.currentScreen;
-      setScreen(currentScreen);
-      currentScreen.resume();
-    }
     super.render(); // Ensures the active screen is rendered
   }
 
@@ -34,8 +40,5 @@ public class Main extends Game {
       return;
     }
     GameState.getInstance().getFullscreenInputProcessor().resize(width, height);
-    GameState.gameScreen.resize(width, height);
-    GameState.settingScreen.resize(width, height);
-    GameState.startScreen.resize(width, height);
   }
 }

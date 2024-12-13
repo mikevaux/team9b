@@ -121,12 +121,7 @@ public class InfoBar {
     titleTable.setBounds(0, height * 0.95f, width, height * 0.05f);
   }
 
-  public void reset() {
-    pauseButtonCell.setActor(playImage);
-  }
-
   public void updateSatisfactionLabel(String satisfaction){
     satisfactionLabel.setText(satisfaction);
   }
-
 }

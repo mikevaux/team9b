@@ -197,8 +197,4 @@ public class BuildingMenu {
       widget.setVisible(visible);
     }
   }
-
-  public void reset() {
-    buildingInfoLabel.setText("");
-  }
 }

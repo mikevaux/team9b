@@ -6,7 +6,7 @@ import java.text.NumberFormat;
  * Represents a University's Bank Account, from where they can spend and receive money.
  */
 public class Bank {
-  private static Bank instance;
+  private static Bank INSTANCE;
   private long balance;
 
   /**
@@ -17,10 +17,14 @@ public class Bank {
   }
 
   public static Bank getInstance() {
-    if (instance == null) {
-      instance = new Bank();
+    if (INSTANCE == null) {
+      INSTANCE = new Bank();
     }
-    return instance;
+    return INSTANCE;
+  }
+
+  public static void wipeInstance() {
+    INSTANCE = null;
   }
 
   public void debit(int amount) {

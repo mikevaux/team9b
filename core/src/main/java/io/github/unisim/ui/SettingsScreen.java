@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.unisim.GameState;
+import io.github.unisim.Main;
 import io.github.unisim.Settings;
 
 /**
@@ -30,7 +31,7 @@ public class SettingsScreen implements Screen {
   /**
    * Create a new Settings screen and draw the initial UI layout.
    */
-  public SettingsScreen() {
+  public SettingsScreen(StartMenuScreen startScreen) {
     stage = new Stage();
     // Store a reference to the global settings here for easy retrieval
     settings = GameState.getInstance().getSettings();
@@ -60,7 +61,7 @@ public class SettingsScreen implements Screen {
       @Override
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
         // Go back to the start menu
-        GameState.currentScreen = GameState.startScreen;
+        Main.getInstance().setScreen(startScreen);
       }
     });
 
@@ -80,7 +81,9 @@ public class SettingsScreen implements Screen {
   }
 
   @Override
-  public void show() {}
+  public void show() {
+    Gdx.input.setInputProcessor(inputMultiplexer);
+  }
 
   @Override
   public void render(float delta) {
@@ -101,9 +104,7 @@ public class SettingsScreen implements Screen {
   public void pause() {}
 
   @Override
-  public void resume() {
-    Gdx.input.setInputProcessor(inputMultiplexer);
-  }
+  public void resume() {}
 
   @Override
   public void hide() {}

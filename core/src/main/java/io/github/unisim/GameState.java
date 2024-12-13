@@ -1,27 +1,13 @@
 package io.github.unisim;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import io.github.unisim.ui.GameScreen;
-import io.github.unisim.ui.SettingsScreen;
-import io.github.unisim.ui.StartMenuScreen;
 
 /**
  * Contains a collection of settings and references that should be available globally.
  */
 public class GameState {
-  public static Screen gameScreen = new GameScreen();
-  public static Screen startScreen = new StartMenuScreen();
-  public static Screen settingScreen = new SettingsScreen();
-  public static Screen currentScreen;
-
-  ////////////////////////
-  // Below is the beginning of a move toward a Singleton pattern for GameState. The current setup is causing problems.
-  // One example of this was a race condition, whereby a static member of GameState was unavailable at game boot time.
-  ////////////////////////
-
   private static GameState INSTANCE;
   private static final String currency = "£";
   private static final String colourPrimaryHex = "A84D9D";
@@ -38,6 +24,10 @@ public class GameState {
       INSTANCE = new GameState();
     }
     return INSTANCE;
+  }
+
+  public static void wipeInstance() {
+    INSTANCE = null;
   }
 
   private GameState() {

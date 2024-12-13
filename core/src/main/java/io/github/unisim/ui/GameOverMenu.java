@@ -9,7 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.github.unisim.Bank;
 import io.github.unisim.GameState;
+import io.github.unisim.Main;
 
 /**
  * Menu that is displayed when the timer has run out. This is where the final score
@@ -36,8 +38,11 @@ public class GameOverMenu {
     mainMenuButton.addListener(new ClickListener() {
       @Override
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-        // Switch to the game screen
-        GameState.currentScreen = GameState.startScreen;
+        // Go back to a fresh start screen
+        Main.getInstance().setScreen(new StartMenuScreen());
+        // Wipe all singletons to reset the game state
+        GameState.wipeInstance();
+        Bank.wipeInstance();
       }
     });
 
