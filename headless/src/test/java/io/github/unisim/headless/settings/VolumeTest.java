@@ -1,16 +1,16 @@
 package io.github.unisim.headless.settings;
 
 import io.github.unisim.Settings;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VolumeTest extends SettingsTest {
-  static Settings settings;
+  private Settings settings;
 
-  @BeforeAll
-  public static void boot() {
+  @BeforeEach
+  public void boot() {
     settings = new Settings();
   }
 

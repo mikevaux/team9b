@@ -17,7 +17,6 @@ import java.util.stream.Stream;
  */
 public class GameState {
   public static Skin defaultSkin = new Skin(Gdx.files.internal("ui/uiskin.json"));
-  public static Settings settings = new Settings();
   public static InputProcessor fullscreenInputProcessor = new FullscreenInputProcessor();
   public static Screen gameScreen = new GameScreen();
   public static Screen startScreen = new StartMenuScreen();
@@ -41,12 +40,17 @@ public class GameState {
   private static final String colourPrimaryHex = "A84D9D";
   private static final String colourSecondaryHex = "414C4E";
   private int quarterlyIncome = 20_000;
+  private final Settings settings;
 
   public static GameState getInstance() {
     if (INSTANCE == null) {
       INSTANCE = new GameState();
     }
     return INSTANCE;
+  }
+
+  private GameState() {
+    settings = new Settings();
   }
 
   public String getCurrency() {
@@ -63,6 +67,10 @@ public class GameState {
 
   public int getQuarterlyIncome() {
     return quarterlyIncome;
+  }
+
+  public Settings getSettings() {
+    return settings;
   }
 
   public void increaseQuarterlyIncome(int increase) {
