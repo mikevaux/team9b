@@ -33,9 +33,9 @@ public abstract class Building {
    */
   String filename;
   /**
-   * The image to draw over the space the building occupies
+   * The cached Texture to draw over the space the building occupies
    */
-  Texture texture;
+  Texture textureCache;
   /**
    * The (x, y) co-ordinates of the building on the map.
    * Note: We can save memory by storing only the top-left corner and the size of the building. This works as all
@@ -81,12 +81,15 @@ public abstract class Building {
     this.setSize(size.y, size.x);
   }
 
-  private void makeTexture() {
+  /**
+   * Makes and caches the texture for this building.
+   */
+  private void cacheTexture() {
     String dir = "buildings/";
     if (onFire) {
       dir += "on-fire/";
     }
-    texture = new Texture(dir + filename);
+    textureCache = new Texture(dir + filename);
   }
 
   public BuildingType getType() {
@@ -113,10 +116,10 @@ public abstract class Building {
 
   public Texture getTexture() {
     // Cache this to avoid generating it multiple times
-    if (texture == null) {
-      makeTexture();
+    if (textureCache == null) {
+      cacheTexture();
     }
-    return texture;
+    return textureCache;
   }
 
   public Point getSize() {
@@ -135,10 +138,16 @@ public abstract class Building {
     return flipped;
   }
 
-  public void setTexture(Texture texture) {
-    this.texture = texture;
+  public boolean isOnFire() {
+    return onFire;
   }
 
+  /**
+   * Manually set the texture cache to null so that it is recreated next time `getTexture()` is called.
+   */
+  private void invalidateTextureCache() {
+    textureCache = null;
+  }
   public void setLocation(Point location) {
     this.location = location;
   }
@@ -158,6 +167,6 @@ public abstract class Building {
 
   public void setOnFire(boolean onFire) {
     this.onFire = onFire;
-    this.makeTexture();
+    this.invalidateTextureCache();
   }
 }
