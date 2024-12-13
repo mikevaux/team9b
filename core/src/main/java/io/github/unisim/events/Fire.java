@@ -20,31 +20,15 @@ public class Fire extends Event {
 
   @Override
   public void doBefore(){
-    Building fireBuilding = buildingManager.getRandomBuilding(); //gets a random building
-    //runs only if a building has been placed (and therefore got)
+    // Gets a random building (filtered internally to certain types)
+    Building fireBuilding = buildingManager.getRandomBuilding();
+    // Run only if a building has been placed (and therefore got)
     if (fireBuilding != null){
-      String type = fireBuilding.getName();
-      //replace the texture of the building with an 'on fire' version
-      switch (type){
-        case "Basketball Court":
-          OnFire.setBuildingToBuild("Basketball Court");
-          break;
-        case "Library":
-          OnFire.setBuildingToBuild("Library");
-          break;
-        case "Canteen":
-          OnFire.setBuildingToBuild("Canteen");
-          break;
-        case "Stadium":
-          OnFire.setBuildingToBuild("Stadium");
-          break;
-        case "Student Accommodation":
-          OnFire.setBuildingToBuild("Student Accommodation");
-          break;
-      }
+      // Store the name of the burned building as a target to rebuild
+      OnFire.setBuildingToBuild(fireBuilding.getName());
       fireBuilding.setOnFire(true);
-      buildingManager.decrementCounter(fireBuilding); //decrease the counter of the building type by one
+      // Decrease the counter of the building type by one
+      buildingManager.decrementCounter(fireBuilding);
     }
   }
-
 }
