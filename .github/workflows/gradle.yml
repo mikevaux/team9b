@@ -10,6 +10,7 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ "main" ]
+    tags: [ "v[0-9]+.[0-9]+.[0-9]+" ]
   pull_request:
     branches: [ "main" ]
 
@@ -46,7 +47,7 @@ jobs:
       with:
         name: UniSim-latest.jar
         path: lwjgl3/build/libs/UniSim-*.jar
-    
+
   dependency-submission:
     runs-on: ubuntu-24.04
     permissions:
@@ -64,3 +65,21 @@ jobs:
     # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+
+  release:
+    runs-on: ubuntu-24.04
+    needs: [ "build" ]
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+
+    steps:
+    - name: Download Ubuntu Build Artifact
+      uses: actions/download-artifact@v4.1.8
+      with:
+        name: UniSim-latest.jar
+    - name: Release
+      uses: softprops/action-gh-release@7b4da11513bf3f43f9999e90eabced41ab8bb048 # v2.2.0
+      with:
+        files: UniSim-latest.jar
+    
