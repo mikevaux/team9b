@@ -29,6 +29,10 @@ public abstract class Building {
    */
   int incomeGeneration = 0;
   /**
+   * The filename of the building's asset.
+   */
+  String filename;
+  /**
    * The image to draw over the space the building occupies
    */
   Texture texture;
@@ -55,6 +59,10 @@ public abstract class Building {
    * Whether to render a flipped variant of the building.
    */
   boolean flipped;
+  /**
+   * Whether the building is on fire.
+   */
+  boolean onFire = false;
 
   /**
    * Sets attribute values common to all buildings when initialised.
@@ -71,6 +79,18 @@ public abstract class Building {
     this.setFlipped(!flipped);
     // Set x := y and y:= x here to invert
     this.setSize(size.y, size.x);
+  }
+
+  private void makeTexture() {
+    String dir = "buildings/";
+    if (onFire) {
+      dir += "on-fire/";
+    }
+    texture = new Texture(dir + filename);
+  }
+
+  public BuildingType getType() {
+    return type;
   }
 
   public String getName() {
@@ -92,11 +112,27 @@ public abstract class Building {
   }
 
   public Texture getTexture() {
+    // Cache this to avoid generating it multiple times
+    if (texture == null) {
+      makeTexture();
+    }
     return texture;
   }
 
   public Point getSize() {
     return size;
+  }
+
+  public float getTextureScale() {
+    return textureScale;
+  }
+
+  public Vector2 getTextureOffset() {
+    return textureOffset;
+  }
+
+  public boolean isFlipped() {
+    return flipped;
   }
 
   public void setTexture(Texture texture) {
@@ -118,5 +154,10 @@ public abstract class Building {
 
   public void setFlipped(boolean flipped) {
     this.flipped = flipped;
+  }
+
+  public void setOnFire(boolean onFire) {
+    this.onFire = onFire;
+    this.makeTexture();
   }
 }

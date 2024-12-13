@@ -1,4 +1,4 @@
-package io.github.unisim.building;
+package io.github.unisim;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -6,10 +6,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
-import io.github.unisim.Bank;
-import io.github.unisim.GameState;
-import io.github.unisim.Point;
 import io.github.unisim.achievements.*;
+import io.github.unisim.building.Building;
+import io.github.unisim.building.BuildingType;
+import io.github.unisim.building.EventBuilding;
+import io.github.unisim.building.LongBoiStatue;
 import io.github.unisim.events.LongboiDay;
 
 import java.util.ArrayList;
@@ -64,10 +65,10 @@ public class BuildingManager {
     // Next, iterate over the current buildings to see if any intersect the new building
     for (Building building : buildings) {
       // Use the seperating axis theorem to detect building overlap
-      if (!(building.location.x > topRight.x
-          || building.location.x + building.size.x - 1 < btmLeft.x
-          || building.location.y > topRight.y
-          || building.location.y + building.size.y - 1 < btmLeft.y)
+      if (!(building.getLocation().x > topRight.x
+          || building.getLocation().x + building.getSize().x - 1 < btmLeft.x
+          || building.getLocation().y > topRight.y
+          || building.getLocation().y + building.getSize().y - 1 < btmLeft.y)
       ) {
         if (building == previewBuilding) {
           continue;
@@ -130,24 +131,24 @@ public class BuildingManager {
     // gets rendered in top-down order
     // Start by calculating the 'height' values for the left and right corners of the new building
     // where height is the taxi-cab distance from the top of the map
-    int buildingHeightLeftSide = building.location.y - building.location.x;
-    int buildingHeightRightSide = buildingHeightLeftSide + building.size.y - building.size.x + 1;
-    Point leftCorner = building.location;
+    int buildingHeightLeftSide = building.getLocation().y - building.getLocation().x;
+    int buildingHeightRightSide = buildingHeightLeftSide + building.getSize().y - building.getSize().x + 1;
+    Point leftCorner = building.getLocation();
 
     // Move up the array, until the pointer is in the correct place for the new building so the
     // array is sorted by height
     int i = 0;
     while (i < buildings.size()) {
       Building other = buildings.get(i);
-      int otherHeightLeftSide = other.location.y - other.location.x;
+      int otherHeightLeftSide = other.getLocation().y - other.getLocation().x;
       // Calculate the taxi-cab distance between the new building's left corner and the other
       // building's right corner
-      int leftDistance = Math.abs(leftCorner.x - other.location.x - other.size.x + 1)
-          + Math.abs(leftCorner.y - other.location.y - other.size.y + 1);
+      int leftDistance = Math.abs(leftCorner.x - other.getLocation().x - other.getSize().x + 1)
+          + Math.abs(leftCorner.y - other.getLocation().y - other.getSize().y + 1);
       // If the distance is small, compare the height of the new buildin'g left corner to the
       // height of the other buildings right corner
-      if (leftDistance < Math.min(building.size.x + building.size.y, other.size.x + other.size.y)) {
-        int otherHeightRightSide = otherHeightLeftSide + other.size.y - other.size.x + 1;
+      if (leftDistance < Math.min(building.getSize().x + building.getSize().y, other.getSize().x + other.getSize().y)) {
+        int otherHeightRightSide = otherHeightLeftSide + other.getSize().y - other.getSize().x + 1;
         if (otherHeightRightSide > buildingHeightLeftSide) {
           i++;
           continue;
@@ -171,7 +172,7 @@ public class BuildingManager {
       AreYouStillWatching.resetCounter();
       FitnessFreak.checkBuildings(buildingCounts);
       HowDidWeGetHere.checkBuildings(buildingCounts);
-      OnFire.checkBuilding(building.name);
+      OnFire.checkBuilding(building.getName());
 
       // remove the statue from the building menu once placed
       if (building instanceof LongBoiStatue) {
@@ -195,10 +196,10 @@ public class BuildingManager {
       return;
     }
 
-    if (!buildingCounts.containsKey(building.type)) {
-      buildingCounts.put(building.type, 0);
+    if (!buildingCounts.containsKey(building.getType())) {
+      buildingCounts.put(building.getType(), 0);
     }
-    buildingCounts.put(building.type, buildingCounts.get(building.type) + 1);
+    buildingCounts.put(building.getType(), buildingCounts.get(building.getType()) + 1);
   }
 
   /**
@@ -207,7 +208,7 @@ public class BuildingManager {
    * @param building - A reference to the building object that was placed
    */
   public void decrementCounter(Building building){
-    buildingCounts.put(building.type, buildingCounts.get(building.type) - 1);
+    buildingCounts.put(building.getType(), buildingCounts.get(building.getType()) - 1);
   }
 
   /**
@@ -232,7 +233,7 @@ public class BuildingManager {
   public ArrayList<Building> filterBuildings() {
     ArrayList<Building> builtBuildings = new ArrayList<>();
     for (Building building: buildings){
-      if (!(building == previewBuilding) && !(building.type == BuildingType.EVENT)){
+      if (!(building == previewBuilding) && !(building.getType() == BuildingType.EVENT)){
         builtBuildings.add(building);
       }
     }
@@ -242,7 +243,7 @@ public class BuildingManager {
   public int getNumberOf(BuildingType type){
     int counter = 0;
     for (Building building : buildings){
-      if (building.type == type){
+      if (building.getType() == type){
         counter += 1;
       }
     }
@@ -252,7 +253,7 @@ public class BuildingManager {
   public boolean longboiStatuePlaced(){
     boolean statuePlaced = false;
     for (Building building : buildings){
-      if (building.type == BuildingType.EVENT){
+      if (building.getType() == BuildingType.EVENT){
         statuePlaced = true;
       }
     }
@@ -262,7 +263,7 @@ public class BuildingManager {
   public ArrayList<Building> getTypeBuildings(BuildingType type) {
     ArrayList<Building> typeBuildings = new ArrayList<>();
     for (Building building: buildings){
-      if (building.type == type && building != previewBuilding){
+      if (building.getType() == type && building != previewBuilding){
         typeBuildings.add(building);
       }
     }
@@ -293,24 +294,24 @@ public class BuildingManager {
    */
   public void drawBuilding(Building building, SpriteBatch batch) {
     Vector3 btmLeftPos = new Vector3(
-        (float) building.location.x + (
-          building.flipped ? building.textureOffset.x : building.textureOffset.x
+        (float) building.getLocation().x + (
+          building.isFlipped() ? building.getTextureOffset().x : building.getTextureOffset().x
         ),
-        (float) building.location.y + (
-          building.flipped ? building.textureOffset.y : building.textureOffset.y
+        (float) building.getLocation().y + (
+          building.isFlipped() ? building.getTextureOffset().y : building.getTextureOffset().y
         ),
         0f
     );
-    Vector3 btmRightPos = new Vector3(btmLeftPos).add(new Vector3(building.size.x - 1, 0f, 0f));
+    Vector3 btmRightPos = new Vector3(btmLeftPos).add(new Vector3(building.getSize().x - 1, 0f, 0f));
     btmLeftPos.mul(isoTransform);
     btmRightPos.mul(isoTransform);
     batch.draw(
-        building.texture,
+      building.getTexture(),
         btmLeftPos.x, btmRightPos.y,
-        building.texture.getWidth() * building.textureScale,
-        building.texture.getHeight() * building.textureScale,
-        0, 0, building.texture.getWidth(), building.texture.getHeight(),
-        building.flipped, false
+        building.getTexture().getWidth() * building.getTextureScale(),
+        building.getTexture().getHeight() * building.getTextureScale(),
+        0, 0, building.getTexture().getWidth(), building.getTexture().getHeight(),
+      building.isFlipped(), false
     );
   }
 }

@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.unisim.GameState;
 import io.github.unisim.Point;
 import io.github.unisim.building.Building;
-import io.github.unisim.building.BuildingManager;
+import io.github.unisim.BuildingManager;
 import io.github.unisim.building.BuildingType;
 
 /**
