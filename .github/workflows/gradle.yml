@@ -35,12 +35,18 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew build jacocoTestReport
 
-    - name: Create Jacoco Coverage Report
+    - name: Upload Jacoco Coverage Report
       uses: actions/upload-artifact@v4.3.3
       with:
         name: jacoco-report
-        path: headless/build/reports/jacoco/test/html/
-        
+        path: core/build/reports/jacoco/test/html/
+
+    - name: Upload JAR file
+      uses: actions/upload-artifact@v4.3.3
+      with:
+        name: unisim.jar
+        path: core/build/libs/lib.jar
+    
   dependency-submission:
     runs-on: ubuntu-24.04
     permissions:
