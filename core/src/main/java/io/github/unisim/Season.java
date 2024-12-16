@@ -12,7 +12,7 @@ enum Season {
   /**
    * The length of a Season in ms.
    */
-  public static final float LENGTH = 5000;
+  public static final float LENGTH = 25000;
 
   /**
    * The representation of this Season.
