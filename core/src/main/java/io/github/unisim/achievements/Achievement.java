@@ -1,7 +1,7 @@
 package io.github.unisim.achievements;
 
 /**
- * Provides attributes and base methods for all UniSim {@link Achievement}s
+ * __NEW: WHOLE CLASS__ Provides attributes and base methods for all UniSim {@link Achievement}s
  */
 abstract public class Achievement {
   private final String title;

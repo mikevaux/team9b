@@ -35,7 +35,8 @@ public class Timer {
   }
 
   /**
-   * Removes a provided timestep from the counter and returns whether the timer has stopped.
+   * __EXTENDED: INCLUDES YEARS/SEASONS HANDLING__ Removes a provided timestep from the counter and returns whether the
+   * timer has stopped.
    *
    * @param deltaTime - the time in milliseconds to remove from the counter
    * @return - true if the timer is running and the time has been decremented, false otherwise.
@@ -69,6 +70,11 @@ public class Timer {
     return remainingTime;
   }
 
+  /**
+   * __NEW: METHOD__ Returns the current point in the game, including Academic Year, Season and Remaining Time.
+   *
+   * @return the formatted progression
+   */
   public String displayProgression() {
     return String.format("%s (%s)", displaySeason(), displayRemainingTime());
   }
@@ -100,6 +106,10 @@ public class Timer {
     return String.valueOf(num);
   }
 
+  /**
+   * __NEW: METHOD__ Formats and returns the current Season within an Academic Year.
+   * @return
+   */
   private String displaySeason() {
     return String.format("%s: %s", acadmemicYear, season);
   }

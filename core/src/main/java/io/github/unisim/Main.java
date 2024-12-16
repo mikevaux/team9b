@@ -5,7 +5,8 @@ import com.badlogic.gdx.Screen;
 import io.github.unisim.ui.StartMenuScreen;
 
 /**
- * The {@link Game} instance, constructed as a Singleton for easy access from multiple places.
+ * __REFACTORED TO SINGLETON__ The {@link Game} instance, constructed as a Singleton for easy access from multiple
+ * places.
  */
 public class Main extends Game {
   private static Main INSTANCE;

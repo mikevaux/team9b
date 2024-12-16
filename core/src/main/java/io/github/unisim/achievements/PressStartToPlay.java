@@ -1,7 +1,7 @@
 package io.github.unisim.achievements;
 
 /**
- * Creates an instance of PressPlayToStart, which requires the user to press play to start.
+ * __NEW: WHOLE CLASS__ Creates an instance of PressPlayToStart, which requires the user to press play to start.
  * The boolean display is set to true when start is clicked.
  */
 public class PressStartToPlay extends Achievement {

@@ -3,7 +3,7 @@ package io.github.unisim.events;
 import io.github.unisim.ui.BuildingMenu;
 
 /**
- * Provides attributes and base methods for all UniSim {@link Event}s
+ * __NEW: WHOLE CLASS__ Provides attributes and base methods for all UniSim {@link Event}s
  */
 abstract public class Event {
   private final String title;

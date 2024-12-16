@@ -2,7 +2,7 @@ package io.github.unisim.events;
 import io.github.unisim.ui.BuildingMenu;
 
 /**
- * Positive event that lets you place a statue that gives you a satisfaction bonus.
+ * __NEW: WHOLE CLASS__ Positive event that lets you place a statue that gives you a satisfaction bonus.
  */
 public class LongboiDay extends Event {
   private static BuildingMenu menu;

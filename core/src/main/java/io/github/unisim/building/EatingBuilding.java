@@ -3,6 +3,9 @@ package io.github.unisim.building;
 import com.badlogic.gdx.math.Vector2;
 import io.github.unisim.Point;
 
+/**
+ * __NEW: WHOLE CLASS__ An Eating Building.
+ */
 public class EatingBuilding extends Building {
   public EatingBuilding() {
     super();

@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Scaling;
 import io.github.unisim.GameState;
 
 /**
- * A message to be displayed in the game screen.
+ * __NEW: WHOLE CLASS__ A message to be displayed in the game screen.
  */
 class Message {
   /**

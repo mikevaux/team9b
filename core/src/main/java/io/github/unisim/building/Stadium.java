@@ -3,6 +3,9 @@ package io.github.unisim.building;
 import com.badlogic.gdx.math.Vector2;
 import io.github.unisim.Point;
 
+/**
+ * __NEW: WHOLE CLASS__ A Stadium Building.
+ */
 public class Stadium extends RecreationBuilding {
   public Stadium() {
     super();

@@ -1,7 +1,7 @@
 package io.github.unisim;
 
 /**
- * An academic year within UniSim.
+ * __NEW: WHOLE CLASS__ An academic year within UniSim.
  */
 public class AcademicYear {
   /**
@@ -18,7 +18,7 @@ public class AcademicYear {
    * Cache of the string representation, to avoid recalculating many times.
    */
   private String toStringCache;
-  
+
   /**
    * Creates a new {@link AcademicYear} for the given year.
    *
