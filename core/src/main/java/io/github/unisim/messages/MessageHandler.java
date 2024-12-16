@@ -81,12 +81,15 @@ public class MessageHandler {
    */
   private void decrementDurations(float delta) {
     for (int i = 0; i < messages.size(); i++) {
-      WrappedMessage message = messages.get(i);
-      message.decrement(delta);
+      WrappedMessage wrappedMessage = messages.get(i);
+      wrappedMessage.decrement(delta);
 
-      if (message.isDone()) {
-        message.toast.remove();
+      if (wrappedMessage.isDone()) {
+        // Remove the Widget from the world
+        wrappedMessage.getToast().remove();
+        // Remove the wrappedMessage from the array list
         messages.remove(i);
+        // Decrement i, since proceeding values will have their indexes decremented by removing this one
         i--;
       }
     }
@@ -160,7 +163,7 @@ public class MessageHandler {
   }
 
   /**
-   * Wraps a 'toast' message up with a remaining time, which is decremented down to zero.
+   * Wraps a {@link Message} up with a corresponding remaining time, which is decremented down to zero.
    */
   private static class WrappedMessage {
     private final Table toast;
@@ -170,12 +173,17 @@ public class MessageHandler {
       this.toast = toast;
     }
 
-    public Table getToast() {
-      return toast;
+    /**
+     * Decrements the remaining time for this {@link Message} by the given delta.
+     *
+     * @param delta the time in seconds since the last render
+     */
+    public void decrement(float delta) {
+      this.remaining -= delta;
     }
 
-    public void decrement(float d) {
-      this.remaining -= d;
+    public Table getToast() {
+      return toast;
     }
 
     public boolean isDone() {

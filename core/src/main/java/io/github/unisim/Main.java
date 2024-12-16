@@ -5,8 +5,7 @@ import com.badlogic.gdx.Screen;
 import io.github.unisim.ui.StartMenuScreen;
 
 /**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all
- * platforms.
+ * The {@link Game} instance, constructed as a Singleton for easy access from multiple places.
  */
 public class Main extends Game {
   private static Main INSTANCE;
@@ -37,7 +36,7 @@ public class Main extends Game {
   @Override
   public void resize(int width, int height) {
     super.resize(width, height);
-    
+
     if (width + height == 0) {
       return;
     }

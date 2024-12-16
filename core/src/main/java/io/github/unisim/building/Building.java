@@ -104,6 +104,11 @@ public abstract class Building {
     return cost;
   }
 
+  /**
+   * Formats as currency and returns the cost of this building.
+   *
+   * @return the formatted string, e.g. £50,000
+   */
   public String displayCost() {
     NumberFormat f = NumberFormat.getInstance();
     f.setGroupingUsed(true);
@@ -114,6 +119,11 @@ public abstract class Building {
     return incomeGeneration;
   }
 
+  /**
+   * Gets (after caching, if needed) the {@link Texture} for this building.
+   *
+   * @return the {@link Texture} for this building
+   */
   public Texture getTexture() {
     // Cache this to avoid generating it multiple times
     if (textureCache == null) {
@@ -148,6 +158,7 @@ public abstract class Building {
   private void invalidateTextureCache() {
     textureCache = null;
   }
+
   public void setLocation(Point location) {
     this.location = location;
   }
@@ -165,6 +176,11 @@ public abstract class Building {
     this.flipped = flipped;
   }
 
+  /**
+   * Sets the `onFire` property, then invalidates the `textureCache`, so that it is remade next time.
+   *
+   * @param onFire whether the building is on fire
+   */
   public void setOnFire(boolean onFire) {
     this.onFire = onFire;
     this.invalidateTextureCache();

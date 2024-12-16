@@ -14,10 +14,18 @@ public class AcademicYear {
    */
   private int year;
 
+  /**
+   * Creates a new {@link AcademicYear} for the given year.
+   *
+   * @param year the year, e.g. 2024
+   */
   public AcademicYear(int year) {
     this.year = year;
   }
 
+  /**
+   * Increments the year by 1.
+   */
   public void increment() {
     year ++;
   }
