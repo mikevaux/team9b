@@ -14,7 +14,6 @@ public class MessageHandler {
   private static final int GAP_Y = 24;
   private final Stage stage;
   private final ArrayList<WrappedMessage> messages;
-  private int resizesToIgnore = 2;
 
   /**
    * Creates a new instance of a MessageHandler.
@@ -147,14 +146,6 @@ public class MessageHandler {
    * Moves messages to their new positions based on the new screen size.
    */
   public void resize() {
-    // Account for an awkward bug whereby resize events are fired when either a> The screen is initialized
-    // and b> when the screen is first shown. This causes messages that should slide in at the
-    // start to never transition.
-    if (resizesToIgnore > 0) {
-      resizesToIgnore --;
-      return;
-    }
-
     // Don't transition here; just move straight to the targets
     for (int i = 0; i < messages.size(); i++) {
       Table toast = messages.get(i).getToast();
