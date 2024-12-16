@@ -36,6 +36,8 @@ public class Main extends Game {
 
   @Override
   public void resize(int width, int height) {
+    super.resize(width, height);
+    
     if (width + height == 0) {
       return;
     }
