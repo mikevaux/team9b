@@ -48,8 +48,8 @@ run {
 }
 
 jar {
-// sets the name of the .jar file this produces to the name of the game or app, with the version after.
-  archiveFileName.set("${appName}-${projectVersion}.jar")
+// sets the name of the .jar file this produces to the name of the game or app
+  archiveFileName.set("${appName}-latest.jar")
 // the duplicatesStrategy matters starting in Gradle 7.0; this setting works.
   duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
   dependsOn configurations.runtimeClasspath
