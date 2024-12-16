@@ -4,7 +4,8 @@ import io.github.unisim.building.BuildingType;
 import java.util.Map;
 
 /**
- * Creates an instance of FitnessFreak, which requires a recreational building to be the first building placed.
+ * __NEW: WHOLE CLASS__ Creates an instance of FitnessFreak, which requires a recreational building to be the first
+ * building placed.
  */
 public class FitnessFreak extends Achievement {
   private static boolean display = false;

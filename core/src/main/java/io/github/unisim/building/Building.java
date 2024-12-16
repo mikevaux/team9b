@@ -9,7 +9,7 @@ import java.text.NumberFormat;
 
 
 /**
- * Represents a building that can be placed on the map.
+ * __REFACTORED TO ADD CHILD CLASSES__ Represents a building that can be placed on the map.
  */
 public abstract class Building {
   /**

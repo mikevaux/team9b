@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import io.github.unisim.ui.GameScreen;
 
 /**
- * Neutral event that causes snow to fall for its duration.
+ * __NEW: WHOLE CLASS__ Neutral event that causes snow to fall for its duration.
  */
 public class WinterHolidays extends Event {
   private float snowTimer;

@@ -1,5 +1,8 @@
 package io.github.unisim.achievements;
 
+/**
+ * __NEW: WHOLE CLASS__
+ */
 public class AreYouStillWatching extends Achievement {
   private static boolean display = false;
   private static boolean alreadyDisplayed = false;

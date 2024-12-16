@@ -1,8 +1,8 @@
 package io.github.unisim.achievements;
 
 /**
- * Creates an instance of DuckDuckDuck, which requires the longboi statue to be placed during the longboi event.
- * The checks for this are performed in BuildManager every time a building is placed.
+ * __NEW: WHOLE CLASS__ Creates an instance of DuckDuckDuck, which requires the longboi statue to be placed during the
+ * longboi event. The checks for this are performed in BuildManager every time a building is placed.
  */
 public class DuckDuckDuck extends Achievement {
   private static boolean display = false;

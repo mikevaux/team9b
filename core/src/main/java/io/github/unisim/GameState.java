@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
- * Contains a collection of settings and references that should be available globally.
+ * __REFACTORED TO SINGLETON__ Contains a collection of settings and references that should be available globally.
  */
 public class GameState {
   private static GameState INSTANCE;

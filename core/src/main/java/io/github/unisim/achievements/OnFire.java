@@ -1,7 +1,7 @@
 package io.github.unisim.achievements;
 
 /**
- * Creates an instance of OnFire, which requires a burnt building to be rebuilt.
+ * __NEW: WHOLE CLASS__ Creates an instance of OnFire, which requires a burnt building to be rebuilt.
  */
 public class OnFire extends Achievement {
   private static boolean display = false;

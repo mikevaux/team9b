@@ -1,7 +1,7 @@
 package io.github.unisim;
 
 /**
- * Represents a season of a year.
+ * __NEW: WHOLE ENUM__ Represents a season of a year.
  */
 enum Season {
   AUTUMN("Autumn"),

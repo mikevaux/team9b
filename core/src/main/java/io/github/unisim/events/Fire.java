@@ -6,7 +6,7 @@ import io.github.unisim.building.Building;
 import io.github.unisim.BuildingManager;
 
 /**
- * Negative event that removes all bonuses of the 'on fire' building.
+ * __NEW: WHOLE CLASS__ Negative event that removes all bonuses of the 'on fire' building.
  */
 public class Fire extends Event {
   private final BuildingManager buildingManager;

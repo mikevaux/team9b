@@ -8,5 +8,6 @@ public enum BuildingType {
   LEARNING,
   SLEEPING,
   EATING,
+  // __NEW__
   EVENT
 }

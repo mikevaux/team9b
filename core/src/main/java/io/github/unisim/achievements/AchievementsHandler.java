@@ -3,7 +3,7 @@ package io.github.unisim.achievements;
 import io.github.unisim.messages.MessageHandler;
 
 /**
- * Provides an abstracted API for handling UniSim Achievements.
+ * __NEW: WHOLE CLASS__ Provides an abstracted API for handling UniSim Achievements.
  *
  * @see io.github.unisim.messages.MessageHandler which shows messages associated with these events
  */

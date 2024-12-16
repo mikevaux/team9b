@@ -1,6 +1,9 @@
 package io.github.unisim.building;
 
-public class RecreationBuilding extends Building {
+/**
+ * __NEW: WHOLE CLASS__ A Recreation Building.
+ */
+public abstract class RecreationBuilding extends Building {
   public RecreationBuilding() {
     super();
     type = BuildingType.RECREATION;

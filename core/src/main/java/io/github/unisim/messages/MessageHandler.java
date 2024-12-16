@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import java.util.ArrayList;
 
 /**
- * Provides an abstracted API for handling and displaying messages.
+ * __NEW: WHOLE CLASS__ Provides an abstracted API for handling and displaying messages.
  */
 public class MessageHandler {
   private static final int GAP_X = 32;

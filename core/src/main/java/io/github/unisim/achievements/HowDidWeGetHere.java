@@ -5,7 +5,7 @@ import io.github.unisim.building.BuildingType;
 import java.util.Map;
 
 /**
- * Creates an instance of HowDidWeGetHere, which requires one of each building type to be placed.
+ * __NEW: WHOLE CLASS__ Creates an instance of HowDidWeGetHere, which requires one of each building type to be placed.
  */
 public class HowDidWeGetHere extends Achievement{
   private static boolean display = false;

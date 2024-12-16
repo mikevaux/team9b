@@ -1,7 +1,8 @@
 package io.github.unisim.achievements;
 
 /**
- * Creates an instance of DoYouSmellCarrots, which requires you to gain satisfaction during the winter holidays.
+ * __NEW: WHOLE CLASS__ Creates an instance of DoYouSmellCarrots, which requires you to gain satisfaction during the
+ * winter holidays.
  */
 public class DoYouSmellCarrots extends Achievement {
   private static boolean display = false;

@@ -16,7 +16,7 @@ import io.github.unisim.world.World;
 import java.util.ArrayList;
 
 /**
- * Menu used to place buildings in the world by clicking and dragging them
+ * __EXTENDED: NEW METHODS__ Menu used to place buildings in the world by clicking and dragging them
  * from the list onto the map.
  */
 @SuppressWarnings({"MemberName", "AbbreviationAsWordInName"})
@@ -93,6 +93,13 @@ public class BuildingMenu {
     stage.addActor(buildingInfoTable);
   }
 
+  /**
+   * __NEW: METHOD__ Handles special case of a widget associated with an event building, by initially hiding it, and
+   * where relevant, storing a reference to it.
+   *
+   * @param building the building that the following widget corresponds to
+   * @param widget the widget being added to the stage
+   */
   private void handleEventBuilding(Building building, Widget widget) {
     // Event buildings are only available during the relevant event
     if (building instanceof EventBuilding) {
@@ -105,6 +112,12 @@ public class BuildingMenu {
     }
   }
 
+  /**
+   * __NEW: METHOD__ Sets up the click listeners for the given building.
+   *
+   * @param building the building that the listener correspond to
+   * @param image the widget that the listener is being added to
+   */
   private void addBuildingListeners(Building building, Image image) {
     image.addListener(new ClickListener() {
       @Override

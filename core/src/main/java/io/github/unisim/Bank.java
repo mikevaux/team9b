@@ -3,7 +3,7 @@ package io.github.unisim;
 import java.text.NumberFormat;
 
 /**
- * Represents a University's Bank Account, from where they can spend and receive money.
+ * __NEW: WHOLE CLASS__ Represents a University's Bank Account, from where they can spend and receive money.
  */
 public class Bank {
   private static Bank INSTANCE;

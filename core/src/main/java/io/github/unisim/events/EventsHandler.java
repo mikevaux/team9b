@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 /**
- * Provides an abstracted API for handling UniSim Events.
+ * __NEW: WHOLE CLASS__ Provides an abstracted API for handling UniSim Events.
  *
  * @see io.github.unisim.messages.MessageHandler which shows messages associated with these events
  */
