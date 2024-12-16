@@ -15,6 +15,11 @@ public class AcademicYear {
   private int year;
 
   /**
+   * Cache of the string representation, to avoid recalculating many times.
+   */
+  private String toStringCache;
+  
+  /**
    * Creates a new {@link AcademicYear} for the given year.
    *
    * @param year the year, e.g. 2024
@@ -28,10 +33,22 @@ public class AcademicYear {
    */
   public void increment() {
     year ++;
+    invalidateToStringCache();
+  }
+
+  private void cacheToString() {
+    toStringCache = String.format("%s/%s", year, year+1-2000);
+  }
+
+  private void invalidateToStringCache() {
+    toStringCache = null;
   }
 
   @Override
   public String toString() {
-    return String.format("%s/%s", year, year+1-2000);
+    if (toStringCache == null) {
+      cacheToString();
+    }
+    return toStringCache;
   }
 }
