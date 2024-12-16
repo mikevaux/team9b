@@ -14,9 +14,4 @@ public class EatingBuilding extends Building {
     textureOffset = new Vector2(0.35f, -0.9f);
     size = new Point(3, 3);
   }
-
-  public EatingBuilding(String s) {
-    this();
-    s = "123";
-  }
 }

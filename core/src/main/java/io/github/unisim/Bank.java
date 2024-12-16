@@ -27,14 +27,29 @@ public class Bank {
     INSTANCE = null;
   }
 
+  /**
+   * Debits the account balance by the given amount.
+   *
+   * @param amount the amount to debit the balance
+   */
   public void debit(int amount) {
     balance -= amount;
   }
 
+  /**
+   * Credits the account balance by the given amount.
+   *
+   * @param amount the amount to credit the balance
+   */
   public void credit(int amount) {
     balance += amount;
   }
 
+  /**
+   * Formats as currency and returns the account balance.
+   *
+   * @return the formatted string, e.g. £1,000,000
+   */
   public String displayBalance() {
     NumberFormat f = NumberFormat.getInstance();
     f.setGroupingUsed(true);

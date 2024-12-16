@@ -15,8 +15,15 @@ import io.github.unisim.GameState;
  * A message to be displayed in the game screen.
  */
 class Message {
+  /**
+   * The width of a 'toast' message.
+   */
   static final int WIDTH = 320;
+  /**
+   * The height of a 'toast' message.
+   */
   static final int HEIGHT = 84;
+
   private final String title;
   private final String body;
   private String iconFilename;
@@ -78,16 +85,16 @@ class Message {
 
     // For some reason, setting the background colour on an absolutely positioned Table
     // did not work, but it does work on nested tables. This therefore just wraps the
-    // actual useful table in another table.
-    Table toastContainer = new Table();
-    toastContainer.add(toast).width(WIDTH).minHeight(HEIGHT);
-    return toastContainer;
+    // actual useful table in another, arbitrary, table.
+    Table container = new Table();
+    container.add(toast).width(WIDTH).minHeight(HEIGHT);
+    return container;
   }
 
   /**
    * Constructs and returns a {@link TextureRegionDrawable} with a background colour from our palette.
    *
-   * @return the Drawable
+   * @return the {@link TextureRegionDrawable}
    */
   private TextureRegionDrawable makeBackground() {
     Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);

@@ -1,5 +1,8 @@
 package io.github.unisim;
 
+/**
+ * Represents a season of a year.
+ */
 enum Season {
   AUTUMN("Autumn"),
   WINTER("Winter"),
@@ -9,7 +12,7 @@ enum Season {
   /**
    * The length of a Season in ms.
    */
-  public static final float LENGTH = 25000;
+  public static final float LENGTH = 5000;
 
   /**
    * The representation of this Season.
@@ -17,22 +20,37 @@ enum Season {
   private final String label;
 
   /**
-   * Returns the 'first' season
+   * Returns the 'first' season in an Academic Year.
    *
-   * @return
+   * @return the 'first' season in an Academic Year
    */
   public static Season first() {
     return AUTUMN;
   }
 
+  /**
+   * Returns the 'last' season in an Academic Year.
+   *
+   * @return the 'last' season in an Academic Year.
+   */
   public static Season last() {
-    return first().next();
+    return SUMMER;
   }
 
-  private Season(String label) {
+  /**
+   * Creates a new Season, assigning the provided label
+   *
+   * @param label the human-readable name for this Season
+   */
+  Season(String label) {
     this.label = label;
   }
 
+  /**
+   * Returns the next Season, determined by entry into the enum.
+   *
+   * @return the next season
+   */
   public Season next() {
     Season[] vals = values();
     return vals[(ordinal()+1) % vals.length];

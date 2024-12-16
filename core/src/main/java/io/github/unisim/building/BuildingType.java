@@ -1,8 +1,7 @@
 package io.github.unisim.building;
 
 /**
- * Represents the different types of buildings as each type
- * has its' own counter.
+ * Represents a type of building. Used for counting by type, and certain type-specific operations.
  */
 public enum BuildingType {
   RECREATION,
