@@ -7,13 +7,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SettingsTest extends AbstractSettingsTest {
-  private Settings settings;
-
-  @BeforeEach
-  public void boot() {
-    settings = new Settings();
-  }
-
+  /**
+   * Test 3.1.1 part a.
+   */
   @Test
   public void testValidValue() {
     float valid = (Settings.MAX_VOLUME - Settings.MIN_VOLUME) / 2f;
@@ -21,6 +17,9 @@ public class SettingsTest extends AbstractSettingsTest {
     assertEquals(valid, settings.getVolume(), STANDARD_DELTA, "Volume not set as expected");
   }
 
+  /**
+   * Test 3.1.1 part b.
+   */
   @Test
   public void testMinValue() {
     settings.setVolume(Settings.MIN_VOLUME);
@@ -29,6 +28,9 @@ public class SettingsTest extends AbstractSettingsTest {
     assertEquals(Settings.MIN_VOLUME, settings.getVolume(), STANDARD_DELTA, "Volume cannot go below min value!");
   }
 
+  /**
+   * Test 3.1.1 part c.
+   */
   @Test
   public void testMaxValue() {
     settings.setVolume(Settings.MAX_VOLUME);
