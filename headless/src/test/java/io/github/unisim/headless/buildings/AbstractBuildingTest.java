@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
 
-public class BuildingsTest extends AbstractHeadlessGdxTest {
+public abstract class AbstractBuildingTest extends AbstractHeadlessGdxTest {
   ArrayList<Building> buildings;
 
   @BeforeEach

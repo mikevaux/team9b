@@ -1,18 +1,10 @@
 package io.github.unisim.headless.general;
 
-import io.github.unisim.Timer;
-import io.github.unisim.ui.GameScreen;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PauseTest extends GeneralTest{
+public class _PauseTestAbstract extends AbstractGeneralTest {
   /*static GameScreen screen;
   static Timer timer;
   float time2;
