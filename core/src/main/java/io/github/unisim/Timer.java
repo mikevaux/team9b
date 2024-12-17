@@ -86,29 +86,16 @@ public class Timer {
    */
   public String displayRemainingTime() {
     // get the number of minutes and seconds from the remaining time in milliseconds.
-    int remainingMinutes = (int) ((remainingTime + 1000) / 60_000);
-    int remainingSeconds = (int) Math.ceil(remainingTime / 1000 - 60 * remainingMinutes);
+    int minutes = (int) ((remainingTime + 1000) / 60_000);
+    int seconds = (int) Math.ceil(remainingTime / 1000 - 60 * minutes);
 
-    return formatNum(remainingMinutes) + ":" + formatNum(remainingSeconds);
-  }
-
-  /**
-   * Format a number of minutes or seconds to always have a length of two digits.
-   * This is done by prepending a zero if the number has only one digit.
-   *
-   * @param num - the number to convert to a formatted string
-   * @return - a formatted string with length at least two.
-   */
-  private String formatNum(int num) {
-    if (num < 10) {
-      return "0" + num;
-    }
-    return String.valueOf(num);
+    return String.format("%02d:%02d", minutes, seconds);
   }
 
   /**
    * __NEW: METHOD__ Formats and returns the current Season within an Academic Year.
-   * @return
+   *
+   * @return the academic year / season
    */
   private String displaySeason() {
     return String.format("%s: %s", acadmemicYear, season);

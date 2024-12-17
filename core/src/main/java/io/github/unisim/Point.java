@@ -37,8 +37,4 @@ public class Point {
   public String toString() {
     return "(" + x + ", " + y + ")";
   }
-
-  public Point getNewPoint() {
-    return new Point(x, y);
-  }
 }
