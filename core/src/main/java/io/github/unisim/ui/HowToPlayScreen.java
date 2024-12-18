@@ -16,6 +16,9 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.unisim.GameState;
 import io.github.unisim.Main;
 
+/**
+ *  __NEW: WHOLE CLASS__ The how to play screen that displays instructions and explains controls.
+ */
 public class HowToPlayScreen implements Screen{
   private Stage stage;
   private Table table;
@@ -26,7 +29,7 @@ public class HowToPlayScreen implements Screen{
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
 
   /**
-   * Create a new Settings screen and draw the initial UI layout.
+   * Create a new HowToPlay screen and draw the initial UI layout.
    */
   public HowToPlayScreen(StartMenuScreen startScreen) {
     stage = new Stage();
@@ -96,7 +99,7 @@ public class HowToPlayScreen implements Screen{
     // Clear the screen
     ScreenUtils.clear(GameState.getInstance().getColourSecondary());
 
-    // Draw the stage containing the volume slider and buttons
+    // Draw the stage containing the labels and button
     stage.act(delta);
     stage.draw();
   }
