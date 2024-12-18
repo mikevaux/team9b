@@ -76,7 +76,7 @@ public abstract class Building {
    * Abstracted mechanism of flipping a building. Flips and updates the size metrics accordingly.
    */
   public void flip() {
-    this.setFlipped(!flipped);
+    flipped = !flipped;
     // Set x := y and y:= x here to invert
     this.setSize(size.y, size.x);
   }
@@ -132,6 +132,10 @@ public abstract class Building {
     return textureCache;
   }
 
+  public Point getLocation() {
+    return location;
+  }
+
   public Point getSize() {
     return size;
   }
@@ -166,14 +170,6 @@ public abstract class Building {
   public void setSize(int x, int y) {
     this.size.x = x;
     this.size.y = y;
-  }
-
-  public Point getLocation() {
-    return location;
-  }
-
-  public void setFlipped(boolean flipped) {
-    this.flipped = flipped;
   }
 
   /**
