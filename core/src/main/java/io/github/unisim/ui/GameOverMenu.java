@@ -22,7 +22,9 @@ public class GameOverMenu {
   private final ShapeActor bar = new ShapeActor(GameState.getInstance().getColourSecondary());
   private Table table;
   private TextButton mainMenuButton;
-  private Cell<TextButton> buttonCell;
+  private TextButton leaderboardButton;
+  private Cell<TextButton> buttonCell1;
+  private Cell<TextButton> buttonCell2;
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
 
   /**
@@ -46,8 +48,19 @@ public class GameOverMenu {
       }
     });
 
+    // Leaderboard button
+    leaderboardButton = new TextButton("View Leaderboard", skin);
+    leaderboardButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+        // go to username screen
+        Main.getInstance().setScreen(new UsernameScreen());
+      }
+    });
+
     // Add UI elements to the stage
-    buttonCell = table.add(mainMenuButton).center();
+    buttonCell1 = table.add(mainMenuButton).center();
+    buttonCell2 = table.add(leaderboardButton).center();
     stage.addActor(bar);
     stage.addActor(table);
 
@@ -71,7 +84,8 @@ public class GameOverMenu {
     stage.getViewport().update(width, height, true);
     table.setBounds(0, 0, width, height * 0.1f);
     bar.setBounds(0, 0, width, height * 0.1f);
-    buttonCell.width(width * 0.3f).height(height * 0.1f);
+    buttonCell1.width(width * 0.3f).height(height * 0.1f);
+    buttonCell2.width(width * 0.3f).height(height * 0.1f);
   }
 
   public InputProcessor getInputProcessor() {
