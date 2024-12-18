@@ -13,7 +13,7 @@ public class Bank {
    * Creates a new Bank Account with the default initial balance.
    */
   private Bank() {
-    balance = 1000000;
+    balance = 1500000;
   }
 
   public static Bank getInstance() {
