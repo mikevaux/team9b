@@ -12,6 +12,7 @@ import io.github.unisim.building.BuildingType;
 import io.github.unisim.building.EventBuilding;
 import io.github.unisim.building.LongBoiStatue;
 import io.github.unisim.events.LongboiDay;
+import io.github.unisim.satisfaction.SatisfactionHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -187,8 +188,8 @@ public class BuildingManager {
       if (building instanceof LongBoiStatue) {
         LongboiDay.setInvisible();
         DuckDuckDuck.setDisplay(true); //display the achievement for placing the longboi statue
-
       }
+      SatisfactionHandler.setChanges(true);
     }
     return i;
   }

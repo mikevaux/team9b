@@ -7,15 +7,27 @@ import io.github.unisim.ui.InfoBar;
 
 import java.util.ArrayList;
 
+/**
+ * __NEW: WHOLE CLASS__ Provides an abstracted API for handling satisfaction calculations and display.
+ */
 public class SatisfactionHandler {
   private InfoBar bar;
   private int satisfaction;
   private BuildingManager buildingManager;
+  private static boolean changes = false;
 
   public SatisfactionHandler(InfoBar bar, BuildingManager buildingManager){
     this.bar = bar;
     this.buildingManager = buildingManager;
     this.satisfaction = 0;
+  }
+
+  public boolean isChanges() {
+    return changes;
+  }
+
+  public static void setChanges(boolean change) {
+    changes = change;
   }
 
   public int getSatisfaction() {
@@ -112,7 +124,10 @@ public class SatisfactionHandler {
    * Called once every render cycle.
    */
   public void updateSatisfaction(){
-    satisfaction = calculateGameSatisfaction();
+    if (changes){
+      satisfaction = calculateGameSatisfaction();
+      changes = false;
+    }
     bar.updateSatisfactionLabel("Satisfaction: " + String.valueOf(satisfaction));
   }
 
