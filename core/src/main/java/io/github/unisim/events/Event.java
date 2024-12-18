@@ -11,6 +11,7 @@ abstract public class Event {
   private String iconFilename;
   private int duration;
   private float timer;
+  private static final int eventDuration = 30;
 
   /**
    * Creates a new {@link Event} with just a title and body.
@@ -21,7 +22,7 @@ abstract public class Event {
   public Event(String title, String body) {
     this.title = title;
     this.body = body;
-    this.duration = 20;
+    this.duration = eventDuration;
     this.timer = 0;
   }
   /**
@@ -35,7 +36,7 @@ abstract public class Event {
     this.title = title;
     this.body = body;
     this.iconFilename = iconFilename;
-    this.duration = 20;
+    this.duration = eventDuration;
     this.timer = 0;
   }
 
