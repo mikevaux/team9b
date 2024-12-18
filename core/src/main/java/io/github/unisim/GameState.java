@@ -12,7 +12,7 @@ public class GameState {
   private static final String currency = "£";
   private static final String colourPrimaryHex = "A84D9D";
   private static final String colourSecondaryHex = "414C4E";
-  private int quarterlyIncome = 20_000;
+  private int quarterlyIncome = 50_000;
   private final FullscreenInputProcessor fullscreenInputProcessor;
   private final Skin defaultSkin;
   private final Settings settings;

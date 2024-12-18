@@ -10,7 +10,8 @@ public class Stadium extends RecreationBuilding {
   public Stadium() {
     super();
     name = "Stadium";
-    cost = 1_000_000;
+    cost = 750_000;
+    incomeGeneration = 250_000;
     filename = "stadium.png";
     textureScale = 0.0025f;
     textureOffset = new Vector2(1f, 1f);
