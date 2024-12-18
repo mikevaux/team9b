@@ -12,6 +12,9 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests 2.1.x.
+ */
 public class BuildingTest extends AbstractBuildingTest {
   /**
    * Test 2.1.1.
