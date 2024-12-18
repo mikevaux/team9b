@@ -16,6 +16,11 @@ public class Point {
    * @param y - The y co-ordinate of the point
    */
   public Point(int x, int y) {
+    // x and y must be non-negative
+    if (x < 0 || y < 0) {
+      throw new IllegalArgumentException("x and y must be >= 0");
+    }
+
     this.x = x;
     this.y = y;
   }
