@@ -22,10 +22,6 @@ public class SatisfactionHandler {
     this.satisfaction = 0;
   }
 
-  public boolean isChanges() {
-    return changes;
-  }
-
   public static void setChanges(boolean change) {
     changes = change;
   }
