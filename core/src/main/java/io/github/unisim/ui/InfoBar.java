@@ -34,7 +34,7 @@ public class InfoBar {
   private Image playImage = new Image(playTexture);
   private Timer timer;
   private Cell<Label> timerLabelCell;
-  private Cell<Label> scoreLabelCell;
+  private Cell<Label> satisfactionLabelCell;
   private Cell<Image> pauseButtonCell;
   private Cell<Table> buildingCountersTableCell;
   private Cell[] buildingCounterCells;
@@ -64,7 +64,7 @@ public class InfoBar {
     infoTable.pad(24);
     pauseButtonCell = infoTable.add(playImage).left().size(24).padRight(24);
     timerLabelCell = infoTable.add(timerLabel).left().padRight(24);
-    scoreLabelCell = infoTable.add(satisfactionLabel).left();
+    satisfactionLabelCell = infoTable.add(satisfactionLabel).right().padLeft(24);
     buildingCountersTableCell = infoTable.add(buildingCountersTable).expandX().right();
 
     // Pause button

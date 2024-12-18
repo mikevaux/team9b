@@ -101,6 +101,9 @@ public class SatisfactionHandler {
     int gameSatisfaction = 0;
     gameSatisfaction += calculateBasicSatisfaction();
     gameSatisfaction += calculateProximityBonus();
+    if (buildingManager.longboiStatuePlaced()){
+      gameSatisfaction *= 1.5;
+    }
     return gameSatisfaction;
   }
 
@@ -110,14 +113,24 @@ public class SatisfactionHandler {
    */
   public void updateSatisfaction(){
     satisfaction = calculateGameSatisfaction();
-    bar.updateSatisfactionLabel(String.valueOf(satisfaction));
+    bar.updateSatisfactionLabel("Satisfaction: " + String.valueOf(satisfaction));
+  }
+
+  /**
+   * Update the satisfaction to include all satisfaction bonuses.
+   * This includes the base, proximity, bonus, and event bonus satisfactions.
+   */
+  public void updatePostGameSatisfaction(){
+    satisfaction = calculatePostGameSatisfaction();
   }
 
   /**
    * Calculates the final value of the satisfaction to be displayed after the game.
    * This includes the base, proximity, bonus, and event bonus satisfactions.
+   *
+   * @return the satisfaction score as an integer
    */
-  public void updatePostGameSatisfaction(){
+  private int calculatePostGameSatisfaction(){
     int postGameSatisfaction = 0;
     postGameSatisfaction += calculateBasicSatisfaction(); //add base building satisfaction
     postGameSatisfaction += calculateProximityBonus(); //add proximity based satisfaction bonuses
@@ -126,7 +139,7 @@ public class SatisfactionHandler {
     if (buildingManager.longboiStatuePlaced()){
       postGameSatisfaction *= 1.5;
     }
-    satisfaction = postGameSatisfaction;
+    return postGameSatisfaction;
   }
 
   /**
