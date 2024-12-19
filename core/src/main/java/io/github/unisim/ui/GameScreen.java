@@ -36,9 +36,9 @@ public class GameScreen implements Screen {
   private InputProcessor uiInputProcessor = new UiInputProcessor(stage);
   private InputProcessor worldInputProcessor = new WorldInputProcessor(world);
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
-  private GameOverMenu gameOverMenu = new GameOverMenu();
+  private GameOverMenu gameOverMenu;
   private static FitViewport viewport;
-  private static final float gameDuration = 300_000f;
+  private static final float gameDuration = 3_000f;
 
   /**
    * Constructor for the GameScreen.
@@ -56,6 +56,7 @@ public class GameScreen implements Screen {
     inputMultiplexer.addProcessor(uiInputProcessor);
     inputMultiplexer.addProcessor(worldInputProcessor);
     viewport = new FitViewport(8, 5);
+    gameOverMenu = new GameOverMenu(satisfactionHandler);
   }
 
   public static float getGameDuration() {
@@ -87,8 +88,6 @@ public class GameScreen implements Screen {
       world.zoom((world.getMaxZoom() - world.getZoom()) * 2f);
       world.pan((150 - world.getCameraPos().x) / 10, -world.getCameraPos().y / 10);
       gameOverMenu.render(delta);
-      System.out.println(satisfactionHandler.getSatisfaction());
-      satisfactionHandler.updatePostGameSatisfaction();
     }
 
     eventsHandler.checkEvents(delta, timer);

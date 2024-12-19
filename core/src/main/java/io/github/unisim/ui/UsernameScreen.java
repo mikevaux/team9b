@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.unisim.GameState;
+import io.github.unisim.Main;
 
 /**
  * __NEW: WHOLE CLASS__ username screen that allows a user to enter
@@ -25,7 +26,7 @@ public class UsernameScreen implements Screen {
   /**
    * Create a new UsernameScreen and draw the initial UI layout.
    */
-  public UsernameScreen() {
+  public UsernameScreen(int satisfaction) {
     stage = new Stage();
     table = new Table();
     Skin skin = GameState.getInstance().getDefaultSkin();
@@ -41,7 +42,7 @@ public class UsernameScreen implements Screen {
       @Override
       public void clicked(InputEvent event, float x, float y) {
         username = usernameField.getText();
-        // will lead to leaderboard screen in future
+        Main.getInstance().setScreen(new LeaderboardScreen(username, satisfaction));
       }
     });
 

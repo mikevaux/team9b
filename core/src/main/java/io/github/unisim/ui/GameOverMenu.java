@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.unisim.Bank;
 import io.github.unisim.GameState;
 import io.github.unisim.Main;
+import io.github.unisim.satisfaction.SatisfactionHandler;
 
 /**
  * Menu that is displayed when the timer has run out. This is where the final score
@@ -26,14 +27,16 @@ public class GameOverMenu {
   private Cell<TextButton> buttonCell1;
   private Cell<TextButton> buttonCell2;
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
+  private SatisfactionHandler satisfactionHandler;
 
   /**
    * Creates a new GameOverMenu and initialises all events and UI elements used in the menu.
    */
-  public GameOverMenu() {
+  public GameOverMenu(SatisfactionHandler handler) {
     stage = new Stage(new ScreenViewport());
     table = new Table();
     Skin skin = GameState.getInstance().getDefaultSkin();
+    this.satisfactionHandler = handler;
 
     // Play button
     mainMenuButton = new TextButton("Return to Main Menu", skin);
@@ -53,8 +56,9 @@ public class GameOverMenu {
     leaderboardButton.addListener(new ClickListener() {
       @Override
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+        satisfactionHandler.updatePostGameSatisfaction();
         // go to username screen
-        Main.getInstance().setScreen(new UsernameScreen());
+        Main.getInstance().setScreen(new UsernameScreen(satisfactionHandler.getSatisfaction()));
       }
     });
 
