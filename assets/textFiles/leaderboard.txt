@@ -1,2 +1,2 @@
-player 1,5,player 2,4,player 3,3,player 4,2,player 5,1
+Tugg Speedman,500,player 1,4,player 2,4,player 3,3,player 4,2
 end

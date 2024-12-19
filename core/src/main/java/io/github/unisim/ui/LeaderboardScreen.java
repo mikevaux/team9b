@@ -28,6 +28,7 @@ public class LeaderboardScreen implements Screen {
   private Table leaderboard;
   private TextButton homeButton;
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
+  private boolean changed = false;
 
   /**
    * Create a new Leaderboard screen and draw the initial UI layout.
@@ -118,6 +119,21 @@ public class LeaderboardScreen implements Screen {
     table.row();
     table.add(leaderboard).center().padBottom(30);
     table.row();
+
+    // modify the file to reflect the new leaderboard if changed
+    if (changed){
+      FileHandle file = Gdx.files.local("textFiles/leaderboard.txt");
+      String newScores = "";
+      for (int i = 0; i < usernames.size(); i++) {
+        newScores += usernames.get(i) + "," + scores.get(i);
+        if (i != usernames.size()-1){
+          newScores += ",";
+        }
+      }
+      newScores += "\nend";
+      file.writeString(newScores, false);
+
+    }
   }
 
   private void updateLeaderboard(String username, ArrayList<String> usernames, int satisfaction, ArrayList<String> scores){
@@ -126,6 +142,7 @@ public class LeaderboardScreen implements Screen {
     String tempScore = null;
     int i = usernames.size() - 1;
     while (i >= 0 && satisfaction >= Integer.valueOf(scores.get(i))){
+      changed = true;
       tempUsername = usernames.get(i);
       tempScore = scores.get(i);
       usernames.set(i, username);
