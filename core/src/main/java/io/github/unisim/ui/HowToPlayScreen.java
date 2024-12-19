@@ -50,7 +50,7 @@ public class HowToPlayScreen implements Screen{
       "- Place more accommodation and learning buildings to get a bonus.\n" +
       "- You receive a quarterly paycheck based on the number of profitable buildings placed.\n" +
       "- Watch out for events. These may impact your campus positively or negatively.\n" +
-      "- Try to complete all 9 Achievements.", skin, "window");
+      "- Try to complete all 8 Achievements.", skin, "window");
     howToPlayLabel.setColor(new Color(0.9f, 0.9f, 0.9f, 1.0f));
 
 
