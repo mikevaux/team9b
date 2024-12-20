@@ -9,7 +9,7 @@ public class DoYouSmellCarrots extends Achievement {
   private static boolean alreadyDisplayed = false;
 
   public DoYouSmellCarrots() {
-    super("Do You Smell Carrots?.", "Increase satisfaction during the\nwinter holiday event", "achievements/snowman.png");
+    super("Achievement: Do You Smell Carrots?.", "Increase satisfaction during the winter holiday event", "achievements/snowman.png");
   }
 
   public static boolean isDisplay() {
