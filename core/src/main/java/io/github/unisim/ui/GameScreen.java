@@ -87,8 +87,8 @@ public class GameScreen implements Screen {
       world.zoom((world.getMaxZoom() - world.getZoom()) * 2f);
       world.pan((150 - world.getCameraPos().x) / 10, -world.getCameraPos().y / 10);
       gameOverMenu.render(delta);
-      satisfactionHandler.updatePostGameSatisfaction();
       System.out.println(satisfactionHandler.getSatisfaction());
+      satisfactionHandler.updatePostGameSatisfaction();
     }
 
     eventsHandler.checkEvents(delta, timer);
