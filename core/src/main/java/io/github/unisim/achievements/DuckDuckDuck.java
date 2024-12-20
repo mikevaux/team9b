@@ -9,7 +9,7 @@ public class DuckDuckDuck extends Achievement {
   private static boolean alreadyDisplayed = false;
 
   public DuckDuckDuck() {
-    super("Duck..Duck..Duck??!", "Placed the Longboi statue", "achievements/duck.png");
+    super("Achievement: Duck..Duck..Duck??!", "Placed the Longboi statue", "achievements/duck.png");
   }
 
   public static boolean isDisplay() {
