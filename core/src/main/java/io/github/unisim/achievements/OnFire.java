@@ -9,7 +9,7 @@ public class OnFire extends Achievement {
   private static String buildingToBuild = "";
 
   public OnFire() {
-    super("On Fire!", "Rebuild a burnt building.", "achievements/flame.png");
+    super("Achievement: On Fire!", "Rebuild a burnt building.", "achievements/flame.png");
   }
 
   public static boolean isDisplay() {

@@ -7,12 +7,13 @@ public class AreYouStillWatching extends Achievement {
   private static boolean display = false;
   private static boolean alreadyDisplayed = false;
   private static float counter = 0f;
+  private boolean firstTime = true;
 
   /**
    * Creates an instance of AreYouStillWatching, which requires you not to place a building for more than a minute.
    */
   public AreYouStillWatching() {
-    super("Are You Still Watching?", "1 minute without any\nbuildings placed", "achievements/notflix.png");
+    super("Achievement: Are You Still Watching?", "1 minute without any buildings placed", "achievements/notflix.png");
   }
 
   public static boolean isDisplay() {
@@ -50,8 +51,9 @@ public class AreYouStillWatching extends Achievement {
    */
   public void checkAreYouStillWatching(float delta){
     counter += delta;
-    if (counter > 60f){
+    if (counter > 60f && firstTime){
       setDisplay(true);
+      firstTime = false;
     }
   }
 
