@@ -19,6 +19,7 @@ public class UsernameScreen implements Screen {
   private Stage stage;
   private Table table;
   private TextField usernameField;
+  private Label requirementsLabel;
   private TextButton leaderboardButton;
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
   private String username;
@@ -26,13 +27,19 @@ public class UsernameScreen implements Screen {
   /**
    * Create a new UsernameScreen and draw the initial UI layout.
    */
-  public UsernameScreen(int satisfaction) {
+  public UsernameScreen(int satisfaction, boolean usernameError) {
     stage = new Stage();
     table = new Table();
     Skin skin = GameState.getInstance().getDefaultSkin();
 
     // Username text field
     usernameField = new TextField("Enter Username", skin);
+
+    // Requirements label
+    requirementsLabel = new Label("Username can contain up to 32 characters", skin);
+    if (usernameError){
+      requirementsLabel.setText("Invalid Username: " + requirementsLabel.getText());
+    }
 
     // Leaderboard button
     leaderboardButton = new TextButton("Enter", skin);
@@ -42,7 +49,12 @@ public class UsernameScreen implements Screen {
       @Override
       public void clicked(InputEvent event, float x, float y) {
         username = usernameField.getText();
-        Main.getInstance().setScreen(new LeaderboardScreen(username, satisfaction));
+        if (username.length() <= 32){
+          Main.getInstance().setScreen(new LeaderboardScreen(username, satisfaction));
+        }else{
+          Main.getInstance().setScreen(new UsernameScreen(satisfaction, true));
+        }
+
       }
     });
 
@@ -50,7 +62,9 @@ public class UsernameScreen implements Screen {
     table.setFillParent(true);
     table.center().center();
     table.pad(100, 100, 100, 100);
-    table.add(usernameField).center().width(250).height(67).padBottom(10);
+    table.add(usernameField).center().width(250).height(67).padBottom(5);
+    table.row();
+    table.add(requirementsLabel).padBottom(10);
     table.row();
     table.add(leaderboardButton).center();
     stage.addActor(table);

@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.unisim.Bank;
 import io.github.unisim.GameState;
 import io.github.unisim.Main;
-import io.github.unisim.fileCorruptedException;
+import io.github.unisim.FileCorruptedException;
 
 import java.util.ArrayList;
 
@@ -38,10 +38,29 @@ public class LeaderboardScreen implements Screen {
     table = new Table();
     Skin skin = GameState.getInstance().getDefaultSkin();
 
+    // Error message label to be displayed if the file is corrupted
+    Label errorLabel = new Label("An error occurred loading the leaderboard :/", skin, "window");
+
+    // Title label
+    titleLabel = new Label("Leaderboard", skin, "window");
+
+    // User score label
+    userScoreLabel = new Label("Congratulations " + username
+      + " your score was: " + satisfaction + "!", skin);
+    userScoreLabel.setColor(new Color(0.9f, 0.9f, 0.9f, 1.0f));
+
+    // Add title and user score labels to table
+    table.add(titleLabel).center().padBottom(30);
+    table.row();
+    table.add(userScoreLabel).center().padBottom(30);
+    table.row();
+
     try {
       loadLeaderboard(username, satisfaction, skin);
-    } catch (fileCorruptedException e) {
+    } catch (FileCorruptedException e) {
       System.out.println(e.getMessage());
+      table.add(errorLabel).padBottom(40);
+      table.row();
     }
 
     // Home button
@@ -67,16 +86,7 @@ public class LeaderboardScreen implements Screen {
     inputMultiplexer.addProcessor(stage);
   }
 
-  private void loadLeaderboard(String username, int satisfaction, Skin skin) throws fileCorruptedException{
-
-    // Title label
-    titleLabel = new Label("Leaderboard", skin, "window");
-
-    // User score label
-    userScoreLabel = new Label("Congratulations " + username
-      + " your score was: " + satisfaction + "!", skin);
-    userScoreLabel.setColor(new Color(0.9f, 0.9f, 0.9f, 1.0f));
-
+  private void loadLeaderboard(String username, int satisfaction, Skin skin) throws FileCorruptedException {
     // Leaderboard table
     Label usernameHeader = new Label("Username", skin, "window");
     Label scoreHeader = new Label("Satisfaction", skin, "window");
@@ -88,7 +98,7 @@ public class LeaderboardScreen implements Screen {
     String[] splitArray = leaderboardFile.readString().split("\n");
     String[] leaderboardArray = splitArray[0].split(",");
     if (leaderboardArray.length != 10 || !(splitArray[1].equals("end"))){
-      throw new fileCorruptedException();
+      throw new FileCorruptedException();
     }
     ArrayList<String> usernames = new ArrayList<>();
     for(int i = 0; i <= 4; i ++){
@@ -113,10 +123,6 @@ public class LeaderboardScreen implements Screen {
     }
 
     // Add UI elements to stage
-    table.add(titleLabel).center().padBottom(30);
-    table.row();
-    table.add(userScoreLabel).center().padBottom(30);
-    table.row();
     table.add(leaderboard).center().padBottom(30);
     table.row();
 

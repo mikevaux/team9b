@@ -9,9 +9,9 @@ package io.github.unisim;
  * line2: end
  *
  */
-public class fileCorruptedException extends Exception{
+public class FileCorruptedException extends Exception{
 
-  public fileCorruptedException(){
+  public FileCorruptedException(){
     super("file format is not as expected");
   }
 
