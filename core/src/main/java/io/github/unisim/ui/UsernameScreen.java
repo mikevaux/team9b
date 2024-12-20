@@ -8,7 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
+import io.github.unisim.FileCorruptedException;
 import io.github.unisim.GameState;
+import io.github.unisim.InvalidUsernameException;
 import io.github.unisim.Main;
 
 /**
@@ -48,13 +50,13 @@ public class UsernameScreen implements Screen {
     leaderboardButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        username = usernameField.getText();
-        if (username.length() <= 32){
+        try {
+          username = setUsername();
           Main.getInstance().setScreen(new LeaderboardScreen(username, satisfaction));
-        }else{
+        }catch(InvalidUsernameException e) {
+          System.out.println(e.getMessage());
           Main.getInstance().setScreen(new UsernameScreen(satisfaction, true));
         }
-
       }
     });
 
@@ -71,6 +73,14 @@ public class UsernameScreen implements Screen {
 
     inputMultiplexer.addProcessor(GameState.getInstance().getFullscreenInputProcessor());
     inputMultiplexer.addProcessor(stage);
+  }
+
+  private String setUsername() throws InvalidUsernameException{
+    username = usernameField.getText();
+    if (username.length() > 32){
+      throw new InvalidUsernameException(username);
+    }
+    return username;
   }
 
   @Override

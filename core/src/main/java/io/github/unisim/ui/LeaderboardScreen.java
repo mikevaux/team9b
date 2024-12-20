@@ -94,51 +94,45 @@ public class LeaderboardScreen implements Screen {
     leaderboard.add(usernameHeader).padBottom(10).padRight(5);
     leaderboard.add(scoreHeader).padBottom(10).padLeft(5);
     leaderboard.row();
-    FileHandle leaderboardFile = Gdx.files.internal("textFiles/leaderboard.txt");
-    String[] splitArray = leaderboardFile.readString().split("\n");
-    String[] leaderboardArray = splitArray[0].split(",");
-    if (leaderboardArray.length != 10 || !(splitArray[1].equals("end"))){
-      throw new FileCorruptedException();
-    }
-    ArrayList<String> usernames = new ArrayList<>();
-    for(int i = 0; i <= 4; i ++){
-      usernames.add(leaderboardArray[2*i]);
-    }
-    ArrayList<String> scores = new ArrayList<>();
-    for(int i = 0; i <= 4; i ++){
-      scores.add(leaderboardArray[2*i + 1]);
-    }
-    System.out.println(usernames);
-    System.out.println(scores);
-    updateLeaderboard(username, usernames, satisfaction, scores);
-    System.out.println(usernames);
-    System.out.println(scores);
 
-    for (int i = 0; i <= (usernames.size() - 1); i++) {
-      Label currentUsernameLabel = new Label(usernames.get(i), skin);
-      Label currentScoreLabel = new Label(scores.get(i), skin);
-      leaderboard.add(currentUsernameLabel).padBottom(2);
-      leaderboard.add(currentScoreLabel).padBottom(2);
-      leaderboard.row();
-    }
-
-    // Add UI elements to stage
-    table.add(leaderboard).center().padBottom(30);
-    table.row();
-
-    // modify the file to reflect the new leaderboard if changed
-    if (changed){
-      FileHandle file = Gdx.files.local("textFiles/leaderboard.txt");
-      String newScores = "";
-      for (int i = 0; i < usernames.size(); i++) {
-        newScores += usernames.get(i) + "," + scores.get(i);
-        if (i != usernames.size()-1){
-          newScores += ",";
-        }
+    try {
+      FileHandle leaderboardFile = Gdx.files.internal("textFiles/leaderboard.txt");
+      String[] splitArray = leaderboardFile.readString().split(",\n");
+      ArrayList<String> usernames = new ArrayList<>();
+      ArrayList<String> scores = new ArrayList<>();
+      for(int i = 0; i <= 4; i ++){
+        String usernameToAdd = splitArray[i].split(",")[0];
+        String scoreToAdd = splitArray[i].split(",")[1];
+        usernames.add(usernameToAdd);
+        scores.add(scoreToAdd);
       }
-      newScores += "\nend";
-      file.writeString(newScores, false);
+      updateLeaderboard(username, usernames, satisfaction, scores);
 
+      for (int i = 0; i <= (usernames.size() - 1); i++) {
+        Label currentUsernameLabel = new Label(usernames.get(i), skin);
+        Label currentScoreLabel = new Label(scores.get(i), skin);
+        leaderboard.add(currentUsernameLabel).padBottom(2);
+        leaderboard.add(currentScoreLabel).padBottom(2);
+        leaderboard.row();
+      }
+
+      // Add UI elements to stage
+      table.add(leaderboard).center().padBottom(30);
+      table.row();
+
+      // modify the file to reflect the new leaderboard if changed
+      if (changed){
+        FileHandle file = Gdx.files.local("textFiles/leaderboard.txt");
+        String newScores = "";
+        for (int i = 0; i < usernames.size(); i++) {
+          newScores += usernames.get(i) + "," + scores.get(i) + ",\n";
+        }
+        file.writeString(newScores, false);
+
+      }
+    }
+    catch(Exception e) {
+      throw new FileCorruptedException();
     }
   }
 
