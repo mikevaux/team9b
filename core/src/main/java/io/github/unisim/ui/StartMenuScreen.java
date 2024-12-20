@@ -24,6 +24,7 @@ public class StartMenuScreen implements Screen {
   private Table table;
   private TextButton playButton;
   private TextButton settingsButton;
+  private TextButton howToPlayButton;
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
 
   /**
@@ -57,13 +58,25 @@ public class StartMenuScreen implements Screen {
       }
     });
 
+    // How To Play button
+    howToPlayButton = new TextButton("How To Play", skin);
+    howToPlayButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+        // Switch to the settings screen
+        Main.getInstance().setScreen(new HowToPlayScreen(_this));
+      }
+    });
+
     // Add UI elements to the stage
     table.setFillParent(true);
     table.center().center();
     table.pad(100, 100, 100, 100);
     table.add(playButton).center().width(250).height(100).padBottom(10);
     table.row();
-    table.add(settingsButton).center().width(250).height(67);
+    table.add(settingsButton).center().width(250).height(67).padBottom(10);
+    table.row();
+    table.add(howToPlayButton).center().width(250).height(67);
     stage.addActor(table);
 
     inputMultiplexer.addProcessor(GameState.getInstance().getFullscreenInputProcessor());
