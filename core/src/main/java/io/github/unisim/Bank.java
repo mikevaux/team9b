@@ -8,12 +8,13 @@ import java.text.NumberFormat;
 public class Bank {
   private static Bank INSTANCE;
   private long balance;
+  private final long initialBalance = 1500000;
 
   /**
    * Creates a new Bank Account with the default initial balance.
    */
   private Bank() {
-    balance = 1500000;
+    balance = initialBalance;
   }
 
   public static Bank getInstance() {
