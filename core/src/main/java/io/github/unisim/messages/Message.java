@@ -18,7 +18,7 @@ class Message {
   /**
    * The width of a 'toast' message.
    */
-  static final int WIDTH = 320;
+  static final int WIDTH = 420;
   /**
    * The height of a 'toast' message.
    */
