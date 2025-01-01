@@ -7,15 +7,25 @@ import io.github.unisim.ui.InfoBar;
 
 import java.util.ArrayList;
 
+/**
+ * __NEW: WHOLE CLASS__ Provides an abstracted API for handling satisfaction calculations and display.
+ */
 public class SatisfactionHandler {
   private InfoBar bar;
   private int satisfaction;
   private BuildingManager buildingManager;
+  private boolean changes = false;
 
   public SatisfactionHandler(InfoBar bar, BuildingManager buildingManager){
     this.bar = bar;
     this.buildingManager = buildingManager;
     this.satisfaction = 0;
+
+    buildingManager.registerSatisfactionHandler(this);
+  }
+
+  public void setChanges(boolean change) {
+    changes = change;
   }
 
   public int getSatisfaction() {
@@ -46,33 +56,30 @@ public class SatisfactionHandler {
    */
   private int calculateBonus(){
     int satisfactionToAdd = 0;
-    final int smallBonus = 100;
-    final int largeBonus = 200;
+    final int smallBonus = 250;
+    final int largeBonus = 500;
     int sleepingNum = buildingManager.getNumberOf(BuildingType.SLEEPING);
     int learningNum = buildingManager.getNumberOf(BuildingType.LEARNING);
     int recreationNum = buildingManager.getNumberOf(BuildingType.RECREATION);
     int eatingNum = buildingManager.getNumberOf(BuildingType.EATING);
-    boolean allTrue = true;
-    //are there at least twice as many recreation buildings as food buildings?
-    if (recreationNum >= (2 * eatingNum)){
-      satisfactionToAdd += smallBonus;
-    }else{
-      allTrue = false;
+    boolean bothTrue = true;
+    // bonus only given if 10 or more buildings placed
+    if (learningNum + sleepingNum + recreationNum + eatingNum >= 10) {
+      //are there at least twice as many learning buildings as recreation and eating buildings?
+      if (learningNum >= (2 * recreationNum) && learningNum >= (2 * eatingNum)) {
+        satisfactionToAdd += smallBonus;
+      } else {
+        bothTrue = false;
+      }
+      //are there at least twice as many sleeping buildings as recreation and eating buildings?
+      if (sleepingNum >= (2 * recreationNum) && sleepingNum >= (2 * eatingNum)) {
+        satisfactionToAdd += smallBonus;
+      } else {
+        bothTrue = false;
+      }
     }
-    //are there at least twice as many learning buildings as recreation buildings?
-    if (learningNum >= (2 * recreationNum)){
-      satisfactionToAdd += smallBonus;
-    }else{
-      allTrue = false;
-    }
-    //are there at least twice as many sleeping buildings as learning buildings?
-    if (sleepingNum >= (2 * learningNum)){
-      satisfactionToAdd += smallBonus;
-    }else{
-      allTrue = false;
-    }
-    //have all bonuses been met?
-    if (allTrue){
+    //have both bonuses been met?
+    if (bothTrue){
       satisfactionToAdd += largeBonus;
     }
     return satisfactionToAdd;
@@ -112,7 +119,10 @@ public class SatisfactionHandler {
    * Called once every render cycle.
    */
   public void updateSatisfaction(){
-    satisfaction = calculateGameSatisfaction();
+    if (changes){
+      satisfaction = calculateGameSatisfaction();
+      changes = false;
+    }
     bar.updateSatisfactionLabel("Satisfaction: " + String.valueOf(satisfaction));
   }
 
