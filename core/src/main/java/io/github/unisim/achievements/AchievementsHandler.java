@@ -17,7 +17,6 @@ public class AchievementsHandler {
   private final OnFire onFire;
   private final Overachiever overachiever;
   private final PressStartToPlay pressStartToPlay;
-  private final SticksAndStones sticksAndStones;
   private static int achievementsGained = 0;
 
 
@@ -37,7 +36,6 @@ public class AchievementsHandler {
     this.onFire = new OnFire();
     this.overachiever = new Overachiever();
     this.pressStartToPlay = new PressStartToPlay();
-    this.sticksAndStones = new SticksAndStones();
 
   }
 
@@ -84,7 +82,6 @@ public class AchievementsHandler {
     areYouStillWatching.checkAreYouStillWatching(delta);
     doYouSmellCarrots.checkDoYouSmellCarrots();
     overachiever.checkOverachiever();
-    sticksAndStones.checkSticksAndStones();
   }
 
 
