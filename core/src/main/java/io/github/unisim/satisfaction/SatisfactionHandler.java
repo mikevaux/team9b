@@ -14,15 +14,17 @@ public class SatisfactionHandler {
   private InfoBar bar;
   private int satisfaction;
   private BuildingManager buildingManager;
-  private static boolean changes = false;
+  private boolean changes = false;
 
   public SatisfactionHandler(InfoBar bar, BuildingManager buildingManager){
     this.bar = bar;
     this.buildingManager = buildingManager;
     this.satisfaction = 0;
+
+    buildingManager.registerSatisfactionHandler(this);
   }
 
-  public static void setChanges(boolean change) {
+  public void setChanges(boolean change) {
     changes = change;
   }
 
