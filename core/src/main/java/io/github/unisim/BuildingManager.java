@@ -12,6 +12,7 @@ import io.github.unisim.building.BuildingType;
 import io.github.unisim.building.EventBuilding;
 import io.github.unisim.building.LongBoiStatue;
 import io.github.unisim.events.LongboiDay;
+import io.github.unisim.satisfaction.SatisfactionHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +31,8 @@ public class BuildingManager {
   private Map<BuildingType, Integer> buildingCounts = new HashMap<>();
   private Matrix4 isoTransform;
   private Building previewBuilding;
+  private SatisfactionHandler satisfactionHandler;
+
   /**
    * Contains the IDs of all buildable tiles.
    */
@@ -39,6 +42,16 @@ public class BuildingManager {
     this.isoTransform = isoTransform;
     // Set was used to make searching more efficient.
     buildableTiles = Stream.of(14, 15).collect(Collectors.toUnmodifiableSet());
+  }
+
+  /**
+   * Registers the instance of the {@link SatisfactionHandler} with this {@link BuildingManager}. Both classes require
+   * a reference to each other, so without a large refactoring, this provides a means of achieving that.
+   *
+   * @param satisfactionHandler the instance of {@link SatisfactionHandler}
+   */
+  public void registerSatisfactionHandler(SatisfactionHandler satisfactionHandler) {
+    this.satisfactionHandler = satisfactionHandler;
   }
 
   /**
@@ -187,8 +200,8 @@ public class BuildingManager {
       if (building instanceof LongBoiStatue) {
         LongboiDay.setInvisible();
         DuckDuckDuck.setDisplay(true); //display the achievement for placing the longboi statue
-
       }
+      satisfactionHandler.setChanges(true);
     }
     return i;
   }
