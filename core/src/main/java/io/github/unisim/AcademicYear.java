@@ -51,4 +51,8 @@ public class AcademicYear {
     }
     return toStringCache;
   }
+
+  public int getYear(){
+    return year;
+  }
 }
