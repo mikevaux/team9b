@@ -31,6 +31,15 @@ public class AcademicYearTests extends AbstractGeneralTest {
     AcademicYear year1 = new AcademicYear(initial);
     assertEquals(year1.toString(), String.valueOf(initial) + "/" + (initial-1999), "year is not converted to string correctly");
   }
+
+  /**
+   * Test 1.4.3.
+   */
+  @Test
+  public void testYear(){
+    AcademicYear year1 = new AcademicYear(initial);
+    assertEquals(initial, year1.getYear(), "year getter not working as expected");
+  }
 }
 
 
