@@ -6,7 +6,7 @@ package io.github.unisim.achievements;
 public class Overachiever extends Achievement {
   private static boolean display = false;
   private static boolean alreadyDisplayed = false;
-  private final int noOfAchievements = 6;
+  private final int noOfAchievements = 7;
 
   /**
    * Creates an instance of Overachiever, which requires you to complete all other achievements.

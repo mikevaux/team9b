@@ -3,6 +3,8 @@ package io.github.unisim.satisfaction;
 import io.github.unisim.building.Building;
 import io.github.unisim.BuildingManager;
 import io.github.unisim.building.BuildingType;
+import io.github.unisim.events.EventsHandler;
+import io.github.unisim.events.WinterHolidays;
 import io.github.unisim.ui.InfoBar;
 
 import java.util.ArrayList;
@@ -15,11 +17,13 @@ public class SatisfactionHandler {
   private int satisfaction;
   private BuildingManager buildingManager;
   private boolean changes = false;
+  private WinterHolidays winterHolidays;
 
-  public SatisfactionHandler(InfoBar bar, BuildingManager buildingManager){
+  public SatisfactionHandler(InfoBar bar, BuildingManager buildingManager, EventsHandler eventsHandler){
     this.bar = bar;
     this.buildingManager = buildingManager;
     this.satisfaction = 0;
+    this.winterHolidays = eventsHandler.getWinterHolidays();
 
     buildingManager.registerSatisfactionHandler(this);
   }
@@ -122,6 +126,9 @@ public class SatisfactionHandler {
     if (changes){
       satisfaction = calculateGameSatisfaction();
       changes = false;
+      if(winterHolidays.isRunning()){
+        winterHolidays.setChanges(true);
+      }
     }
     bar.updateSatisfactionLabel("Satisfaction: " + String.valueOf(satisfaction));
   }

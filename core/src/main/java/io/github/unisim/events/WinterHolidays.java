@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import io.github.unisim.achievements.AchievementsHandler;
+import io.github.unisim.achievements.DoYouSmellCarrots;
+import io.github.unisim.satisfaction.SatisfactionHandler;
 import io.github.unisim.ui.GameScreen;
 
 /**
@@ -16,6 +19,8 @@ public class WinterHolidays extends Event {
   private Texture snowflake;
   private SpriteBatch spriteBatch;
   private Array<Sprite> snowflakes;
+  private boolean running = false;
+  private boolean changes = false;
 
   public WinterHolidays() {
     super("Event: Winter Holidays", "Ho Ho Ho!", "events/eventWarning.png");
@@ -65,5 +70,27 @@ public class WinterHolidays extends Event {
       snowdrop.draw(spriteBatch);
     }
     spriteBatch.end();
+    //displays winter achievement if satisfaction is gained during the event
+    if(changes){
+      DoYouSmellCarrots.setDisplay(true);
+    }
+  }
+
+  @Override
+  public void doBefore(){
+    running = true;
+  }
+
+  @Override
+  public void doAfter(){
+    running = false;
+  }
+
+  public boolean isRunning() {
+    return running;
+  }
+
+  public void setChanges(Boolean satisfactionChanges){
+    changes = satisfactionChanges;
   }
 }
