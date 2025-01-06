@@ -32,9 +32,4 @@ public class DoYouSmellCarrots extends Achievement {
   public static void setAlreadyDisplayed(boolean alreadyDisplayed) {
     DoYouSmellCarrots.alreadyDisplayed = alreadyDisplayed;
   }
-
-  public void checkDoYouSmellCarrots(){
-
-  }
-
 }

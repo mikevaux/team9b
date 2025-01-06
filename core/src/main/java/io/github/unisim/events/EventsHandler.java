@@ -2,7 +2,9 @@ package io.github.unisim.events;
 
 import io.github.unisim.Timer;
 import io.github.unisim.BuildingManager;
+import io.github.unisim.achievements.AchievementsHandler;
 import io.github.unisim.messages.MessageHandler;
+import io.github.unisim.satisfaction.SatisfactionHandler;
 import io.github.unisim.ui.BuildingMenu;
 import io.github.unisim.ui.GameScreen;
 
@@ -26,6 +28,9 @@ public class EventsHandler {
   Event currentEvent;
   boolean runPre = true;
   boolean runPost = true;
+  private Fire fire;
+  private LongboiDay longboiDay;
+  private WinterHolidays winterHolidays;
   /**
    * Creates a new EventsHandler, with a shared MessageHandler.
    *
@@ -34,15 +39,22 @@ public class EventsHandler {
   public EventsHandler(MessageHandler messageHandler, BuildingManager buildingManager, BuildingMenu menu) {
     this.messageHandler = messageHandler;
     this.menu = menu;
+    this.fire = new Fire(buildingManager);
+    this.longboiDay = new LongboiDay(menu);
+    this.winterHolidays = new WinterHolidays();
     events = new HashMap<String, Event>();
-    events.put("fire", new Fire(buildingManager));
-    events.put("duck", new LongboiDay(menu));
-    events.put("winter", new WinterHolidays());
+    events.put("fire", fire);
+    events.put("duck", longboiDay);
+    events.put("winter", winterHolidays);
     order = randomiseEventOrder();
     event1 = true;
     event2 = true;
     event3 = true;
     currentEvent = null;
+  }
+
+  public WinterHolidays getWinterHolidays(){
+    return winterHolidays;
   }
 
   /**

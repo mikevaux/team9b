@@ -49,26 +49,29 @@ public class AchievementsHandler {
     achievementsGained += 1;
     messageHandler.showMessage(achievement.getTitle(), achievement.getBody(), achievement.getIconFilename());
     switch (achievement.getTitle()){
-      case "Fitness Freak!":
+      case "Achievement: Fitness Freak!":
         FitnessFreak.setAlreadyDisplayed(true);
         break;
-      case "Are You Still Watching?":
+      case "Achievement: Are You Still Watching?":
         AreYouStillWatching.setAlreadyDisplayed(true);
         break;
-      case "Duck..Duck..Duck??!":
+      case "Achievement: Duck..Duck..Duck??!":
         DuckDuckDuck.setAlreadyDisplayed(true);
         break;
-      case "How Did We Get Here?":
+      case "Achievement: How Did We Get Here?":
         HowDidWeGetHere.setAlreadyDisplayed(true);
         break;
-      case "On Fire!":
+      case "Achievement: On Fire!":
         OnFire.setAlreadyDisplayed(true);
         break;
-      case "Overachiever!":
+      case "Achievement: Overachiever!":
         Overachiever.setAlreadyDisplayed(true);
         break;
-      case "Press Start To Play.":
+      case "Achievement: Press Start To Play.":
         PressStartToPlay.setAlreadyDisplayed(true);
+        break;
+      case "Achievement: Do You Smell Carrots?.":
+        DoYouSmellCarrots.setAlreadyDisplayed(true);
         break;
     }
   }
@@ -80,7 +83,6 @@ public class AchievementsHandler {
    */
   public void checkAchievements(float delta){
     areYouStillWatching.checkAreYouStillWatching(delta);
-    doYouSmellCarrots.checkDoYouSmellCarrots();
     overachiever.checkOverachiever();
   }
 
@@ -100,9 +102,9 @@ public class AchievementsHandler {
       showAchievement(areYouStillWatching);
       AreYouStillWatching.setDisplay(false);
     }
-//    if(this.doYouSmellCarrots.display()){
-//      showAchievement(doYouSmellCarrots);
-//    }
+    if(this.doYouSmellCarrots.isDisplay()){
+      showAchievement(doYouSmellCarrots);
+    }
     if(DuckDuckDuck.isDisplay()){
       showAchievement(duckDuckDuck);
       DuckDuckDuck.setDisplay(false);
@@ -123,9 +125,6 @@ public class AchievementsHandler {
       showAchievement(pressStartToPlay);
       PressStartToPlay.setDisplay(false);
     }
-//    if(this.sticksAndStones.display()){
-//      showAchievement(sticksAndStones);
-//    }
   }
 
   public static int getAchievementsGained() {
