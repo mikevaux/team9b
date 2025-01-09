@@ -24,10 +24,6 @@ public class WinterHolidays extends Event {
 
   public WinterHolidays() {
     super("Event: Winter Holidays", "Ho Ho Ho!", "events/eventWarning.png");
-    snowTimer = 0;
-    snowflake = new Texture("events/snow.png");
-    spriteBatch = new SpriteBatch();
-    snowflakes = new Array<>();
   }
 
   /**
@@ -79,6 +75,11 @@ public class WinterHolidays extends Event {
   @Override
   public void doBefore(){
     running = true;
+
+    snowTimer = 0;
+    snowflake = new Texture("events/snow.png");
+    spriteBatch = new SpriteBatch();
+    snowflakes = new Array<>();
   }
 
   @Override

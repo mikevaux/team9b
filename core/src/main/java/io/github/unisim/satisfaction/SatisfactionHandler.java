@@ -19,11 +19,11 @@ public class SatisfactionHandler {
   private boolean changes = false;
   private WinterHolidays winterHolidays;
 
-  public SatisfactionHandler(InfoBar bar, BuildingManager buildingManager, EventsHandler eventsHandler){
+  public SatisfactionHandler(BuildingManager buildingManager, WinterHolidays winterHolidays){
     this.bar = bar;
     this.buildingManager = buildingManager;
     this.satisfaction = 0;
-    this.winterHolidays = eventsHandler.getWinterHolidays();
+    this.winterHolidays = winterHolidays;
 
     buildingManager.registerSatisfactionHandler(this);
   }
@@ -32,7 +32,20 @@ public class SatisfactionHandler {
     changes = change;
   }
 
+  /**
+   * Returns the current satisfaction, after updating if changes have occurred.
+   *
+   * @return
+   */
   public int getSatisfaction() {
+    if (changes){
+      satisfaction = calculateGameSatisfaction();
+      changes = false;
+
+      if (winterHolidays.isRunning()) {
+        winterHolidays.setChanges(true);
+      }
+    }
     return satisfaction;
   }
 
@@ -116,21 +129,6 @@ public class SatisfactionHandler {
       gameSatisfaction *= 1.5;
     }
     return gameSatisfaction;
-  }
-
-  /**
-   * Updates the value of the satisfaction on the information bar.
-   * Called once every render cycle.
-   */
-  public void updateSatisfaction(){
-    if (changes){
-      satisfaction = calculateGameSatisfaction();
-      changes = false;
-      if(winterHolidays.isRunning()){
-        winterHolidays.setChanges(true);
-      }
-    }
-    bar.updateSatisfactionLabel("Satisfaction: " + String.valueOf(satisfaction));
   }
 
   /**
