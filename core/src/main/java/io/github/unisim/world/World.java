@@ -14,11 +14,15 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import io.github.unisim.Bank;
 import io.github.unisim.GameState;
 import io.github.unisim.Point;
+import io.github.unisim.achievements.*;
 import io.github.unisim.building.Building;
 import io.github.unisim.BuildingManager;
 import io.github.unisim.building.BuildingType;
+import io.github.unisim.building.LongBoiStatue;
+import io.github.unisim.events.LongboiDay;
 
 /**
  * A class that holds all the gameplay elements of the game UniSim.
@@ -334,6 +338,18 @@ public class World {
       return false;
     }
     buildingManager.placeBuilding(selectedBuilding, false);
+    Bank.getInstance().debit(selectedBuilding.getCost());
+    GameState.getInstance().increaseQuarterlyIncome(selectedBuilding.getIncomeGeneration());
+    AreYouStillWatching.resetCounter();
+
+    OnFire.checkBuilding(selectedBuilding.getName());
+
+    // remove the statue from the building menu once placed
+    if (selectedBuilding instanceof LongBoiStatue) {
+      LongboiDay.setInvisible();
+      DuckDuckDuck.setDisplay(true); //display the achievement for placing the longboi statue
+    }
+
     selectedBuilding = null;
     return true;
   }

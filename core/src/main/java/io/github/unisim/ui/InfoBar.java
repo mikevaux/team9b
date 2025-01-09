@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import io.github.unisim.GameState;
 import io.github.unisim.Timer;
 import io.github.unisim.building.BuildingType;
+import io.github.unisim.satisfaction.SatisfactionHandler;
 import io.github.unisim.world.World;
 
 /**
@@ -39,14 +40,16 @@ public class InfoBar {
   private Cell<Table> buildingCountersTableCell;
   private Cell[] buildingCounterCells;
   private World world;
+  private SatisfactionHandler satisfactionHandler;
   /**
    * Create a new infoBar and draws its' components onto the provided stage.
 
    * @param stage - The stage on which to draw the InfoBar.
    */
-  public InfoBar(Stage stage, Timer timer, World world) {
+  public InfoBar(Stage stage, Timer timer, World world, SatisfactionHandler satisfactionHandler) {
     this.timer = timer;
     this.world = world;
+    this.satisfactionHandler = satisfactionHandler;
     buildingCounterCells = new Cell[4];
 
     // Building counter table
@@ -107,6 +110,7 @@ public class InfoBar {
     buildingCounterLabels[3].setText("Sleeping: "
         + Integer.toString(world.getBuildingCount(BuildingType.SLEEPING)));
     pauseButtonCell.setActor(GameState.getInstance().isPaused() ? playImage : pauseImage);
+    satisfactionLabel.setText("Satisfaction: " + satisfactionHandler.getSatisfaction());
   }
 
   /**

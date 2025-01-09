@@ -46,11 +46,11 @@ public class GameScreen implements Screen {
   public GameScreen() {
     messageHandler = new MessageHandler(stage);
     timer = new Timer(gameDuration);
-    infoBar = new InfoBar(stage, timer, world);
     buildingMenu = new BuildingMenu(stage, world, messageHandler);
     eventsHandler = new EventsHandler(messageHandler, world.getBuildingManager(), buildingMenu);
-    satisfactionHandler = new SatisfactionHandler(infoBar, world.getBuildingManager(), eventsHandler);
+    satisfactionHandler = new SatisfactionHandler(world.getBuildingManager(), eventsHandler.getWinterHolidays());
     achievementsHandler = new AchievementsHandler(messageHandler);
+    infoBar = new InfoBar(stage, timer, world, satisfactionHandler);
     inputMultiplexer.addProcessor(GameState.getInstance().getFullscreenInputProcessor());
     inputMultiplexer.addProcessor(stage);
     inputMultiplexer.addProcessor(uiInputProcessor);
@@ -93,7 +93,6 @@ public class GameScreen implements Screen {
     eventsHandler.checkEvents(delta, timer);
     eventsHandler.runCurrentEvent(delta);
     achievementsHandler.displayAchievements(delta);
-    satisfactionHandler.updateSatisfaction();
   }
 
   @Override

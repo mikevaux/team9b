@@ -188,19 +188,7 @@ public class BuildingManager {
     }
     buildings.add(i, building);
     if (!previewing) {
-      Bank.getInstance().debit(building.getCost());
-      GameState.getInstance().increaseQuarterlyIncome(building.getIncomeGeneration());
       updateCounters(building);
-      AreYouStillWatching.resetCounter();
-      FitnessFreak.checkBuildings(buildingCounts);
-      HowDidWeGetHere.checkBuildings(buildingCounts);
-      OnFire.checkBuilding(building.getName());
-
-      // remove the statue from the building menu once placed
-      if (building instanceof LongBoiStatue) {
-        LongboiDay.setInvisible();
-        DuckDuckDuck.setDisplay(true); //display the achievement for placing the longboi statue
-      }
       satisfactionHandler.setChanges(true);
     }
     return i;
@@ -222,6 +210,9 @@ public class BuildingManager {
       buildingCounts.put(building.getType(), 0);
     }
     buildingCounts.put(building.getType(), buildingCounts.get(building.getType()) + 1);
+
+    FitnessFreak.checkBuildings(buildingCounts);
+    HowDidWeGetHere.checkBuildings(buildingCounts);
   }
 
   /**
