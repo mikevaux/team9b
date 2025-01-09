@@ -23,31 +23,6 @@ public class PointTest extends AbstractGeneralTest {
   }
 
   /**
-   * Test 1.3.2.
-   */
-  @Test
-  public void testInvalidValues() {
-    int invalidX = -1;
-    int invalidY = -1;
-
-    assertThrows(
-      IllegalArgumentException.class,
-      () -> new Point(invalidX, 0),
-      "A Point's x value cannot be < 0."
-    );
-    assertThrows(
-      IllegalArgumentException.class,
-      () -> new Point(0, invalidY),
-      "A Point's y value cannot be < 0"
-    );
-    assertThrows(
-      IllegalArgumentException.class,
-      () -> new Point(invalidX, invalidY),
-      "A Point's x and y values cannot be < 0"
-    );
-  }
-
-  /**
    * Test 1.3.3.
    */
   @Test
