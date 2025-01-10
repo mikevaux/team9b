@@ -110,7 +110,7 @@ public class InfoBar {
     buildingCounterLabels[3].setText("Sleeping: "
         + Integer.toString(world.getBuildingCount(BuildingType.SLEEPING)));
     pauseButtonCell.setActor(GameState.getInstance().isPaused() ? playImage : pauseImage);
-    satisfactionLabel.setText("Satisfaction: " + satisfactionHandler.getSatisfaction());
+    satisfactionLabel.setText("Satisfaction: " + satisfactionHandler.getGameSatisfaction());
   }
 
   /**
