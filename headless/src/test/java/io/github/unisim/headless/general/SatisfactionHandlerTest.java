@@ -16,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SatisfactionHandlerTest extends AbstractGeneralTest {
   private BuildingManager buildingManager;
   private SatisfactionHandler satisfactionHandler;
-  private int smallBuildingScore = 15;
-  private int largeBuildingScore = 30;
-  private int smallBonus = 250;
-  private int largeBonus = 500;
-  private int smallProxBonus = 5;
-  private int mediumProxBonus = 10;
-  private int largeProxBonus =25;
+  private final int smallBuildingScore = 15;
+  private final int largeBuildingScore = 30;
+  private final int smallBonus = 250;
+  private final int largeBonus = 500;
+  private final int smallProxBonus = 5;
+  private final int mediumProxBonus = 10;
+  private final int largeProxBonus =25;
 
   @BeforeEach
   public void boot() {
@@ -45,17 +45,17 @@ public class SatisfactionHandlerTest extends AbstractGeneralTest {
   public void testSmallBuildingSatisfaction() {
     //test one basketball court
     buildingManager.buildBuilding(new BasketballCourt());
-    assertEquals(15, satisfactionHandler.getGameSatisfaction(),
+    assertEquals(smallBuildingScore, satisfactionHandler.getGameSatisfaction(),
       "satisfaction was " + satisfactionHandler.getGameSatisfaction() +
         ", satisfaction for one small building should have been 15");
     //test two basketball courts
     buildingManager.buildBuilding(new BasketballCourt());
-    assertEquals(30, satisfactionHandler.getGameSatisfaction(),
+    assertEquals(2*smallBuildingScore, satisfactionHandler.getGameSatisfaction(),
       "satisfaction was " + satisfactionHandler.getGameSatisfaction() +
         ", satisfaction for two small buildings should have been 30");
     //test two basketball courts and a canteen
     buildingManager.buildBuilding(new EatingBuilding());
-    assertEquals(45, satisfactionHandler.getGameSatisfaction(),
+    assertEquals(3*smallBuildingScore, satisfactionHandler.getGameSatisfaction(),
       "satisfaction was " + satisfactionHandler.getGameSatisfaction() +
         ", satisfaction for three small buildings should have been 45");
   }
@@ -67,24 +67,24 @@ public class SatisfactionHandlerTest extends AbstractGeneralTest {
   public void testLargeBuildingSatisfaction() {
     //test one stadium
     buildingManager.buildBuilding(new Stadium());
-    assertEquals(30, satisfactionHandler.getGameSatisfaction(),
+    assertEquals(largeBuildingScore, satisfactionHandler.getGameSatisfaction(),
       "satisfaction was " + satisfactionHandler.getGameSatisfaction() +
         ", satisfaction for one large building should have been 30");
     //test two stadiums
     buildingManager.buildBuilding(new Stadium());
-    assertEquals(60, satisfactionHandler.getGameSatisfaction(),
+    assertEquals(2*largeBuildingScore, satisfactionHandler.getGameSatisfaction(),
       "satisfaction was " + satisfactionHandler.getGameSatisfaction() +
         ", satisfaction for two large buildings should have been 60");
     //test two stadiums and a library
     buildingManager.buildBuilding(new LearningBuilding());
-    assertEquals(90, satisfactionHandler.getGameSatisfaction(),
+    assertEquals(3*largeBuildingScore, satisfactionHandler.getGameSatisfaction(),
       "satisfaction was " + satisfactionHandler.getGameSatisfaction() +
         ", satisfaction for three large buildings should have been 90");
     //test two stadiums, a library, and an accommodation
     SleepingBuilding accommodation = new SleepingBuilding();
     accommodation.setLocation(new Point(101, 101));//prevent proximity bonus from having any effect
     buildingManager.buildBuilding(accommodation);
-    assertEquals(120, satisfactionHandler.getGameSatisfaction(),
+    assertEquals(4*largeBuildingScore, satisfactionHandler.getGameSatisfaction(),
       "satisfaction was " + satisfactionHandler.getGameSatisfaction() +
         ", satisfaction for four large buildings should have been 120");
   }
