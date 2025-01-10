@@ -141,14 +141,32 @@ public class BuildingManager {
   }
 
   /**
+   * Places a building without building it, for previewing.
+   *
+   * @param building a reference to the building object being placed
+   */
+  public void previewBuilding(Building building) {
+    placeBuilding(building);
+  }
+
+  /**
+   * Places a building and updates the context.
+   *
+   * @param building a reference to the building object being placed
+   */
+  public void buildBuilding(Building building) {
+    placeBuilding(building);
+    updateCounters(building);
+    satisfactionHandler.setChanges(true);
+  }
+
+  /**
    * Handle placement of a building into the world by determining
    * the correct draw order and updating the building counters.
    *
    * @param building - A reference to a building object to be placed
-   * @param previewing - Whether this building is being previewed only
-   * @return - The location in the buildings array that the building was placed at
    */
-  public int placeBuilding(Building building, boolean previewing) {
+  private void placeBuilding(Building building) {
     // Insert the building into the correct place in the arrayList to ensure it
     // gets rendered in top-down order
     // Start by calculating the 'height' values for the left and right corners of the new building
@@ -186,12 +204,8 @@ public class BuildingManager {
         break;
       }
     }
+
     buildings.add(i, building);
-    if (!previewing) {
-      updateCounters(building);
-      satisfactionHandler.setChanges(true);
-    }
-    return i;
   }
 
   /**
@@ -263,14 +277,13 @@ public class BuildingManager {
     return counter;
   }
 
-  public boolean longboiStatuePlaced(){
-    boolean statuePlaced = false;
-    for (Building building : buildings){
-      if (building.getType() == BuildingType.EVENT){
-        statuePlaced = true;
+  public boolean longboiStatuePlaced() {
+    for (Building building : buildings) {
+      if (building instanceof LongBoiStatue) {
+        return true;
       }
     }
-    return statuePlaced;
+    return false;
   }
 
   public ArrayList<Building> getTypeBuildings(BuildingType type) {
@@ -294,7 +307,7 @@ public class BuildingManager {
     }
     this.previewBuilding = previewBuilding;
     if (previewBuilding != null) {
-      placeBuilding(previewBuilding, true);
+      previewBuilding(previewBuilding);
     }
   }
 

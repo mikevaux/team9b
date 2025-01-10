@@ -337,7 +337,7 @@ public class World {
     if (!canBuild) {
       return false;
     }
-    buildingManager.placeBuilding(selectedBuilding, false);
+    buildingManager.buildBuilding(selectedBuilding);
     Bank.getInstance().debit(selectedBuilding.getCost());
     GameState.getInstance().increaseQuarterlyIncome(selectedBuilding.getIncomeGeneration());
     AreYouStillWatching.resetCounter();

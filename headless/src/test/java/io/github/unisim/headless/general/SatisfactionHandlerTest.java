@@ -26,7 +26,7 @@ public class SatisfactionHandlerTest extends AbstractGeneralTest {
 
   @Test
   public void testY() {
-    buildingManager.placeBuilding(new BasketballCourt(), false);
+    buildingManager.buildBuilding(new BasketballCourt());
     assertEquals(15, satisfactionHandler.getSatisfaction(), "Should have been 15");
   }
 }
