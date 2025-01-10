@@ -10,7 +10,7 @@ import java.time.Year;
 /**
  * Tests 1.4.x.
  */
-public class AcademicYearTests extends AbstractGeneralTest {
+public class AcademicYearTest extends AbstractGeneralTest {
   private final int initial = 1;
 
   /**

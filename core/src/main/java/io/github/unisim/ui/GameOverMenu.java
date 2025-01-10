@@ -58,7 +58,7 @@ public class GameOverMenu {
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
         satisfactionHandler.updatePostGameSatisfaction();
         // go to username screen
-        Main.getInstance().setScreen(new UsernameScreen(satisfactionHandler.getSatisfaction(), false));
+        Main.getInstance().setScreen(new UsernameScreen(satisfactionHandler.getGameSatisfaction(), false));
       }
     });
 

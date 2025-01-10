@@ -3,7 +3,6 @@ package io.github.unisim.satisfaction;
 import io.github.unisim.building.Building;
 import io.github.unisim.BuildingManager;
 import io.github.unisim.building.BuildingType;
-import io.github.unisim.events.EventsHandler;
 import io.github.unisim.events.WinterHolidays;
 import io.github.unisim.ui.InfoBar;
 
@@ -37,7 +36,7 @@ public class SatisfactionHandler {
    *
    * @return
    */
-  public int getSatisfaction() {
+  public int getGameSatisfaction() {
     if (changes){
       satisfaction = calculateGameSatisfaction();
       changes = false;
@@ -46,6 +45,10 @@ public class SatisfactionHandler {
         winterHolidays.setChanges(true);
       }
     }
+    return satisfaction;
+  }
+
+  public int getSatisfaction() {
     return satisfaction;
   }
 
@@ -94,6 +97,8 @@ public class SatisfactionHandler {
       } else {
         bothTrue = false;
       }
+    }else{
+      bothTrue = false;
     }
     //have both bonuses been met?
     if (bothTrue){
@@ -163,7 +168,7 @@ public class SatisfactionHandler {
    *
    * @return the total proximity satisfaction score to be added to the total satisfaction
    */
-  public int calculateProximityBonus(){
+  private int calculateProximityBonus(){
     ArrayList<Building> accommodationList = buildingManager.getTypeBuildings(BuildingType.SLEEPING);
     ArrayList<Building> recreationList = buildingManager.getTypeBuildings(BuildingType.RECREATION);
     ArrayList<Building> learningList = buildingManager.getTypeBuildings(BuildingType.LEARNING);
