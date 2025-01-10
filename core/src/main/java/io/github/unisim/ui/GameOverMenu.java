@@ -56,7 +56,6 @@ public class GameOverMenu {
     leaderboardButton.addListener(new ClickListener() {
       @Override
       public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-        satisfactionHandler.updatePostGameSatisfaction();
         // go to username screen
         Main.getInstance().setScreen(new UsernameScreen(satisfactionHandler.getPostGameSatisfaction(), false));
       }
