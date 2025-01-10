@@ -98,23 +98,20 @@ public class SatisfactionHandlerTest extends AbstractGeneralTest {
     for (int i = 0; i < 9; i++) {
       buildingManager.buildBuilding(new LearningBuilding());
     }
-    satisfactionHandler.updatePostGameSatisfaction();
-    assertEquals(9*largeBuildingScore, satisfactionHandler.getSatisfaction(),
-      "satisfaction was " + satisfactionHandler.getSatisfaction() +
+    assertEquals(9*largeBuildingScore, satisfactionHandler.getPostGameSatisfaction(),
+      "satisfaction was " + satisfactionHandler.getPostGameSatisfaction() +
         ", satisfaction for nine libraries should have been 270");
     //check bonus not awarded when ratios wrong
     for (int i = 0; i < 5; i++) {
       buildingManager.buildBuilding(new Stadium());
     }
-    satisfactionHandler.updatePostGameSatisfaction();
-    assertEquals(14*largeBuildingScore, satisfactionHandler.getSatisfaction(),
-      "satisfaction was " + satisfactionHandler.getSatisfaction() +
+    assertEquals(14*largeBuildingScore, satisfactionHandler.getPostGameSatisfaction(),
+      "satisfaction was " + satisfactionHandler.getPostGameSatisfaction() +
         ", satisfaction for nine libraries and 5 stadiums should have been 270");
     //check small bonus awarded when only one condition is met
     buildingManager.buildBuilding((new LearningBuilding()));
-    satisfactionHandler.updatePostGameSatisfaction();
-    assertEquals(15*largeBuildingScore + smallBonus, satisfactionHandler.getSatisfaction(),
-      "satisfaction was " + satisfactionHandler.getSatisfaction() +
+    assertEquals(15*largeBuildingScore + smallBonus, satisfactionHandler.getPostGameSatisfaction(),
+      "satisfaction was " + satisfactionHandler.getPostGameSatisfaction() +
         ", satisfaction for ten libraries and 5 stadiums should have been 700");
     //check all bonuses awarded when both conditions met
     for (int i = 0; i < 10; i++) {
@@ -122,9 +119,8 @@ public class SatisfactionHandlerTest extends AbstractGeneralTest {
       accommodation.setLocation(new Point(101, 101));//prevent proximity bonus from having any effect
       buildingManager.buildBuilding(accommodation);
     }
-    satisfactionHandler.updatePostGameSatisfaction();
-    assertEquals(25*largeBuildingScore + 2*smallBonus + largeBonus, satisfactionHandler.getSatisfaction(),
-      "satisfaction was " + satisfactionHandler.getSatisfaction() +
+    assertEquals(25*largeBuildingScore + 2*smallBonus + largeBonus, satisfactionHandler.getPostGameSatisfaction(),
+      "satisfaction was " + satisfactionHandler.getPostGameSatisfaction() +
         ", satisfaction for ten libraries, 5 stadiums, and 10 accommodations should have been 1750");
   }
 

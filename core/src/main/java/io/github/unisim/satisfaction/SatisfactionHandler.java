@@ -4,7 +4,6 @@ import io.github.unisim.building.Building;
 import io.github.unisim.BuildingManager;
 import io.github.unisim.building.BuildingType;
 import io.github.unisim.events.WinterHolidays;
-import io.github.unisim.ui.InfoBar;
 
 import java.util.ArrayList;
 
@@ -12,14 +11,12 @@ import java.util.ArrayList;
  * __NEW: WHOLE CLASS__ Provides an abstracted API for handling satisfaction calculations and display.
  */
 public class SatisfactionHandler {
-  private InfoBar bar;
   private int satisfaction;
   private BuildingManager buildingManager;
   private boolean changes = false;
   private WinterHolidays winterHolidays;
 
   public SatisfactionHandler(BuildingManager buildingManager, WinterHolidays winterHolidays){
-    this.bar = bar;
     this.buildingManager = buildingManager;
     this.satisfaction = 0;
     this.winterHolidays = winterHolidays;
@@ -34,7 +31,7 @@ public class SatisfactionHandler {
   /**
    * Returns the current satisfaction, after updating if changes have occurred.
    *
-   * @return
+   * @return the satisfaction score as an int
    */
   public int getGameSatisfaction() {
     if (changes){
@@ -48,7 +45,8 @@ public class SatisfactionHandler {
     return satisfaction;
   }
 
-  public int getSatisfaction() {
+  public int getPostGameSatisfaction() {
+    satisfaction = calculatePostGameSatisfaction();
     return satisfaction;
   }
 
@@ -137,14 +135,6 @@ public class SatisfactionHandler {
   }
 
   /**
-   * Update the satisfaction to include all satisfaction bonuses.
-   * This includes the base, proximity, bonus, and event bonus satisfactions.
-   */
-  public void updatePostGameSatisfaction(){
-    satisfaction = calculatePostGameSatisfaction();
-  }
-
-  /**
    * Calculates the final value of the satisfaction to be displayed after the game.
    * This includes the base, proximity, bonus, and event bonus satisfactions.
    *
@@ -174,15 +164,15 @@ public class SatisfactionHandler {
     ArrayList<Building> learningList = buildingManager.getTypeBuildings(BuildingType.LEARNING);
     ArrayList<Building> foodList = buildingManager.getTypeBuildings(BuildingType.EATING);
     int satisfactionBonus = 0;
-    for (Building accomodationBuilding: accommodationList) {
+    for (Building accommodationBuilding: accommodationList) {
       //learning bonus
-      int minDistLearning = getClosestDistance(accomodationBuilding, learningList);
+      int minDistLearning = getClosestDistance(accommodationBuilding, learningList);
       satisfactionBonus += bonusSize(minDistLearning, true);
       //recreation bonus
-      int minDistRecreation = getClosestDistance(accomodationBuilding, recreationList);
+      int minDistRecreation = getClosestDistance(accommodationBuilding, recreationList);
       satisfactionBonus += bonusSize(minDistRecreation, false);
       //food bonus
-      int minDistFood = getClosestDistance(accomodationBuilding, foodList);
+      int minDistFood = getClosestDistance(accommodationBuilding, foodList);
       satisfactionBonus += bonusSize(minDistFood, false);
     }
     return satisfactionBonus;
@@ -218,8 +208,7 @@ public class SatisfactionHandler {
    * @return the distance between the first and second building
    */
   private int calculateDistance(Building building1, Building building2){
-    int distance = Math.max(Math.abs(building1.getLocation().x - building2.getLocation().x),Math.abs(building1.getLocation().y - building2.getLocation().y));
-    return distance;
+    return Math.max(Math.abs(building1.getLocation().x - building2.getLocation().x),Math.abs(building1.getLocation().y - building2.getLocation().y));
   }
 
   /**
