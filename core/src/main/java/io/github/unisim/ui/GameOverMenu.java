@@ -15,8 +15,7 @@ import io.github.unisim.Main;
 import io.github.unisim.satisfaction.SatisfactionHandler;
 
 /**
- * Menu that is displayed when the timer has run out. This is where the final score
- * will be calculated in future.
+ * __EXTENDED: NEW FUNCTIONALITY__ Menu that is displayed when the game is finished.
  */
 public class GameOverMenu {
   private Stage stage;

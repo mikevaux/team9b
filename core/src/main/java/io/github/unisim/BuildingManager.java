@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Manage the buildings placed in the world and methods common to all buildings.
+ * __EXTENDED: NEW METHODS__ Manages the buildings placed in the world and methods common to all buildings.
  */
 public class BuildingManager {
   // create a list of buildings which will be sorted by a height metric derived from
