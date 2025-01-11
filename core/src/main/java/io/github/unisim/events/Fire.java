@@ -29,6 +29,7 @@ public class Fire extends Event {
       fireBuilding.setOnFire(true);
       // Decrease the counter of the building type by one
       buildingManager.decrementCounter(fireBuilding);
+      buildingManager.setChanges();
     }
   }
 }
