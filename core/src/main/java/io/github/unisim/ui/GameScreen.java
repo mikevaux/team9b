@@ -38,7 +38,7 @@ public class GameScreen implements Screen {
   private InputMultiplexer inputMultiplexer = new InputMultiplexer();
   private GameOverMenu gameOverMenu;
   private static FitViewport viewport;
-  private static final float gameDuration = 3_000f;
+  private static final float gameDuration = 3_000_000f;
 
   /**
    * Constructor for the GameScreen.
