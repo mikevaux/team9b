@@ -96,7 +96,7 @@ public class LeaderboardScreen implements Screen {
     leaderboard.row();
 
     try {
-      FileHandle leaderboardFile = Gdx.files.internal("assets/textFiles/leaderboard.txt");
+      FileHandle leaderboardFile = Gdx.files.internal("textFiles/leaderboard.txt");
       String[] splitArray = leaderboardFile.readString().split(",\n");
       ArrayList<String> usernames = new ArrayList<>();
       ArrayList<String> scores = new ArrayList<>();
@@ -122,7 +122,7 @@ public class LeaderboardScreen implements Screen {
 
       // modify the file to reflect the new leaderboard if changed
       if (changed){
-        FileHandle file = Gdx.files.local("assets/textFiles/leaderboard.txt");
+        FileHandle file = Gdx.files.local("textFiles/leaderboard.txt");
         String newScores = "";
         for (int i = 0; i < 5; i++) {
           newScores += usernames.get(i) + "," + scores.get(i) + ",\n";
