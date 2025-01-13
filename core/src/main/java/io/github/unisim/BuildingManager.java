@@ -149,6 +149,10 @@ public class BuildingManager {
     placeBuilding(building);
   }
 
+  public void setChanges(){
+    satisfactionHandler.setChanges(true);
+  }
+
   /**
    * Places a building and updates the context.
    *
@@ -157,7 +161,7 @@ public class BuildingManager {
   public void buildBuilding(Building building) {
     placeBuilding(building);
     updateCounters(building);
-    satisfactionHandler.setChanges(true);
+    setChanges();
   }
 
   /**
@@ -260,7 +264,7 @@ public class BuildingManager {
   public ArrayList<Building> filterBuildings() {
     ArrayList<Building> builtBuildings = new ArrayList<>();
     for (Building building: buildings){
-      if (!(building == previewBuilding) && !(building.getType() == BuildingType.EVENT)){
+      if (!(building == previewBuilding) && !(building.getType() == BuildingType.EVENT) && !(building.isOnFire())){
         builtBuildings.add(building);
       }
     }
