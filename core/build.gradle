@@ -8,4 +8,5 @@ dependencies {
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
+  implementation('org.apache.commons:commons-lang3:[3.18.0,)')
 }
